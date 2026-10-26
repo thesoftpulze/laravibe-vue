@@ -5,7 +5,8 @@ import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { login, register } from '@/wayfinder/routes'
+import { register } from '@/wayfinder/routes'
+import { store } from '@/wayfinder/routes/login'
 import { request } from '@/wayfinder/routes/password'
 import { Form } from '@inertiajs/vue3'
 import { LoaderCircle } from 'lucide-vue-next'
@@ -21,7 +22,7 @@ defineProps<{
         {{ status }}
     </div>
 
-    <Form method="post" :action="login.url()" :reset-on-success="['password']" v-slot="{ errors, processing }" class="flex flex-col gap-6">
+    <Form method="post" :action="store.url()" :reset-on-success="['password']" v-slot="{ errors, processing }" class="flex flex-col gap-6">
         <div class="grid gap-6">
             <div class="grid gap-2">
                 <Label for="email">Email address</Label>

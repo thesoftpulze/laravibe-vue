@@ -3,7 +3,7 @@ import InputError from '@/components/InputError.vue'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { store } from '@/wayfinder/routes/password'
+import { update } from '@/wayfinder/routes/password'
 import { Form } from '@inertiajs/vue3'
 import { LoaderCircle } from 'lucide-vue-next'
 import { ref } from 'vue'
@@ -11,6 +11,7 @@ import { ref } from 'vue'
 const props = defineProps<{
     token: string
     email: string
+    passwordRules?: string
 }>()
 
 const inputEmail = ref(props.email)
@@ -19,7 +20,7 @@ const inputEmail = ref(props.email)
 <template>
     <Form
         method="post"
-        :action="store.url()"
+        :action="update.url()"
         :transform="(data) => ({ ...data, token, email })"
         :reset-on-success="['password', 'password_confirmation']"
         v-slot="{ errors, processing }"
@@ -38,6 +39,7 @@ const inputEmail = ref(props.email)
                     type="password"
                     name="password"
                     autocomplete="new-password"
+                    :passwordrules="passwordRules"
                     class="mt-1 block w-full"
                     autofocus
                     placeholder="Password"

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\URL;
 test('email verification screen can be rendered', function () {
     $user = User::factory()->unverified()->create();
 
-    $response = $this->actingAs($user)->get('/verify-email');
+    $response = $this->actingAs($user)->get(route('verification.notice'));
 
     $response->assertStatus(200);
 });
@@ -20,7 +20,7 @@ test('email verification screen can be rendered', function () {
 test('email verification screen can not be rendered if email is already verified', function () {
     $user = User::factory()->create();
 
-    $response = $this->actingAs($user)->get('/verify-email');
+    $response = $this->actingAs($user)->get(route('verification.notice'));
 
     $response->assertRedirect(route('dashboard', absolute: false));
 });
@@ -32,7 +32,10 @@ test('email verification notification is successfully sent', function () {
 
     $this->actingAs($user);
 
-    $this->post('/email/verification-notification');
+    $this->post(route('verification.send'))
+        ->assertRedirect()
+        ->assertSessionHas('toasts', fn (array $toasts): bool => ($toasts[0]['type'] ?? null) === 'success'
+            && ($toasts[0]['message'] ?? null) === 'A new verification link has been sent to your email address.');
 
     Notification::assertSentTo($user, VerifyEmail::class);
 });

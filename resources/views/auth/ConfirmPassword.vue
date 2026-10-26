@@ -3,13 +3,13 @@ import InputError from '@/components/InputError.vue'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { confirm } from '@/wayfinder/routes/password'
+import { store } from '@/wayfinder/routes/password/confirm'
 import { Form } from '@inertiajs/vue3'
 import { LoaderCircle } from 'lucide-vue-next'
 </script>
 
 <template>
-    <Form method="post" :action="confirm.url()" reset-on-success v-slot="{ errors, processing }">
+    <Form method="post" :action="store.url()" reset-on-success v-slot="{ errors, processing }">
         <div class="space-y-6">
             <div class="grid gap-2">
                 <Label htmlFor="password">Password</Label>

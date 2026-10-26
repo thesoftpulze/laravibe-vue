@@ -4,15 +4,20 @@ import TextLink from '@/components/TextLink.vue'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { login, register } from '@/wayfinder/routes'
+import { login } from '@/wayfinder/routes'
+import { store } from '@/wayfinder/routes/register'
 import { Form } from '@inertiajs/vue3'
 import { LoaderCircle } from 'lucide-vue-next'
+
+defineProps<{
+    passwordRules?: string
+}>()
 </script>
 
 <template>
     <Form
         method="post"
-        :action="register.url()"
+        :action="store.url()"
         :reset-on-success="['password', 'password_confirmation']"
         v-slot="{ errors, processing }"
         class="flex flex-col gap-6"
@@ -32,7 +37,7 @@ import { LoaderCircle } from 'lucide-vue-next'
 
             <div class="grid gap-2">
                 <Label for="password">Password</Label>
-                <Input id="password" type="password" required :tabindex="3" autocomplete="new-password" name="password" placeholder="Password" />
+                <Input id="password" type="password" required :tabindex="3" autocomplete="new-password" name="password" placeholder="Password" :passwordrules="passwordRules" />
                 <InputError :message="errors.password" />
             </div>
 
