@@ -21,6 +21,18 @@ it('adds security headers to error responses', function (): void {
         ->assertHeader('X-Content-Type-Options', 'nosniff');
 });
 
+it('adds security headers while in maintenance mode', function (): void {
+    $this->artisan('down');
+
+    try {
+        $this->get(route('home'))
+            ->assertServiceUnavailable()
+            ->assertHeader('X-Content-Type-Options', 'nosniff');
+    } finally {
+        $this->artisan('up');
+    }
+});
+
 it('sends hsts only over https in production', function (string $environment, bool $secure, bool $expected): void {
     app()->detectEnvironment(fn (): string => $environment);
 

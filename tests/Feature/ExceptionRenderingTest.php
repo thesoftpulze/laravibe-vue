@@ -34,6 +34,15 @@ it('renders http errors as inertia error pages', function (int $status): void {
         ->assertInertia(fn ($page) => $page->component('Error')->where('status', $status));
 })->with([403, 419, 500, 503]);
 
+it('sends an expired form submission back with a toast', function (): void {
+    Route::post('/test-error', fn () => abort(419))->middleware('web');
+
+    $this->from(route('home'))
+        ->post('/test-error')
+        ->assertRedirect(route('home'))
+        ->assertInertiaFlash('toasts', [['type' => 'warning', 'message' => 'The page expired. Please try again.']]);
+});
+
 it('keeps the debug page for server errors while debugging', function (): void {
     config(['app.debug' => true]);
     Route::get('/test-error', fn () => abort(500))->middleware('web');
