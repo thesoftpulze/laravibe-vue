@@ -7,10 +7,19 @@ namespace App\Http\Requests\Account;
 use App\Concerns\PasswordValidationRules;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 final class ProfileDeleteRequest extends FormRequest
 {
     use PasswordValidationRules;
+
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return Gate::allows('deleteAccount');
+    }
 
     /**
      * Get the validation rules that apply to the request.

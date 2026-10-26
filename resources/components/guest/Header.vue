@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Breadcrumbs from '@/components/Breadcrumbs.vue'
 import Logo from '@/components/Logo.vue'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import {
@@ -32,7 +32,7 @@ withDefaults(defineProps<Props>(), {
     breadcrumbs: () => [],
 })
 
-const { authUser } = useAuth()
+const { user } = useAuth()
 const page = usePage()
 const currentPath = computed(() => new URL(page.url, 'http://localhost').pathname)
 
@@ -80,7 +80,7 @@ const isItemActive = (item: NavItem): boolean => {
                                     </Link>
                                 </nav>
                                 <div class="flex flex-col space-y-4">
-                                    <div class="grid grid-cols-2 gap-2 lg:hidden" v-if="!authUser">
+                                    <div class="grid grid-cols-2 gap-2 lg:hidden" v-if="!user">
                                         <Button variant="outline" size="sm" class="h-9" asChild>
                                             <Link :href="login.url()"> Log In </Link>
                                         </Button>
@@ -123,7 +123,7 @@ const isItemActive = (item: NavItem): boolean => {
                 <!-- Right Side Actions -->
                 <div class="ml-auto flex items-center space-x-2">
                     <!-- User Menu -->
-                    <DropdownMenu v-if="authUser">
+                    <DropdownMenu v-if="user">
                         <DropdownMenuTrigger :as-child="true">
                             <Button
                                 variant="ghost"
@@ -131,15 +131,14 @@ const isItemActive = (item: NavItem): boolean => {
                                 class="relative size-10 w-auto rounded-full p-1 focus-within:ring-2 focus-within:ring-primary"
                             >
                                 <Avatar class="size-8 overflow-hidden rounded-full">
-                                    <AvatarImage v-if="authUser.avatar" :src="authUser.avatar" :alt="authUser.name" />
                                     <AvatarFallback class="rounded-lg bg-neutral-200 font-semibold text-black dark:bg-neutral-700 dark:text-white">
-                                        {{ getInitials(authUser?.name) }}
+                                        {{ getInitials(user.name) }}
                                     </AvatarFallback>
                                 </Avatar>
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" class="w-56">
-                            <UserMenuContent :user="authUser" />
+                            <UserMenuContent :user="user" />
                         </DropdownMenuContent>
                     </DropdownMenu>
 

@@ -34,11 +34,17 @@ final class AccountController
         $authUser = authUser();
         $authUser->fill($request->validated());
 
-        if ($authUser->isDirty('email')) {
+        $emailChanged = $authUser->isDirty('email');
+
+        if ($emailChanged) {
             $authUser->email_verified_at = null;
         }
 
         $authUser->save();
+
+        if ($emailChanged) {
+            $authUser->sendEmailVerificationNotification();
+        }
 
         toastSuccess('Profile updated successfully.');
 

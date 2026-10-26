@@ -16,7 +16,7 @@ import { Info, LockKeyhole } from '@lucide/vue'
 const passwordInput = ref<HTMLInputElement | null>(null)
 const currentPasswordInput = ref<HTMLInputElement | null>(null)
 
-const { authUser } = useAuth()
+const { user } = useAuth()
 </script>
 
 <template>
@@ -31,7 +31,7 @@ const { authUser } = useAuth()
             :reset-on-error="['password', 'password_confirmation', 'current_password']"
             v-slot="{ errors, processing }"
         >
-            <input v-if="authUser" hidden type="text" autocomplete="username" :value="authUser.email" />
+            <input v-if="user" hidden type="text" autocomplete="username" :value="user.email" />
 
             <Card>
                 <CardHeader class="pb-4">

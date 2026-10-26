@@ -15,7 +15,6 @@ Provides typed access to the authenticated user and UI ability checks. Backed en
 | Export            | Type                           | Description                                                                                  |
 | ----------------- | ------------------------------ | -------------------------------------------------------------------------------------------- |
 | `user`            | `ComputedRef<User \| null>`    | Nullable user. Use on public pages.                                                          |
-| `authUser`        | `ComputedRef<User \| null>`    | Alias for `user`. **Deprecated** — use `user` instead.                                       |
 | `isAuthenticated` | `ComputedRef<boolean>`         | `true` when a user session is active.                                                        |
 | `can(ability)`    | `(ability: string) => boolean` | Returns the ability value from `auth.can`. Defaults to `false` for unknown keys.             |
 | `requireUser()`   | `() => User`                   | Returns the user or **throws**. Use only on pages that are always behind an auth middleware. |
@@ -85,27 +84,34 @@ interface Auth {
 
 ### Adding abilities
 
-Ability keys are resolved server-side in `HandleInertiaRequests::resolveAbilities()`. Add a new key there and it becomes available via `can()` on the frontend automatically:
+Ability keys are resolved server-side in `HandleInertiaRequests::resolveAbilities()` from gates defined in `AppServiceProvider::configureGates()`. Define a gate, add its key to both branches, and it becomes available via `can()` on the frontend automatically:
 
 ```php
+// app/Providers/AppServiceProvider.php
+Gate::define('manageTeam', fn (User $user): bool => $user->hasTeam());
+
 // app/Http/Middleware/HandleInertiaRequests.php
 private function resolveAbilities(?User $user): array
 {
-    if ($user === null) {
+    if (! $user instanceof User) {
         return [
             'updateProfile' => false,
             'deleteAccount' => false,
-            'manageTeam'    => false,   // ← new ability
+            'manageTeam' => false, // ← new ability
         ];
     }
 
+    $gate = Gate::forUser($user);
+
     return [
-        'updateProfile' => true,
-        'deleteAccount' => true,
-        'manageTeam'    => $user->hasTeam(),  // ← gate/policy check here
+        'updateProfile' => $gate->allows('updateProfile'),
+        'deleteAccount' => $gate->allows('deleteAccount'),
+        'manageTeam' => $gate->allows('manageTeam'), // ← new ability
     ];
 }
 ```
+
+Authorize the matching request with the same gate (for example `Gate::allows('manageTeam')` in a Form Request's `authorize()`), so the UI and the server share one rule.
 
 ### Security notes
 
@@ -122,9 +128,7 @@ interface User {
     id: number
     name: string
     email: string
-    avatar?: string
     email_verified_at?: string | null
-    email_verified_at_display?: string | null
 }
 ```
 

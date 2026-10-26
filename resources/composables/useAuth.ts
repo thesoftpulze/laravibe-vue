@@ -9,9 +9,6 @@ export const useAuth = () => {
     /** Nullable computed — safe for public pages. */
     const user = computed(() => page.props.auth.user)
 
-    /** @deprecated Use `user` instead. Kept for backward compatibility. */
-    const authUser = user
-
     /** `true` when a user session is active. */
     const isAuthenticated = computed(() => page.props.auth.user !== null)
 
@@ -35,5 +32,5 @@ export const useAuth = () => {
         return authUser
     }
 
-    return { user, authUser, isAuthenticated, can, requireUser }
+    return { user, isAuthenticated, can, requireUser }
 }

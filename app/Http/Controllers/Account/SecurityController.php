@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Account;
 use App\DTOs\PageMeta;
 use App\Http\Requests\Account\PasswordUpdateRequest;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Response;
 
 final class SecurityController
@@ -18,9 +19,11 @@ final class SecurityController
 
     public function updatePassword(PasswordUpdateRequest $request): RedirectResponse
     {
-        authUser()->update([
-            'password' => $request->string('password')->value(),
-        ]);
+        $password = $request->string('password')->value();
+
+        authUser()->update(['password' => $password]);
+
+        Auth::logoutOtherDevices($password);
 
         toastSuccess('Password updated successfully.');
 

@@ -24,7 +24,7 @@ const closeModal = () => {
     confirmingUserDeletion.value = false
 }
 
-const { authUser } = useAuth()
+const { user } = useAuth()
 </script>
 
 <template>
@@ -79,7 +79,7 @@ const { authUser } = useAuth()
                         @success="closeModal"
                         v-slot="{ errors, processing }"
                     >
-                        <input v-if="authUser" hidden type="text" autocomplete="username" :value="authUser.email" />
+                        <input v-if="user" hidden type="text" autocomplete="username" :value="user.email" />
 
                         <div class="space-y-4">
                             <div class="space-y-2">

@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 use App\Models\User;
+use Illuminate\Foundation\Inspiring;
+use Illuminate\Support\Facades\Gate;
 
 describe('shared auth props', function () {
     describe('guest', function () {
@@ -62,6 +64,19 @@ describe('shared auth props', function () {
             );
         });
 
+        test('auth.can reflects a denied gate', function () {
+            Gate::define('deleteAccount', fn (User $user): bool => false);
+            $user = User::factory()->create();
+
+            $response = $this->actingAs($user)->get('/');
+
+            $response->assertInertia(
+                fn ($page) => $page
+                    ->where('auth.can.updateProfile', true)
+                    ->where('auth.can.deleteAccount', false)
+            );
+        });
+
         test('auth.can map has all abilities enabled', function () {
             $user = User::factory()->create();
 
@@ -74,4 +89,15 @@ describe('shared auth props', function () {
             );
         });
     });
+});
+
+test('quote is split into message and author', function () {
+    $response = $this->get('/');
+
+    $response->assertInertia(
+        fn ($page) => $page->where(
+            'quote',
+            fn ($quote): bool => Inspiring::quotes()->contains($quote['message'] . ' - ' . $quote['author']),
+        )
+    );
 });
