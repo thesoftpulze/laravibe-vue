@@ -9,13 +9,19 @@ use App\Actions\Fortify\ResetUserPassword;
 use App\DTOs\PageMeta;
 use App\Http\Responses\EmailVerificationNotificationSentResponse;
 use App\Http\Responses\PasswordResetLinkRequestResponse;
+use App\Http\Responses\TwoFactorConfirmedResponse;
+use App\Http\Responses\TwoFactorDisabledResponse;
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 use Inertia\Response;
 use Laravel\Fortify\Contracts\EmailVerificationNotificationSentResponse as EmailVerificationNotificationSentResponseContract;
 use Laravel\Fortify\Contracts\FailedPasswordResetLinkRequestResponse;
 use Laravel\Fortify\Contracts\SuccessfulPasswordResetLinkRequestResponse;
+use Laravel\Fortify\Contracts\TwoFactorConfirmedResponse as TwoFactorConfirmedResponseContract;
+use Laravel\Fortify\Contracts\TwoFactorDisabledResponse as TwoFactorDisabledResponseContract;
 use Laravel\Fortify\Features;
 use Laravel\Fortify\Fortify;
 use Override;
@@ -31,6 +37,8 @@ final class FortifyServiceProvider extends ServiceProvider
         $this->app->singleton(EmailVerificationNotificationSentResponseContract::class, EmailVerificationNotificationSentResponse::class);
         $this->app->singleton(SuccessfulPasswordResetLinkRequestResponse::class, PasswordResetLinkRequestResponse::class);
         $this->app->singleton(FailedPasswordResetLinkRequestResponse::class, PasswordResetLinkRequestResponse::class);
+        $this->app->singleton(TwoFactorConfirmedResponseContract::class, TwoFactorConfirmedResponse::class);
+        $this->app->singleton(TwoFactorDisabledResponseContract::class, TwoFactorDisabledResponse::class);
     }
 
     /**
@@ -40,6 +48,7 @@ final class FortifyServiceProvider extends ServiceProvider
     {
         $this->configureActions();
         $this->configureViews();
+        $this->configureRateLimiting();
     }
 
     /**
@@ -104,5 +113,19 @@ final class FortifyServiceProvider extends ServiceProvider
             subheading: 'This is a secure area of the application. Please confirm your password before continuing.',
             title: 'Confirm password',
         )));
+
+        Fortify::twoFactorChallengeView(fn (): Response => vue('auth/TwoFactorChallenge', metaProps: new PageMeta(
+            heading: 'Two-factor authentication',
+            subheading: 'Enter the code from your authenticator app, or one of your recovery codes.',
+            title: 'Two-factor authentication',
+        )));
+    }
+
+    /**
+     * Throttle two-factor challenge attempts per pending login.
+     */
+    private function configureRateLimiting(): void
+    {
+        RateLimiter::for('two-factor', fn (Request $request): Limit => Limit::perMinute(5)->by($request->session()->get('login.id')));
     }
 }

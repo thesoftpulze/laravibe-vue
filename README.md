@@ -58,7 +58,7 @@ The backbone. These three working together is what makes LaraVibe-Vue feel diffe
 | [Larastan](https://github.com/larastan/larastan)                         | 3       | PHPStan tuned for Laravel — catches type errors and N+1 risks before they ship                |
 | [Laravel Pint](https://laravel.com/docs/pint)                            | 1       | Opinionated PHP formatter — your code style is decided, consistently, forever                 |
 | [Rector](https://getrector.com)                                          | 2       | Automated PHP refactoring and upgrade rules — future-proofs your codebase                     |
-| [Laravel Fortify](https://laravel.com/docs/fortify)                      | 1       | Headless authentication backend — login, registration, password reset, email verification     |
+| [Laravel Fortify](https://laravel.com/docs/fortify)                      | 1       | Headless authentication backend — login, registration, password reset, email verification, 2FA |
 | [LaraVibe Standards](https://github.com/thesoftpulze/laravibe-standards) | 0.x     | Shared DTO, enum, and API resource conventions with matching generators and AI guidelines     |
 | [Laravel Pail](https://github.com/laravel/pail)                          | 1       | Real-time log tailing right in your terminal — no more `tail -f storage/logs/laravel.log`     |
 | [Laravel Sail](https://laravel.com/docs/sail)                            | 1       | Docker environment for teams that prefer containers over local installs                       |
@@ -79,13 +79,14 @@ Full auth flows, ready on day one, powered by **Laravel Fortify** — the same b
 - **Password reset** via email — the full flow, already working, without revealing which emails have accounts
 - **Email verification** — prompt users to verify before accessing protected areas
 - **Confirmable password (sudo mode)** — re-prompt for the password before sensitive operations like deleting an account or changing security settings
+- **Two-factor authentication** — TOTP via any authenticator app, with QR code setup, confirmation, and one-time recovery codes
 
 #### 👤 Account Management — The Pages Users Expect
 
 Users expect to manage their own profile. LaraVibe-Vue ships those pages pre-built so you don't have to.
 
 - **Profile** — update name and email address, with email re-verification on change
-- **Security** — change password with current-password confirmation
+- **Security** — behind password confirmation: change password (signs out your other devices), manage two-factor authentication, and review or log out your other browser sessions (database session driver)
 - **Appearance** — light, dark, and system theme switcher that persists across sessions
 
 #### 🛡️ Administration Area — Protected and Ready to Extend

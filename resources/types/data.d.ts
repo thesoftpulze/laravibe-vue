@@ -13,3 +13,17 @@ export interface PageMeta {
 
     breadcrumbs?: Breadcrumb[]
 }
+
+export interface TwoFactorStatus {
+    enabled: boolean
+    pendingConfirmation: boolean
+}
+
+export interface BrowserSession {
+    platform: string
+    browser: string
+    isDesktop: boolean
+    isCurrentDevice: boolean
+    lastActive: string
+    ipAddress: Nullable<string>
+}

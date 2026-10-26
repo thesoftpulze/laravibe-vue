@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Laravel\Fortify\Contracts\TwoFactorAuthenticationProvider;
+use Laravel\Fortify\RecoveryCode;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -31,7 +34,22 @@ final class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => self::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'two_factor_secret' => null,
+            'two_factor_recovery_codes' => null,
+            'two_factor_confirmed_at' => null,
         ];
+    }
+
+    /**
+     * Indicate that the model has confirmed two-factor authentication.
+     */
+    public function withTwoFactor(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'two_factor_secret' => encrypt(app(TwoFactorAuthenticationProvider::class)->generateSecretKey()),
+            'two_factor_recovery_codes' => encrypt((string) json_encode(Collection::times(8, fn (): string => RecoveryCode::generate())->all())),
+            'two_factor_confirmed_at' => now(),
+        ]);
     }
 
     /**

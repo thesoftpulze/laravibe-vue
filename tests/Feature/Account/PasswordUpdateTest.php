@@ -12,7 +12,7 @@ test('password update page can be renderd', function () {
     $user = User::factory()->create();
     $this->actingAs($user);
 
-    $response = $this->get('/account/security');
+    $response = $this->withSession(['auth.password_confirmed_at' => time()])->get('/account/security');
 
     $response->assertStatus(200);
 });
