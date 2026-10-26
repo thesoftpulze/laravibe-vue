@@ -10,6 +10,7 @@
 
 # ── Build output ─────────────────────────────────────────────────────────────
 /public/build
+/public/fonts-manifest.dev.json
 /bootstrap/ssr
 
 # ── Runtime-generated files ───────────────────────────────────────────────────

@@ -34,8 +34,7 @@ test('email verification notification is successfully sent', function () {
 
     $this->post(route('verification.send'))
         ->assertRedirect()
-        ->assertSessionHas('toasts', fn (array $toasts): bool => ($toasts[0]['type'] ?? null) === 'success'
-            && ($toasts[0]['message'] ?? null) === 'A new verification link has been sent to your email address.');
+        ->assertInertiaFlash('toasts', [['type' => 'success', 'message' => 'A new verification link has been sent to your email address.']]);
 
     Notification::assertSentTo($user, VerifyEmail::class);
 });

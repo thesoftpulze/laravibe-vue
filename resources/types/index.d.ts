@@ -1,6 +1,5 @@
-import type { ToastPayload } from '@/components/toast'
 import type { PageMeta } from '@/types/data'
-import type { LucideIcon } from 'lucide-vue-next'
+import type { LucideIcon } from '@lucide/vue'
 import type { User } from './models'
 
 // Utility Types
@@ -13,11 +12,6 @@ export type VoidCallable<U extends any[] = []> = Callable<void, U>
 export interface Auth {
     user: User | null
     can: Record<string, boolean>
-}
-
-export interface BreadcrumbItem {
-    title: string
-    href: string
 }
 
 export interface NavItem {
@@ -33,7 +27,4 @@ export type AppPageProps<T extends Record<string, unknown> = Record<string, unkn
     auth: Auth
     sidebarOpen: boolean
     meta?: PageMeta
-    toasts: ToastPayload[]
 }
-
-export type BreadcrumbItemType = BreadcrumbItem

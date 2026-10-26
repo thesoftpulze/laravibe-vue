@@ -57,7 +57,6 @@ final class HandleInertiaRequests extends Middleware
                 'can' => $this->resolveAbilities($user),
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
-            'toasts' => alwaysProp(fn (): array => toast()->pull()),
         ];
     }
 

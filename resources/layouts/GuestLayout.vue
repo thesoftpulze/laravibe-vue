@@ -3,11 +3,11 @@ import Header from '@/components/guest/Header.vue'
 import { HeaderLayout as Layout } from '@/components/layout'
 import { ToastProvider } from '@/components/toast'
 import { usePageMeta } from '@/composables/usePageMeta'
-import type { BreadcrumbItemType } from '@/types'
+import type { Breadcrumb } from '@/types/data'
 import { Head } from '@inertiajs/vue3'
 
 interface Props {
-    breadcrumbs?: BreadcrumbItemType[]
+    breadcrumbs?: Breadcrumb[]
 }
 
 withDefaults(defineProps<Props>(), {

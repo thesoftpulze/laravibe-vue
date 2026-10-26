@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { logout } from '@/wayfinder/routes'
 import { send } from '@/wayfinder/routes/verification'
 import { Form } from '@inertiajs/vue3'
-import { LoaderCircle } from 'lucide-vue-next'
+import { LoaderCircle } from '@lucide/vue'
 </script>
 
 <template>

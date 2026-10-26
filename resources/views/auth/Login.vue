@@ -9,7 +9,7 @@ import { register } from '@/wayfinder/routes'
 import { store } from '@/wayfinder/routes/login'
 import { request } from '@/wayfinder/routes/password'
 import { Form } from '@inertiajs/vue3'
-import { LoaderCircle } from 'lucide-vue-next'
+import { LoaderCircle } from '@lucide/vue'
 
 defineProps<{
     status?: string

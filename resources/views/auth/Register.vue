@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label'
 import { login } from '@/wayfinder/routes'
 import { store } from '@/wayfinder/routes/register'
 import { Form } from '@inertiajs/vue3'
-import { LoaderCircle } from 'lucide-vue-next'
+import { LoaderCircle } from '@lucide/vue'
 
 defineProps<{
     passwordRules?: string
@@ -37,7 +37,16 @@ defineProps<{
 
             <div class="grid gap-2">
                 <Label for="password">Password</Label>
-                <Input id="password" type="password" required :tabindex="3" autocomplete="new-password" name="password" placeholder="Password" :passwordrules="passwordRules" />
+                <Input
+                    id="password"
+                    type="password"
+                    required
+                    :tabindex="3"
+                    autocomplete="new-password"
+                    name="password"
+                    placeholder="Password"
+                    :passwordrules="passwordRules"
+                />
                 <InputError :message="errors.password" />
             </div>
 

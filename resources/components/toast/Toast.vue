@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Button } from '@/components/ui/button'
 import { useClipboard, useDebounceFn } from '@vueuse/core'
-import { CheckCheck, Copy, SquareArrowOutUpRight } from 'lucide-vue-next'
+import { CheckCheck, Copy, SquareArrowOutUpRight } from '@lucide/vue'
 import { type Component } from 'vue'
 import { ToastActionPayload, type ToastActionType, ToastPayload } from './'
 

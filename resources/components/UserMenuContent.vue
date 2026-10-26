@@ -5,7 +5,7 @@ import type { User } from '@/types/models'
 import { account, logout } from '@/wayfinder/routes'
 import { dashboard as administrationDashboard } from '@/wayfinder/routes/administration'
 import { Link, router, usePage } from '@inertiajs/vue3'
-import { CircleGauge, LogOut, User as UserIcon } from 'lucide-vue-next'
+import { CircleGauge, LogOut, User as UserIcon } from '@lucide/vue'
 
 interface Props {
     user: User

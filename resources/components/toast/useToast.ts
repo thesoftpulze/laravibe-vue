@@ -1,4 +1,4 @@
-import { router, usePage } from '@inertiajs/vue3'
+import { router } from '@inertiajs/vue3'
 import { markRaw } from 'vue'
 import { toast as vueSoonerToast } from 'vue-sonner'
 import { Toast, type ToastActionPayload, type ToastActionType, type ToastPayload, type ToastType } from './'
@@ -6,7 +6,7 @@ import { Toast, type ToastActionPayload, type ToastActionType, type ToastPayload
 const toastTypes: ToastType[] = ['error', 'success', 'warning', 'info']
 const toastActionTypes: ToastActionType[] = ['copy', 'redirect']
 
-let unregisterRouterFinish: (() => void) | null = null
+let unregisterRouterFlash: (() => void) | null = null
 let isToasterRegistered = false
 
 const isRecord = (value: unknown): value is Record<string, unknown> => typeof value === 'object' && value !== null
@@ -49,15 +49,7 @@ const isToastPayload = (value: unknown): value is ToastPayload => {
     )
 }
 
-const pageToasts = (): ToastPayload[] => {
-    const rawToasts = usePage().props?.toasts
-
-    if (!Array.isArray(rawToasts)) {
-        return []
-    }
-
-    return rawToasts.filter(isToastPayload)
-}
+const flashedToasts = (rawToasts: unknown): ToastPayload[] => (Array.isArray(rawToasts) ? rawToasts.filter(isToastPayload) : [])
 
 export const pushToast = (toast: ToastPayload) =>
     vueSoonerToast[toast.type](markRaw(Toast), {
@@ -68,8 +60,8 @@ export const pushToast = (toast: ToastPayload) =>
     })
 
 export const unregisterToaster = (): void => {
-    unregisterRouterFinish?.()
-    unregisterRouterFinish = null
+    unregisterRouterFlash?.()
+    unregisterRouterFlash = null
     isToasterRegistered = false
 }
 
@@ -78,12 +70,11 @@ export const registerToaster = () => {
         return unregisterToaster
     }
 
-    pageToasts().forEach(pushToast)
-
-    const removeListener = router.on('finish', () => pageToasts().forEach(pushToast))
+    // Inertia fires `flash` for the initial page and every visit that carries flash data.
+    const removeListener = router.on('flash', (event) => flashedToasts(event.detail.flash.toasts).forEach(pushToast))
 
     if (typeof removeListener === 'function') {
-        unregisterRouterFinish = removeListener
+        unregisterRouterFlash = removeListener
     }
 
     isToasterRegistered = true

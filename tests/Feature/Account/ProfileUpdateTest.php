@@ -28,14 +28,7 @@ test('profile information can be updated', function () {
 
     $response
         ->assertSessionHasNoErrors()
-        ->assertSessionHas('toasts', function (array $toasts): bool {
-            if (! isset($toasts[0]) || ! is_array($toasts[0])) {
-                return false;
-            }
-
-            return ($toasts[0]['type'] ?? null) === 'success'
-                && ($toasts[0]['message'] ?? null) === 'Profile updated successfully.';
-        })
+        ->assertInertiaFlash('toasts', [['type' => 'success', 'message' => 'Profile updated successfully.']])
         ->assertRedirect('/account');
 
     $user->refresh();

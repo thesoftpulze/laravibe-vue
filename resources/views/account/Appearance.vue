@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import AppearanceTabs from './partial/AppearanceTabs.vue'
 
 import SettingsLayout from '@/layouts/AccountLayout.vue'
-import { SwatchBook } from 'lucide-vue-next'
+import { SwatchBook } from '@lucide/vue'
 </script>
 
 <template>

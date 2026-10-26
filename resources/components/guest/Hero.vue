@@ -2,7 +2,7 @@
 import Logo from '@/components/Logo.vue'
 import Badge from '@/components/ui/badge/Badge.vue'
 import Button from '@/components/ui/button/Button.vue'
-import { CodeXml, FolderGit } from 'lucide-vue-next'
+import { CodeXml, FolderGit } from '@lucide/vue'
 </script>
 
 <template>

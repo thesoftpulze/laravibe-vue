@@ -3,13 +3,15 @@ import './css/app.css'
 import { registerToaster } from '@/components/toast'
 import { initializeTheme } from '@/composables/useAppearance'
 import { createInertiaApp } from '@inertiajs/vue3'
-import { resolveView } from './lib/helpers'
+import { resolveLayout, resolveView } from './lib/helpers'
 
 const appName = import.meta.env.VITE_APP_NAME || 'LaraVibe-Vue'
 
-createInertiaApp({
+void createInertiaApp({
     title: (title: string) => (title ? `${title} - ${appName}` : appName),
     resolve: (name: string) => resolveView(name),
+    // Pages that declare their own `layout` keep it; everything else gets the default by name.
+    layout: (name: string) => resolveLayout(name),
     withApp(_app, { ssr }) {
         if (!ssr) {
             registerToaster()

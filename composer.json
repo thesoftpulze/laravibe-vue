@@ -61,13 +61,81 @@
         }
     },
     "scripts": {
+        "setup": [
+            "composer install",
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "@php artisan key:generate",
+            "@php artisan migrate --force",
+            "npm install",
+            "npm run build"
+        ],
+        "dev": [
+            "Composer\\Config::disableProcessTimeout",
+            "@php artisan dev"
+        ],
+        "queue": "@php artisan queue:listen --tries=1 --timeout=0 --queue=default",
+        "logs": "@php artisan pail -v --timeout=0",
+        "vite": "npm run dev",
+        "test": [
+            "@php artisan config:clear --ansi",
+            "@php artisan test --compact"
+        ],
+        "test:coverage": [
+            "@php artisan config:clear --ansi",
+            "@php artisan test --compact --coverage"
+        ],
+        "pest": "./vendor/bin/pest --compact",
+        "pest:coverage": "./vendor/bin/pest --coverage --compact",
+        "phpstan": "./vendor/bin/phpstan analyse --memory-limit=512M",
+        "pint": "./vendor/bin/pint --parallel",
+        "pint:check": "./vendor/bin/pint --parallel --test",
+        "rector": "./vendor/bin/rector",
+        "rector:check": "./vendor/bin/rector --dry-run",
+        "format": [
+            "@pint",
+            "npm run format"
+        ],
+        "format:check": [
+            "@pint:check",
+            "npm run format:check"
+        ],
+        "lint": [
+            "@rector",
+            "npm run lint"
+        ],
+        "lint:check": [
+            "@rector:check",
+            "npm run lint:check"
+        ],
+        "types:check": [
+            "@phpstan",
+            "npm run types:check"
+        ],
+        "ci:check": [
+            "Composer\\Config::disableProcessTimeout",
+            "@lint:check",
+            "@format:check",
+            "@types:check",
+            "@test"
+        ],
+        "review": [
+            "@ci:check"
+        ],
+        "build": "npm run build",
+        "build:ssr": "npm run build:ssr",
+        "update:composer": "composer update",
+        "update:npm": "npm update",
+        "deps:update": [
+            "@update:composer",
+            "@update:npm"
+        ],
+        "logs:delete": "find storage/logs -name \"*.log\" -delete",
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
-            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "@php artisan ide-helper:generate",
             "@php artisan ide-helper:meta",
             "@php artisan boost:update --ansi --discover"
@@ -80,57 +148,9 @@
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php artisan migrate --graceful --ansi"
         ],
-        "queue": "@php artisan queue:listen --tries=1 --timeout=0 --queue=default",
-        "logs": "@php artisan pail -v --timeout=0",
-        "vite": "npm run dev",
-        "dev": [
-            "Composer\\Config::disableProcessTimeout",
-            "npx concurrently -c \"#fdba74,#c4b5fd,#fb7185\" \"npm run dev\" \"php artisan queue:listen --tries=1 --timeout=0 --queue=default\" \"php artisan pail -v --timeout=0\""
-        ],
-        "phpstan": "./vendor/bin/phpstan analyze --memory-limit=512M",
-        "pest": "./vendor/bin/pest --compact",
-        "pest:coverage": "./vendor/bin/pest --coverage --compact",
-        "test": "@php artisan test --compact",
-        "test:coverage": "@pest:coverage",
-        "pint:check": "./vendor/bin/pint --test",
-        "pint": "./vendor/bin/pint",
-        "prettier:check": "npm run format:check",
-        "prettier": "npm run format",
-        "format:check": [
-            "@pint:check",
-            "@prettier:check"
-        ],
-        "format": [
-            "@pint",
-            "@prettier"
-        ],
-        "eslint": "npm run lint",
-        "eslint:check": "npx eslint .",
-        "rector": "./vendor/bin/rector",
-        "rector:check": "./vendor/bin/rector --dry-run",
-        "lint": [
-            "@rector",
-            "@eslint"
-        ],
-        "lint:check": [
-            "@rector:check",
-            "@eslint:check"
-        ],
-        "review": [
-            "@lint:check",
-            "@format:check",
-            "@test",
-            "@phpstan"
-        ],
-        "build": "npm run build",
-        "build:ssr": "npm run build:ssr",
-        "update:composer": "composer update",
-        "update:npm": "npm update",
-        "deps:update": [
-            "@update:composer",
-            "@update:npm"
-        ],
-        "logs:delete": "find storage/logs -name \"*.log\" -delete"
+        "pre-package-uninstall": [
+            "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
+        ]
     },
     "extra": {
         "laravel": {

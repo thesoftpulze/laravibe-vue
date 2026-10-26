@@ -11,7 +11,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useAuth } from '@/composables/useAuth'
 import { password } from '@/wayfinder/routes/account/security'
-import { Info, LockKeyhole } from 'lucide-vue-next'
+import { Info, LockKeyhole } from '@lucide/vue'
 
 const passwordInput = ref<HTMLInputElement | null>(null)
 const currentPasswordInput = ref<HTMLInputElement | null>(null)

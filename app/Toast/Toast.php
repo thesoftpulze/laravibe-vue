@@ -5,7 +5,11 @@ declare(strict_types=1);
 namespace App\Toast;
 
 use App\Toast\DTOs\ToastPayload;
+use Inertia\Support\SessionKey;
 
+/**
+ * Queues toasts as Inertia flash data, delivered once with the next response.
+ */
 final class Toast
 {
     public const string KEY = 'toasts';
@@ -13,33 +17,64 @@ final class Toast
     private const int MAX_QUEUE_ITEMS = 5;
 
     /**
+     * Retrieve the queued toasts and remove them from the flash data.
+     *
      * @return array<int, array<string, mixed>>
      */
     public function pull(): array
     {
-        /** @var array<int, array<string, mixed>> */
-        return session()->pull(self::KEY, []);
+        $flashed = $this->flashed();
+        $toasts = $this->queue($flashed);
+
+        unset($flashed[self::KEY]);
+        session()->flash(SessionKey::FLASH_DATA, $flashed);
+
+        return $toasts;
     }
 
     public function append(ToastPayload $newToast): void
     {
-        /** @var array<int, array<string, mixed>> $toast */
-        $toast = session()->get(self::KEY, []);
+        $flashed = $this->flashed();
+        $toasts = $this->queue($flashed);
 
         $serializedToast = $newToast->toArray();
-        $latestToast = $toast[count($toast) - 1] ?? null;
+        $latestToast = $toasts[count($toasts) - 1] ?? null;
 
-        if (is_array($latestToast) && $latestToast === $serializedToast) {
+        if ($latestToast === $serializedToast) {
             return;
         }
 
-        $toast[] = $serializedToast;
+        $toasts[] = $serializedToast;
 
-        if (count($toast) > self::MAX_QUEUE_ITEMS) {
-            /** @var array<int, array<string, mixed>> $toast */
-            $toast = array_slice($toast, -self::MAX_QUEUE_ITEMS);
+        if (count($toasts) > self::MAX_QUEUE_ITEMS) {
+            $toasts = array_slice($toasts, -self::MAX_QUEUE_ITEMS);
         }
 
-        session()->flash(self::KEY, $toast);
+        session()->flash(SessionKey::FLASH_DATA, [...$flashed, self::KEY => $toasts]);
+    }
+
+    /**
+     * Read the pending Inertia flash data from the session.
+     *
+     * @return array<string, mixed>
+     */
+    private function flashed(): array
+    {
+        /** @var array<string, mixed> $flashed */
+        $flashed = session()->get(SessionKey::FLASH_DATA, []);
+
+        return $flashed;
+    }
+
+    /**
+     * @param  array<string, mixed>  $flashed
+     * @return array<int, array<string, mixed>>
+     */
+    private function queue(array $flashed): array
+    {
+        /** @var array<int, array<string, mixed>> $toasts */
+        $toasts = $flashed[self::KEY] ?? [];
+
+        return array_values($toasts);
     }
 }

@@ -11,13 +11,6 @@ export const resolveLayout = (name: string) => {
     return GuestLayout
 }
 
-export const resolveView = (name: string) => {
-    const pageComponent = resolvePageComponent(`../views/${name}.vue`, import.meta.glob<DefineComponent>('../views/**/*.vue'))
-    pageComponent.then((component) => {
-        component.default.layout = component.default.layout || resolveLayout(name)
-    })
-
-    return pageComponent
-}
+export const resolveView = (name: string) => resolvePageComponent(`../views/${name}.vue`, import.meta.glob<DefineComponent>('../views/**/*.vue'))
 
 export const isCallable = (value: unknown): value is Callable | VoidCallable => typeof value === 'function'

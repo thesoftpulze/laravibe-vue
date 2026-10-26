@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label'
 import { login } from '@/wayfinder/routes'
 import { email } from '@/wayfinder/routes/password'
 import { Form } from '@inertiajs/vue3'
-import { LoaderCircle } from 'lucide-vue-next'
+import { LoaderCircle } from '@lucide/vue'
 
 defineProps<{
     status?: string

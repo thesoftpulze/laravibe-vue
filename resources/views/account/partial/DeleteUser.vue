@@ -11,7 +11,7 @@ import { Label } from '@/components/ui/label'
 import { useAuth } from '@/composables/useAuth'
 import { Nullable } from '@/types'
 import account from '@/wayfinder/routes/account'
-import { Trash2, TriangleAlert } from 'lucide-vue-next'
+import { Trash2, TriangleAlert } from '@lucide/vue'
 
 const confirmingUserDeletion = ref(false)
 const passwordInput = ref<Nullable<HTMLInputElement>>(null)

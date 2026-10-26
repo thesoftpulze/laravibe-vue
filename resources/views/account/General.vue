@@ -11,7 +11,7 @@ import { useAuth } from '@/composables/useAuth'
 import SettingsLayout from '@/layouts/AccountLayout.vue'
 import account from '@/wayfinder/routes/account'
 import { send } from '@/wayfinder/routes/verification'
-import { Info, TriangleAlert, User } from 'lucide-vue-next'
+import { Info, TriangleAlert, User } from '@lucide/vue'
 import DeleteUser from './partial/DeleteUser.vue'
 
 interface Props {

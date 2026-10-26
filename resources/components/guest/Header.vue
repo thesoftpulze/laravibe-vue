@@ -21,7 +21,7 @@ import type { NavItem } from '@/types'
 import type { Breadcrumb } from '@/types/data'
 import { home, login, register } from '@/wayfinder/routes'
 import { Link, usePage } from '@inertiajs/vue3'
-import { Menu } from 'lucide-vue-next'
+import { Menu } from '@lucide/vue'
 import { computed, ref } from 'vue'
 
 interface Props {

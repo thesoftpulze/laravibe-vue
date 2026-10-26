@@ -196,3 +196,14 @@ it('can add toast to session with custom type when throw ToastException', functi
         ->toHaveKey('type', 'warning')
         ->toHaveKey('message', 'Heads up');
 });
+
+it('delivers queued toasts as inertia flash data on the next page', function () {
+    $user = App\Models\User::factory()->create();
+
+    $this->actingAs($user)
+        ->followingRedirects()
+        ->patch(route('account.update'), ['name' => 'Updated Name', 'email' => $user->email])
+        ->assertInertia(fn (Inertia\Testing\AssertableInertia $page) => $page
+            ->hasFlash('toasts', [['type' => 'success', 'message' => 'Profile updated successfully.']])
+            ->missing('toasts'));
+});
