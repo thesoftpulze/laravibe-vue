@@ -9,6 +9,7 @@ use App\Actions\Account\LogoutOtherBrowserSessionsAction;
 use App\DTOs\PageMeta;
 use App\Http\Requests\Account\LogoutOtherSessionsRequest;
 use App\Http\Requests\Account\PasswordUpdateRequest;
+use App\Http\Resources\PasskeyResource;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,6 +26,7 @@ final class SecurityController
                 'enabled' => $user->hasEnabledTwoFactorAuthentication(),
                 'pendingConfirmation' => $user->two_factor_secret !== null && $user->two_factor_confirmed_at === null,
             ],
+            'passkeys' => PasskeyResource::collection($user->passkeys()->latest()->get())->toInertia(),
             'sessions' => $listBrowserSessions->handle($user, $request->session()->getId()),
         ], new PageMeta(title: 'Security'));
     }

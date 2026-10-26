@@ -80,13 +80,14 @@ Full auth flows, ready on day one, powered by **Laravel Fortify** — the same b
 - **Email verification** — prompt users to verify before accessing protected areas
 - **Confirmable password (sudo mode)** — re-prompt for the password before sensitive operations like deleting an account or changing security settings
 - **Two-factor authentication** — TOTP via any authenticator app, with QR code setup, confirmation, and one-time recovery codes
+- **Passkeys** — passwordless sign-in and password confirmation with WebAuthn (Touch ID, Face ID, Windows Hello, security keys), including browser autofill
 
 #### 👤 Account Management — The Pages Users Expect
 
 Users expect to manage their own profile. LaraVibe-Vue ships those pages pre-built so you don't have to.
 
 - **Profile** — update name and email address, with email re-verification on change
-- **Security** — behind password confirmation: change password (signs out your other devices), manage two-factor authentication, and review or log out your other browser sessions (database session driver)
+- **Security** — behind password confirmation: change password (signs out your other devices), manage two-factor authentication and passkeys, and review or log out your other browser sessions (database session driver)
 - **Appearance** — light, dark, and system theme switcher that persists across sessions
 
 #### 🛡️ Administration Area — Protected and Ready to Extend

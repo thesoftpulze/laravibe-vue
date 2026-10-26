@@ -12,13 +12,16 @@ import { Label } from '@/components/ui/label'
 import { useAuth } from '@/composables/useAuth'
 import { password } from '@/routes/account/security'
 import type { BrowserSession, TwoFactorStatus } from '@/types/data'
+import type { Passkey } from '@/types/models'
 import { Info, LockKeyhole } from '@lucide/vue'
 
 import BrowserSessions from './partial/BrowserSessions.vue'
+import Passkeys from './partial/Passkeys.vue'
 import TwoFactorAuthentication from './partial/TwoFactorAuthentication.vue'
 
 defineProps<{
     twoFactor: TwoFactorStatus
+    passkeys: Passkey[]
     sessions: BrowserSession[]
 }>()
 
@@ -124,6 +127,8 @@ const { user } = useAuth()
             </Form>
 
             <TwoFactorAuthentication :two-factor="twoFactor" />
+
+            <Passkeys :passkeys="passkeys" />
 
             <BrowserSessions :sessions="sessions" />
         </div>

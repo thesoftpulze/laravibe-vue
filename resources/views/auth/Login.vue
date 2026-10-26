@@ -7,14 +7,36 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { register } from '@/routes'
 import { store } from '@/routes/login'
+import { login as passkeyLogin, loginOptions as passkeyLoginOptions } from '@/routes/passkey'
 import { request } from '@/routes/password'
-import { Form } from '@inertiajs/vue3'
-import { LoaderCircle } from '@lucide/vue'
+import { Form, router } from '@inertiajs/vue3'
+import { usePasskeyVerify } from '@laravel/passkeys/vue'
+import { KeyRound, LoaderCircle } from '@lucide/vue'
+import { ref } from 'vue'
 
 defineProps<{
     status?: string
     canResetPassword: boolean
 }>()
+
+const remember = ref<boolean | 'indeterminate'>(false)
+
+const {
+    verify: signInWithPasskey,
+    isLoading: passkeyLoading,
+    error: passkeyError,
+    isSupported: passkeySupported,
+} = usePasskeyVerify({
+    autofill: true,
+    remember: () => remember.value === true,
+    routes: {
+        options: passkeyLoginOptions.url(),
+        submit: passkeyLogin.url(),
+    },
+    onSuccess: (response) => {
+        router.visit(response.redirect ?? '/')
+    },
+})
 </script>
 
 <template>
@@ -26,7 +48,16 @@ defineProps<{
         <div class="grid gap-6">
             <div class="grid gap-2">
                 <Label for="email">Email address</Label>
-                <Input id="email" type="email" name="email" required autofocus :tabindex="1" autocomplete="email" placeholder="email@example.com" />
+                <Input
+                    id="email"
+                    type="email"
+                    name="email"
+                    required
+                    autofocus
+                    :tabindex="1"
+                    autocomplete="email webauthn"
+                    placeholder="email@example.com"
+                />
                 <InputError :message="errors.email" />
             </div>
 
@@ -41,7 +72,7 @@ defineProps<{
 
             <div class="flex items-center justify-between">
                 <Label for="remember" class="flex items-center space-x-3">
-                    <Checkbox id="remember" name="remember" :tabindex="3" />
+                    <Checkbox id="remember" v-model="remember" name="remember" :tabindex="3" />
                     <span>Remember me</span>
                 </Label>
             </div>
@@ -50,6 +81,19 @@ defineProps<{
                 <LoaderCircle v-if="processing" class="h-4 w-4 animate-spin" />
                 Log in
             </Button>
+
+            <template v-if="passkeySupported">
+                <div class="relative text-center text-xs text-muted-foreground uppercase">
+                    <span class="bg-background px-2">or</span>
+                </div>
+
+                <Button type="button" variant="outline" class="w-full" :disabled="passkeyLoading" @click="signInWithPasskey">
+                    <LoaderCircle v-if="passkeyLoading" class="h-4 w-4 animate-spin" />
+                    <KeyRound v-else class="h-4 w-4" />
+                    Sign in with a passkey
+                </Button>
+                <InputError :message="passkeyError ?? undefined" />
+            </template>
         </div>
 
         <div class="text-center text-sm text-muted-foreground">

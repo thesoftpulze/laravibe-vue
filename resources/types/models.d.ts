@@ -8,3 +8,11 @@ export interface User {
 
     email_verified_at?: Nullable<string>
 }
+
+export interface Passkey {
+    id: number
+    name: string
+    authenticator: Nullable<string>
+    last_used_at: Nullable<string>
+    created_at: string
+}

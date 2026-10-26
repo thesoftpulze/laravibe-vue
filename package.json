@@ -17,6 +17,7 @@
     "dependencies": {
         "@inertiajs/vite": "^3.0.3",
         "@inertiajs/vue3": "^3.0.3",
+        "@laravel/passkeys": "^0.4.0",
         "@lucide/vue": "^1.17.0",
         "@vueuse/core": "^12.8.2",
         "class-variance-authority": "^0.7.1",
