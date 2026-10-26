@@ -10,12 +10,14 @@ use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Vite;
+use Illuminate\Validation\Rules\Password;
 
 final class LaraTweaks
 {
     public static function default(): void
     {
         self::dbCommands();
+        self::passwords();
         self::urls();
         self::date();
         self::models();
@@ -50,8 +52,26 @@ final class LaraTweaks
         Vite::prefetch(concurrency: 3);
     }
 
+    /**
+     * Require strong, uncompromised passwords in production only.
+     */
+    public static function passwords(): void
+    {
+        Password::defaults(fn (): ?Password => app()->isProduction()
+            ? Password::min(12)
+                ->mixedCase()
+                ->letters()
+                ->numbers()
+                ->symbols()
+                ->uncompromised()
+            : null);
+    }
+
+    /**
+     * Force HTTPS URLs in production, leaving local HTTP setups untouched.
+     */
     public static function urls(): void
     {
-        URL::forceScheme('https');
+        URL::forceHttps(app()->isProduction());
     }
 }

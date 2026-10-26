@@ -6,9 +6,10 @@ parameters:
 
     paths:
         - app/
+        - bootstrap/app.php
+        - config/
+        - database/
+        - routes/
 
     # Level 10 is the highest level
     level: max
-
-#    excludePaths:
-#        - ./*/*/FileToBeExcluded.php
