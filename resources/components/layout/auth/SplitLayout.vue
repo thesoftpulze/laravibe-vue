@@ -1,10 +1,7 @@
 <script setup lang="ts">
 import Logo from '@/components/Logo.vue'
 import { home } from '@/routes'
-import { Link, usePage } from '@inertiajs/vue3'
-
-const page = usePage()
-const quote = page.props.quote
+import { Link } from '@inertiajs/vue3'
 
 defineProps<{
     heading?: string
@@ -19,12 +16,6 @@ defineProps<{
             <Link :href="home.url()" class="relative z-20 flex items-center text-lg font-medium">
                 <Logo class="mr-2 h-8" />
             </Link>
-            <div v-if="quote" class="relative z-20 mt-auto">
-                <blockquote class="space-y-2">
-                    <p class="text-lg">&ldquo;{{ quote.message }}&rdquo;</p>
-                    <footer class="text-sm text-neutral-300">{{ quote.author }}</footer>
-                </blockquote>
-            </div>
         </div>
         <div class="lg:p-8">
             <div class="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-87.5">

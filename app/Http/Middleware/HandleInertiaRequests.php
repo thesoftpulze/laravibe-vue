@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Middleware;
 
 use App\Models\User;
-use Illuminate\Foundation\Inspiring;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Str;
 use Inertia\Middleware;
 use Override;
 
@@ -38,7 +36,6 @@ final class HandleInertiaRequests extends Middleware
         return [
             ...parent::share($request),
             'name' => config('app.name'),
-            'quote' => $this->resolveQuote(...),
             'auth' => [
                 'user' => $user?->toResource(),
                 'can' => $this->resolveAbilities($user),
@@ -69,22 +66,6 @@ final class HandleInertiaRequests extends Middleware
         return [
             'updateProfile' => $gate->allows('updateProfile'),
             'deleteAccount' => $gate->allows('deleteAccount'),
-        ];
-    }
-
-    /**
-     * Pick a random inspiring quote, split into message and author.
-     *
-     * @return array{message: string, author: string}
-     */
-    private function resolveQuote(): array
-    {
-        /** @var string $quote */
-        $quote = Inspiring::quotes()->random();
-
-        return [
-            'message' => mb_trim(Str::beforeLast($quote, ' - ')),
-            'author' => mb_trim(Str::afterLast($quote, ' - ')),
         ];
     }
 }
