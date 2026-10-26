@@ -98,9 +98,15 @@ A dedicated `/administration` section, guarded by middleware, with a dashboard p
 
 #### 🤖 AI-Ready from Day One
 
-LaraVibe-Vue is ship with **Laravel Boost** integration, providing AI agents with complete codebase context — schema inspection, database queries, real-time error logs, and semantic documentation search. Pre-configured for popular AI coding agents, it ships with agent scaffolding that understands your entire stack instantly.
+LaraVibe-Vue ships with **Laravel Boost** integration, providing AI agents with complete codebase context — schema inspection, database queries, real-time error logs, and semantic documentation search.
 
-The structured conventions, documented architecture, and included `AGENTS.md` file mean AI agents can read, understand, and contribute confidently alongside your team. When you need to regenerate or customize agent configuration, the Laravel Boost command rebuilds your setup with full context — no manual wiring required.
+Agent files are generated per developer, not committed, so everyone picks the agents they actually use. After cloning, run:
+
+```bash
+php artisan boost:install
+```
+
+When prompted for third-party packages, select **thesoftpulze/laravibe-standards**. Boost then writes `AGENTS.md` / `CLAUDE.md`, skills, and MCP config for your chosen agents. These combine the project guidelines in `.ai/guidelines` (actions, auth, support, toasts) with the DTO, enum, and resource guidelines and skills shipped by `thesoftpulze/laravibe-standards`. Run `php artisan boost:update` after updating packages to refresh them; it prompts for any newly installed packages that ship guidelines.
 
 #### 🛠️ Developer Tooling — Full Power, Zero Configuration
 

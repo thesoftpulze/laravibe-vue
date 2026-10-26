@@ -16,7 +16,7 @@ Use this guide when creating or modifying files under `app/Support`.
 - Use explicit formatter methods by intent:
     - Transport/API values: `toApiDate()`, `toApiTime()`, `toApiDatetime()`.
     - Human display values: `toStringDate()`, `toStringTime()`, `toStringDatetime()`.
-- Avoid ad-hoc inline date format strings in resources if existing helper methods already cover the need.
+- In resources, serialize model timestamps with the laravibe-standards helpers (`timestamps()`, `createdAt()`, `updatedAt()`, `deletedAt()`). Format other dates in an `attribute()` resolver with the formatters above instead of ad-hoc format strings.
 
 ## LaraTweaks Rules
 
