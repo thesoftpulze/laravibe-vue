@@ -7,6 +7,7 @@ namespace App\Http\Resources;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Override;
+use TheSoftPulze\LaravibeStandards\Resources\AppResource;
 
 /**
  * @mixin User

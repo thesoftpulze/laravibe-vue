@@ -24,7 +24,8 @@
         "inertiajs/inertia-laravel": "^3.5",
         "laravel/framework": "^13.38",
         "laravel/tinker": "^3.0",
-        "laravel/wayfinder": "^0.1.23"
+        "laravel/wayfinder": "^0.1.23",
+        "thesoftpulze/laravibe-standards": "^0.5"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.7",

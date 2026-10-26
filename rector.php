@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Rector\CodeQuality\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector;
 use Rector\Config\RectorConfig;
 
 return RectorConfig::configure()
@@ -20,9 +19,4 @@ return RectorConfig::configure()
         privatization: true,
         earlyReturn: true,
     )
-    ->withSkip([
-        FlipTypeControlToUseExclusiveTypeRector::class => [
-            __DIR__ . '/app/Enums/Concerns/HasEnumMetadata.php',
-        ],
-    ])
     ->withPhpSets();

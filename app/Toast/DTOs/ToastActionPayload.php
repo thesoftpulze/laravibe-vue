@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Toast\DTOs;
 
-use App\DTOs\Concerns\AsDTO;
 use App\Enums\ToastActionType;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
+use TheSoftPulze\LaravibeStandards\DTOs\Concerns\AsDTO;
 
 /**
  * @implements Arrayable<string, mixed>

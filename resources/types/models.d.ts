@@ -9,5 +9,4 @@ export interface User {
     avatar?: string
 
     email_verified_at?: Nullable<string>
-    email_verified_at_display?: Nullable<string>
 }

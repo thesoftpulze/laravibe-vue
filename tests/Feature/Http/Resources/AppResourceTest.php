@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-use App\Http\Resources\AppResource;
-use App\Http\Resources\AppResourceCollection;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Support\CarbonImmutable;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Http\Request;
+use TheSoftPulze\LaravibeStandards\Resources\AppResource;
+use TheSoftPulze\LaravibeStandards\Resources\AppResourceCollection;
 
 it('resolves a resource to plain inertia props', function (): void {
     $user = User::factory()->create([
@@ -24,8 +24,7 @@ it('resolves a resource to plain inertia props', function (): void {
             'name' => 'Jane Doe',
             'email' => 'jane@example.com',
         ])
-        ->toHaveKey('email_verified_at', $user->email_verified_at?->toApiDatetime())
-        ->toHaveKey('email_verified_at_display', $user->email_verified_at?->toStringDatetime())
+        ->toHaveKey('email_verified_at', $user->email_verified_at?->toDateTimeString())
         ->not->toHaveKey('remember_token')
         ->not->toHaveKey('created_at')
         ->not->toHaveKey('updated_at');
@@ -89,10 +88,8 @@ it('supports alias prefix suffix transforms and timestamps', function (): void {
     expect($resource->toInertia())->toBe([
         'id' => 7,
         'profile_value_label' => 'ALPHA',
-        'created_at' => $createdAt->toApiDatetime(),
-        'created_at_display' => $createdAt->toStringDatetime(),
-        'updated_at' => $updatedAt->toApiDatetime(),
-        'updated_at_display' => $updatedAt->toStringDatetime(),
+        'created_at' => $createdAt->toDateTimeString(),
+        'updated_at' => $updatedAt->toDateTimeString(),
     ]);
 });
 
@@ -166,7 +163,6 @@ it('builds a typed collection for resources', function (): void {
             'name',
             'email',
             'email_verified_at',
-            'email_verified_at_display',
         ])
         ->each->not->toHaveKeys([
             'remember_token',

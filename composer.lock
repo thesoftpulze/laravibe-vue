@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4bc89850428870e516dff74fe91f6575",
+    "content-hash": "c67b90a2ec43a081bc6e09d7d0a88249",
     "packages": [
         {
             "name": "brick/math",
@@ -6098,6 +6098,77 @@
                 }
             ],
             "time": "2026-10-13T05:48:51+00:00"
+        },
+        {
+            "name": "thesoftpulze/laravibe-standards",
+            "version": "v0.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thesoftpulze/laravibe-standards.git",
+                "reference": "311ef78fed35c0b74b9f4da51cd98cdcaca6c4cc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thesoftpulze/laravibe-standards/zipball/311ef78fed35c0b74b9f4da51cd98cdcaca6c4cc",
+                "reference": "311ef78fed35c0b74b9f4da51cd98cdcaca6c4cc",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^13.0",
+                "php": "^8.4"
+            },
+            "require-dev": {
+                "larastan/larastan": "^3.9",
+                "laravel/pao": "^1.0",
+                "laravel/pint": "^1.29",
+                "orchestra/testbench": "^11.0",
+                "pestphp/pest": "^4.6",
+                "pestphp/pest-plugin-laravel": "^4.1",
+                "pestphp/pest-plugin-type-coverage": "^4.0",
+                "phpstan/extension-installer": "^1.4"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "TheSoftPulze\\LaravibeStandards\\LaravibeStandardsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "TheSoftPulze\\LaravibeStandards\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ashok Barua",
+                    "email": "ashokbaruaakas@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Standard conventions, structure, and tooling for Laravel apps built the LaraVibe way.",
+            "homepage": "https://github.com/thesoftpulze/laravibe-standards",
+            "keywords": [
+                "laravel",
+                "laravibe-standards",
+                "thesoftpulze"
+            ],
+            "support": {
+                "issues": "https://github.com/thesoftpulze/laravibe-standards/issues",
+                "source": "https://github.com/thesoftpulze/laravibe-standards/tree/v0.5.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/thesoftpulze",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-10-24T19:18:56+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",

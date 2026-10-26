@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace {{ namespace }};
 
-use App\DTOs\Concerns\AsDTO;
+use TheSoftPulze\LaravibeStandards\DTOs\Concerns\AsDTO;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 

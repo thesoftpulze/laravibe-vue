@@ -23,7 +23,7 @@ it('generates an dto class in app/DTOs with correct namespace and class name', f
             ->toContain('declare(strict_types=1);')
             ->and(rescue(fn () => $this->filesystem->get($path), fn () => ''))
             ->toContain('namespace App\\DTOs;')
-            ->toContain('use App\\DTOs\\Concerns\\AsDTO;')
+            ->toContain('use TheSoftPulze\\LaravibeStandards\\DTOs\\Concerns\\AsDTO;')
             ->toContain('final readonly class ' . $class)
             ->toContain('use AsDTO;')
             ->toContain('public function __construct(')
@@ -73,7 +73,7 @@ it('can overwrite an existing dto with --force', function (): void {
             ->toContain('namespace App\\DTOs;')
             ->toContain('final readonly class ' . $class)
             ->toContain('public function __construct(')
-            ->toContain('use App\\DTOs\\Concerns\\AsDTO;')
+            ->toContain('use TheSoftPulze\\LaravibeStandards\\DTOs\\Concerns\\AsDTO;')
             ->toContain('use AsDTO;')
             ->not->toContain('old()');
     } finally {

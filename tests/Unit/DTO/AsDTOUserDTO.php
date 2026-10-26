@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\DTO;
 
-use App\DTOs\Concerns\AsDTO;
+use TheSoftPulze\LaravibeStandards\DTOs\Concerns\AsDTO;
 
 final readonly class AsDTOUserDTO
 {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
-use App\Enums\Concerns\HasEnumMetadata;
+use TheSoftPulze\LaravibeStandards\Enums\Concerns\HasEnumMetadata;
 
 enum ToastActionType: string
 {

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\DTOs;
 
-use App\DTOs\Concerns\AsDTO;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Collection;
+use TheSoftPulze\LaravibeStandards\DTOs\Concerns\AsDTO;
 
 /**
  * @implements Arrayable<string, mixed>
