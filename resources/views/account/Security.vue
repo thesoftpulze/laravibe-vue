@@ -10,7 +10,7 @@ import CardFooter from '@/components/ui/card/CardFooter.vue'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useAuth } from '@/composables/useAuth'
-import { password } from '@/wayfinder/routes/account/security'
+import { password } from '@/routes/account/security'
 import { Info, LockKeyhole } from '@lucide/vue'
 
 const passwordInput = ref<HTMLInputElement | null>(null)

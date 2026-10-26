@@ -24,7 +24,7 @@ final readonly class ResetUserPassword implements ResetsUserPasswords
             'password' => $this->passwordRules(),
         ])->validate();
 
-        $user->forceFill([
+        $user->fill([
             'password' => $input['password'],
         ])->save();
     }

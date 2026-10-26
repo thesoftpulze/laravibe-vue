@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Logo from '@/components/Logo.vue'
-import { home } from '@/wayfinder/routes'
+import { home } from '@/routes'
 import { Link } from '@inertiajs/vue3'
 
 defineProps<{

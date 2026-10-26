@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/sidebar'
 import { cn } from '@/lib/utils'
 import { type NavItem } from '@/types'
-import { dashboard as administrationDashboard } from '@/wayfinder/routes/administration'
+import { dashboard as administrationDashboard } from '@/routes/administration'
 import { Link } from '@inertiajs/vue3'
 import { CircleGauge, FolderGit } from '@lucide/vue'
 import NavFooter from './NavFooter.vue'

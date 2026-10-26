@@ -2,8 +2,8 @@
 import UserInfo from '@/components/UserInfo.vue'
 import { DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from '@/components/ui/dropdown-menu'
 import type { User } from '@/types/models'
-import { account, logout } from '@/wayfinder/routes'
-import { dashboard as administrationDashboard } from '@/wayfinder/routes/administration'
+import { account, logout } from '@/routes'
+import { dashboard as administrationDashboard } from '@/routes/administration'
 import { Link, router, usePage } from '@inertiajs/vue3'
 import { CircleGauge, LogOut, User as UserIcon } from '@lucide/vue'
 

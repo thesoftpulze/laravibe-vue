@@ -25,6 +25,10 @@ final class LaraTweaks
         self::vite();
     }
 
+    /**
+     * Unguard models and enable strict mode. Models don't declare `$fillable` or `$guarded`,
+     * so only pass validated or explicitly built arrays to `create()`, `fill()` and `update()`.
+     */
     public static function models(): void
     {
         Model::unguard();

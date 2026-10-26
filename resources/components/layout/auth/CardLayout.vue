@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Logo from '@/components/Logo.vue'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { home } from '@/wayfinder/routes'
+import { home } from '@/routes'
 import { Link } from '@inertiajs/vue3'
 
 defineProps<{

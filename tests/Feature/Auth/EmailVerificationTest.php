@@ -22,7 +22,7 @@ test('email verification screen can not be rendered if email is already verified
 
     $response = $this->actingAs($user)->get(route('verification.notice'));
 
-    $response->assertRedirect(route('dashboard', absolute: false));
+    $response->assertRedirect(route('account', absolute: false));
 });
 
 test('email verification notification is successfully sent', function () {
@@ -44,7 +44,7 @@ test('email validation notification is not sent if email is already verified', f
     $this->actingAs($user);
 
     $this->post('/email/verification-notification')
-        ->assertRedirect(route('dashboard', absolute: false));
+        ->assertRedirect(route('account', absolute: false));
 });
 
 test('email can be verified', function () {
@@ -62,7 +62,7 @@ test('email can be verified', function () {
 
     Event::assertDispatched(Verified::class);
     expect($user->fresh()->hasVerifiedEmail())->toBeTrue();
-    $response->assertRedirect(route('dashboard', absolute: false) . '?verified=1');
+    $response->assertRedirect(route('account', absolute: false) . '?verified=1');
 });
 
 test('email is not verified with invalid hash', function () {
@@ -79,7 +79,7 @@ test('email is not verified with invalid hash', function () {
     expect($user->fresh()->hasVerifiedEmail())->toBeFalse();
 });
 
-test('email verification link redirects to dashboard if email is already verified', function () {
+test('email verification link redirects to account if email is already verified', function () {
     $user = User::factory()->create();
 
     $verificationUrl = URL::temporarySignedRoute(
@@ -90,5 +90,5 @@ test('email verification link redirects to dashboard if email is already verifie
 
     $response = $this->actingAs($user)->get($verificationUrl);
 
-    $response->assertRedirect(route('dashboard', absolute: false) . '?verified=1');
+    $response->assertRedirect(route('account', absolute: false) . '?verified=1');
 });

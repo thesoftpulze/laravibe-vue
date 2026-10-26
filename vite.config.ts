@@ -32,8 +32,8 @@ export default defineConfig({
                 },
             },
         }),
+        // Output path comes from the app's `wayfinder:generate` override (resources/), so it isn't set here.
         wayfinder({
-            path: 'resources/wayfinder',
             formVariants: true,
         }),
     ]),
@@ -55,6 +55,8 @@ export default defineConfig({
             'bootstrap/ssr/**',
             'demo/**',
             'resources/components/ui/*',
+            'resources/actions/**',
+            'resources/routes/**',
             'resources/wayfinder/**',
         ],
         options: {
@@ -86,6 +88,8 @@ export default defineConfig({
             'public/**',
             'resources/components/ui/*',
             'resources/blades/mail/*',
+            'resources/actions/**',
+            'resources/routes/**',
             'resources/wayfinder/**',
         ],
         sortTailwindcss: {

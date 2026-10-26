@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Models\User;
 use App\Support\LaraTweaks;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
@@ -47,4 +48,10 @@ it('requires strong passwords in production', function (): void {
     LaraTweaks::passwords();
 
     expect(Validator::make(['password' => 'password'], ['password' => Password::defaults()])->passes())->toBeFalse();
+});
+
+it('allows mass assignment of any attribute', function (): void {
+    $user = User::make(['name' => 'Jane', 'email_verified_at' => now()]);
+
+    expect($user->email_verified_at)->not->toBeNull();
 });

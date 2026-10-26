@@ -22,7 +22,9 @@ Use this guide when creating or modifying files under `app/Support`.
 
 - Register framework tweaks in `App\\Support\\LaraTweaks` and call from `AppServiceProvider::boot()`.
 - Keep tweak methods side-effect focused and narrowly scoped.
-- Preserve strict model mode and resource no-wrapping unless explicitly requested to change.
+- Preserve strict model mode, unguarded models, and resource no-wrapping unless explicitly requested to change.
+- Models are unguarded globally: do not add `$fillable` or `$guarded` to models, and use `fill()` instead of `forceFill()`.
+- Never pass raw request input (`$request->all()`, `$request->input()`) to `create()`, `fill()`, or `update()`; pass `validated()` data or an explicitly built array.
 
 ## Helper Function Rules
 

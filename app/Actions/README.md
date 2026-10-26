@@ -35,7 +35,7 @@ final readonly class UpdateProfileAction
 {
     public function handle(User $user, string $name, ?string $bio = null): User
     {
-        $user->forceFill([
+        $user->fill([
             'name' => $name,
             'bio' => $bio,
         ])->save();

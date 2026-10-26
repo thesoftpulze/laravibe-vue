@@ -10,7 +10,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useAuth } from '@/composables/useAuth'
 import { Nullable } from '@/types'
-import account from '@/wayfinder/routes/account'
+import account from '@/routes/account'
 import { Trash2, TriangleAlert } from '@lucide/vue'
 
 const confirmingUserDeletion = ref(false)

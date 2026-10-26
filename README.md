@@ -208,11 +208,13 @@ app/
 └── Toast/              # Self-contained toast notification system
 
 resources/
+├── actions/            # Auto-generated Wayfinder controller actions (gitignored)
 ├── components/         # Shared Vue components & shadcn-vue UI
 ├── composables/        # Vue composables (useAuth, useAppearance, …)
 ├── layouts/            # Page layouts (Account, Auth, Guest, Administration)
+├── routes/             # Auto-generated Wayfinder named routes (gitignored)
 ├── views/              # Inertia pages (auth/, account/, administration/)
-├── wayfinder/          # Auto-generated Wayfinder route/action files
+├── wayfinder/          # Auto-generated Wayfinder runtime helper (gitignored)
 └── app.ts              # Frontend entry point
 ```
 
@@ -396,14 +398,16 @@ Wayfinder is integrated with Vite and **auto-generates** typed TypeScript helper
 Import and use them in your Vue components:
 
 ```ts
-import AccountController from '@/wayfinder/actions/App/Http/Controllers/Account/AccountController'
-import { home } from '@/wayfinder/routes'
+import AccountController from '@/actions/App/Http/Controllers/Account/AccountController'
+import { home } from '@/routes'
 ```
 
 ```vue
 <!-- In a template -->
 <Link :href="AccountController.edit().url()">Account</Link>
 ```
+
+The generated files live in `resources/actions`, `resources/routes` and `resources/wayfinder`, and are gitignored. To regenerate them manually, run `php artisan wayfinder:generate --with-form`. The app overrides this command so it writes to `resources/` by default; don't pass `--path`.
 
 For the full API and advanced usage, refer to the [official Wayfinder documentation](https://github.com/laravel/wayfinder).
 

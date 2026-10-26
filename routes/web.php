@@ -16,9 +16,4 @@ Route::middleware(['auth', 'verified'])
             ->name('dashboard');
     });
 
-Route::middleware(['auth', 'verified'])
-    ->group(function () {
-        Route::redirect('/dashboard', '/account')->name('dashboard');
-    });
-
 require __DIR__ . '/account.php';
