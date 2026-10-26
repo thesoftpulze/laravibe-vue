@@ -1,5 +1,13 @@
 # Auth Conventions for AI Agents
 
+## Authentication Backend Rules
+
+- Authentication routes and controllers come from Laravel Fortify. Do not add custom auth controllers or routes.
+- Render auth pages through the `Fortify::*View()` callbacks in `App\Providers\FortifyServiceProvider`, using `vue()` with a `PageMeta`.
+- Customize behavior through `app/Actions/Fortify` and by binding Fortify response contracts in `FortifyServiceProvider::register()`.
+- Share validation rules through `App\Concerns\PasswordValidationRules` and `App\Concerns\ProfileValidationRules`.
+- Only enable Fortify features the UI actually supports in `config/fortify.php`.
+
 ## Shared Props Rules
 
 - `auth.user` must always be present in every Inertia response — use `null` for guests, never omit the key.

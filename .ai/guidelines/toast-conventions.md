@@ -14,7 +14,7 @@
     - toastWarning
     - toastInfo
 - Use toastActionCopy and toastActionRedirect for action payloads.
-- Avoid ad-hoc session writes to the toasts key.
+- Avoid ad-hoc writes to the toasts key, including direct `Inertia::flash('toasts', ...)` calls.
 
 ## DTO Rules
 
@@ -34,13 +34,16 @@
 
 ## Backend Service Rules
 
-- Continue using App\Toast\Toast as the only session transport layer.
+- Continue using App\Toast\Toast as the only transport layer. It queues toasts under the `toasts` key of Inertia flash data.
+- Do not reintroduce a `toasts` shared prop; flash data is delivered once and kept out of browser history.
+- Assert toast output in tests with `assertInertiaFlash('toasts', [...])`.
 - Preserve queue safeguards such as duplicate prevention and queue capping.
 - Do not bypass append and pull behavior.
 
 ## Frontend Rules
 
 - Keep runtime validation in resources/components/toast/useToast.ts.
+- Read toasts from Inertia's `flash` router event, which also fires for the initial page load.
 - Keep toaster registration idempotent and cleaned up on HMR disposal.
 - Ensure Toast.vue supports all action types and remains type-safe.
 
@@ -57,4 +60,4 @@
 
 - Add a new toast action type end-to-end using enum, DTO, Vue renderer, and tests.
 - Add toast metadata support while keeping backward compatibility and strict hydration.
-- Refactor toast helper ergonomics without changing session transport behavior.
+- Refactor toast helper ergonomics without changing the flash transport behavior.

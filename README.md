@@ -45,23 +45,23 @@ The backbone. These three working together is what makes LaraVibe-Vue feel diffe
 | [Reka UI](https://reka-ui.com)               | 2       | Headless, accessible UI primitives — the foundation for the bundled shadcn-vue components |
 | [VueUse](https://vueuse.org)                 | 12      | Hundreds of battle-tested Vue composables so you don't write them from scratch            |
 | [TypeScript](https://www.typescriptlang.org) | 5       | End-to-end type safety across your entire frontend codebase                               |
-| [Vite](https://vitejs.dev)                   | 8       | Instant HMR, fast builds, and the plugin that powers Wayfinder auto-generation            |
-| [Lucide Vue](https://lucide.dev)             | latest  | Clean, consistent icon library with tree-shaking out of the box                           |
+| [Vite+](https://viteplus.dev)                | 1       | Vite-powered dev server and builds plus integrated lint, format, and type-aware checks    |
+| [Lucide Vue](https://lucide.dev)             | 1       | Clean, consistent icon library (`@lucide/vue`) with tree-shaking out of the box           |
 | [vue-sonner](https://vue-sonner.vercel.app)  | 2       | The Vue renderer behind the built-in toast notification system                            |
 
 ### Developer Experience & Tooling
 
-| Package                                                   | Version | Why it's here                                                                                 |
-| --------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------- |
-| [Laravel Wayfinder](https://github.com/laravel/wayfinder) | 0.x     | Auto-generates TypeScript route functions from your PHP controllers — no hardcoded URLs, ever |
-| [Pest](https://pestphp.com)                               | 4       | The most expressive PHP testing framework available today                                     |
-| [Larastan](https://github.com/larastan/larastan)          | 3       | PHPStan tuned for Laravel — catches type errors and N+1 risks before they ship                |
-| [Laravel Pint](https://laravel.com/docs/pint)             | 1       | Opinionated PHP formatter — your code style is decided, consistently, forever                 |
-| [Rector](https://getrector.com)                           | 2       | Automated PHP refactoring and upgrade rules — future-proofs your codebase                     |
-| [ESLint](https://eslint.org)                              | 9       | Flat-config linting for TypeScript and Vue with auto-fix                                      |
-| [Prettier](https://prettier.io)                           | 3       | Frontend formatting — `.vue`, `.ts`, and everything else, consistent every time               |
-| [Laravel Pail](https://github.com/laravel/pail)           | 1       | Real-time log tailing right in your terminal — no more `tail -f storage/logs/laravel.log`     |
-| [Laravel Sail](https://laravel.com/docs/sail)             | 1       | Docker environment for teams that prefer containers over local installs                       |
+| Package                                                                  | Version | Why it's here                                                                                 |
+| ------------------------------------------------------------------------ | ------- | --------------------------------------------------------------------------------------------- |
+| [Laravel Wayfinder](https://github.com/laravel/wayfinder)                | 0.x     | Auto-generates TypeScript route functions from your PHP controllers — no hardcoded URLs, ever |
+| [Pest](https://pestphp.com)                                              | 5       | The most expressive PHP testing framework available today                                     |
+| [Larastan](https://github.com/larastan/larastan)                         | 3       | PHPStan tuned for Laravel — catches type errors and N+1 risks before they ship                |
+| [Laravel Pint](https://laravel.com/docs/pint)                            | 1       | Opinionated PHP formatter — your code style is decided, consistently, forever                 |
+| [Rector](https://getrector.com)                                          | 2       | Automated PHP refactoring and upgrade rules — future-proofs your codebase                     |
+| [Laravel Fortify](https://laravel.com/docs/fortify)                      | 1       | Headless authentication backend — login, registration, password reset, email verification     |
+| [LaraVibe Standards](https://github.com/thesoftpulze/laravibe-standards) | 0.x     | Shared DTO, enum, and API resource conventions with matching generators and AI guidelines     |
+| [Laravel Pail](https://github.com/laravel/pail)                          | 1       | Real-time log tailing right in your terminal — no more `tail -f storage/logs/laravel.log`     |
+| [Laravel Sail](https://laravel.com/docs/sail)                            | 1       | Docker environment for teams that prefer containers over local installs                       |
 
 ---
 
@@ -73,10 +73,10 @@ LaraVibe-Vue isn't just a scaffold — it's a carefully assembled foundation tha
 
 #### 🔐 Authentication — Complete, Out of the Box
 
-Full auth flows, ready on day one. No extra packages, no wiring up forms manually.
+Full auth flows, ready on day one, powered by **Laravel Fortify** — the same backend the official Laravel starter kits use. No wiring up forms manually.
 
 - **Registration & login** with email/password
-- **Password reset** via email — the full flow, already working
+- **Password reset** via email — the full flow, already working, without revealing which emails have accounts
 - **Email verification** — prompt users to verify before accessing protected areas
 - **Confirmable password (sudo mode)** — re-prompt for the password before sensitive operations like deleting an account or changing security settings
 
@@ -98,7 +98,7 @@ A dedicated `/administration` section, guarded by middleware, with a dashboard p
 
 #### 🤖 AI-Ready from Day One
 
-LaraVibe-Vue is ship with **Laravel Boost** integration, providing AI agents with complete codebase context — schema inspection, database queries, real-time error logs, and semantic documentation search. Pre-configured for **GitHub Copilot and OpenAI agents**, it ships with agent scaffolding that understands your entire stack instantly.
+LaraVibe-Vue is ship with **Laravel Boost** integration, providing AI agents with complete codebase context — schema inspection, database queries, real-time error logs, and semantic documentation search. Pre-configured for popular AI coding agents, it ships with agent scaffolding that understands your entire stack instantly.
 
 The structured conventions, documented architecture, and included `AGENTS.md` file mean AI agents can read, understand, and contribute confidently alongside your team. When you need to regenerate or customize agent configuration, the Laravel Boost command rebuilds your setup with full context — no manual wiring required.
 
@@ -108,14 +108,15 @@ Most starter kits leave you to wire up your own code quality tools. LaraVibe-Vue
 
 | Tool                       | What it does                                                                              |
 | -------------------------- | ----------------------------------------------------------------------------------------- |
-| **Pest 4**                 | Expressive, readable PHP tests — the best testing experience in the Laravel ecosystem     |
-| **Larastan (PHPStan lv9)** | Catches bugs before they reach production — static analysis tuned for Laravel             |
+| **Pest 5**                 | Expressive, readable PHP tests — the best testing experience in the Laravel ecosystem     |
+| **Larastan (PHPStan max)** | Catches bugs before they reach production — static analysis tuned for Laravel             |
 | **Laravel Pint**           | Zero-config PHP code formatter — your code always looks clean, always                     |
 | **Rector**                 | Automated PHP refactoring and upgrades — keeps your codebase modern without manual effort |
-| **ESLint 9**               | Lints your TypeScript and Vue files with a flat config that just works                    |
-| **Prettier 3**             | Frontend formatting on save — consistent style across every `.vue` and `.ts` file         |
+| **Vite+ lint (Oxlint)**    | Fast, type-aware linting for TypeScript and Vue files                                     |
+| **Vite+ fmt (Oxfmt)**      | Frontend formatting with Tailwind class sorting — consistent across `.vue` and `.ts`      |
+| **vue-tsc**                | Full type checking for Vue single-file components                                         |
 
-Everything is wired into composer scripts so the whole team uses the same workflow. One command before you push — `composer review` — and you know your code is clean, typed, formatted, and tested. No arguments, no setup, no excuses.
+Everything is wired into composer scripts so the whole team uses the same workflow, and GitHub Actions runs the same checks on every push and pull request. One command before you push — `composer review` — and you know your code is clean, typed, formatted, and tested. No arguments, no setup, no excuses.
 
 > New team member? They get the full toolchain the moment they clone the repo. Senior dev? Nothing to configure. It's already right.
 
@@ -142,7 +143,7 @@ npx shadcn-vue@latest add button
 
 #### 🍞 Toast Notifications — Architected, Not Hacked In
 
-The toast system is a first-class citizen, not an afterthought. It has its own service layer, typed DTOs, and a Vue renderer that handles every case. Trigger toasts from anywhere on the backend with a single helper:
+The toast system is a first-class citizen, not an afterthought. It has its own service layer, typed DTOs, and a Vue renderer that handles every case. Toasts travel as Inertia flash data, so they show exactly once and never replay from browser history. Trigger toasts from anywhere on the backend with a single helper:
 
 ```php
 toastSuccess('Profile updated.');
@@ -176,25 +177,29 @@ Every part of the app has a clear home and a convention to follow — documented
 | **DTOs**           | Typed data transfer objects (`PageMeta`, `BreadCrumb`) | [README](app/DTOs/README.md)           |
 | **Enums**          | Backed enums with shared behavior                      | [README](app/Enums/README.md)          |
 | **HTTP Resources** | Eloquent serialization for API & Inertia               | [README](app/Http/Resources/README.md) |
-| **Support**        | Framework utilities and helpers                        | [README](app/Support/README.md)        |
-| **Toast**          | Self-contained notification system                     | [README](app/Toast/README.md)          |
+
+DTO, enum, and resource conventions come from the [`thesoftpulze/laravibe-standards`](https://github.com/thesoftpulze/laravibe-standards) package, which also provides `make:dto` and the published `make:enum` / `make:resource` stubs.
+| **Support** | Framework utilities and helpers | [README](app/Support/README.md) |
+| **Toast** | Self-contained notification system | [README](app/Toast/README.md) |
 
 ### Project Structure
 
 ```
 app/
-├── Actions/            # Single-responsibility action classes
+├── Actions/            # Single-responsibility actions (incl. Fortify actions)
+├── Concerns/           # Shared validation rules (password, profile)
 ├── DTOs/               # Typed data transfer objects (PageMeta, BreadCrumb)
-├── Enums/              # Backed enums + shared enum concerns
+├── Enums/              # Backed enums using HasEnumMetadata
 ├── Http/
-│   ├── Controllers/    # Auth & Account controllers
+│   ├── Controllers/    # Account controllers (auth is handled by Fortify)
 │   ├── Middleware/     # Custom middleware
 │   ├── Requests/       # Form request validation
-│   └── Resources/      # Eloquent API resources and shared concerns
+│   ├── Resources/      # Eloquent API resources
+│   └── Responses/      # Fortify response overrides
 ├── Models/             # Eloquent models
+├── Providers/          # App and Fortify service providers
 ├── Support/            # Framework support utilities
-├── Toast/              # Self-contained toast notification system
-└── Traits/             # Reusable compatibility traits
+└── Toast/              # Self-contained toast notification system
 
 resources/
 ├── components/         # Shared Vue components & shadcn-vue UI
@@ -211,7 +216,7 @@ resources/
 
 - PHP **8.4+**
 - Composer
-- Node.js **20+** & npm
+- Node.js **22+** & npm
 - SQLite / MySQL / PostgreSQL
 
 ---
@@ -277,7 +282,7 @@ npm install
 composer dev
 ```
 
-This starts Vite, queue listener, and Pail log watcher concurrently.
+This runs `php artisan dev`, which starts the dev processes (Vite, queue listener, Pail log watcher) together.
 
 If you are using Laravel Herd, open your local Herd URL (for example: `https://my-app.test`).
 If you are not using Herd, run `php artisan serve` in another terminal.
@@ -294,7 +299,9 @@ Everything you need for your daily workflow is a single command away. No need to
 composer dev
 ```
 
-This is the only command you'll need to kick off your day. It starts the **Vite dev server**, a **queue listener**, and **Pail log watcher** — all at once, in a single terminal. Open your browser and start building.
+This is the only command you'll need to kick off your day. It runs `php artisan dev`, starting the **Vite dev server**, a **queue listener**, and **Pail log watcher** — all at once, in a single terminal. Open your browser and start building.
+
+Setting up a fresh clone? `composer setup` installs dependencies, creates `.env`, generates the key, migrates, and builds assets in one go.
 
 > If you're on Laravel Herd, your site is already available at `https://my-app.test` — no extra server command needed.
 
@@ -317,9 +324,9 @@ composer pest:coverage # Pest with coverage
 You shouldn't have to think about formatting or style — these scripts handle it for you:
 
 ```bash
-composer format        # Format PHP (Pint) + frontend (Prettier) in one go
+composer format        # Format PHP (Pint) + frontend (Vite+ fmt) in one go
 composer format:check  # Check formatting without writing any changes
-composer lint          # Auto-fix PHP (Rector) + JS/TS (ESLint) issues
+composer lint          # Auto-fix PHP (Rector) + JS/TS (Vite+ lint) issues
 composer lint:check    # Check for lint issues without fixing
 ```
 
@@ -329,10 +336,11 @@ Need to target one tool specifically?
 composer pint          # Format PHP code with Laravel Pint
 composer pint:check    # Check PHP formatting only
 composer phpstan       # Run Larastan static analysis
+composer types:check   # Larastan + vue-tsc type checks
 composer rector        # Apply Rector refactoring
 composer rector:check  # Preview Rector changes without applying
-composer eslint        # Run ESLint with auto-fix
-composer eslint:check  # Run ESLint without fixing
+npm run check          # Vite+ format + lint check for the frontend
+npm run check:fix      # ...and fix what it can
 ```
 
 ### Pre-commit / CI review
@@ -343,7 +351,7 @@ Before pushing or opening a PR, run the full quality check in one command:
 composer review
 ```
 
-This runs **lint checks**, **format checks**, **tests**, and **static analysis** — everything that matters, in one pass. If it passes locally, it'll pass in CI.
+This is an alias of `composer ci:check`: **lint checks**, **format checks**, **static analysis and type checks**, and **tests** — everything that matters, in one pass. It's exactly what GitHub Actions runs, so if it passes locally, it'll pass in CI.
 
 ### Building for production
 
@@ -382,8 +390,8 @@ Wayfinder is integrated with Vite and **auto-generates** typed TypeScript helper
 Import and use them in your Vue components:
 
 ```ts
-import { AccountController } from '@/actions/Account/AccountController'
-import { route } from '@/routes/web'
+import AccountController from '@/wayfinder/actions/App/Http/Controllers/Account/AccountController'
+import { home } from '@/wayfinder/routes'
 ```
 
 ```vue

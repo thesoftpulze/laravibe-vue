@@ -13,7 +13,8 @@ This folder contains framework-level support utilities shared across the backend
 `App\\Support\\LaraTweaks::default()` is called from `AppServiceProvider::boot()` and applies these defaults:
 
 - Prohibit destructive DB commands in production.
-- Force HTTPS URL scheme.
+- Force the HTTPS URL scheme in production.
+- Require strong, uncompromised passwords in production via `Password::defaults()`.
 - Set `App\\Support\\CarbonImmutable` as the default Date implementation.
 - Enable strict Eloquent behavior.
 - Disable default wrapping for JSON resources.

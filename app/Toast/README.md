@@ -2,13 +2,13 @@
 
 ## Overview
 
-The Toast module provides a typed, session-backed notification pipeline from Laravel to Vue.
+The Toast module provides a typed notification pipeline from Laravel to Vue, delivered as Inertia flash data.
 
 Flow:
 
 1. Create toast payloads in PHP (helpers, DTO factories, or direct DTO construction).
-2. Persist to session through App\Toast\Toast.
-3. Share to Inertia via HandleInertiaRequests.
+2. Queue them as Inertia flash data through App\Toast\Toast.
+3. Inertia delivers the flash data once with the next page and fires the `flash` router event.
 4. Render in Vue with vue-sonner.
 
 ## PHP Usage
@@ -77,9 +77,11 @@ ToastActionPayload serializes to:
 
 The backend Toast service:
 
-- Stores toasts in session flash key: toasts
+- Stores toasts under the `toasts` key of Inertia flash data (`Inertia::flash()`), so they never land in browser history
 - Prevents immediate consecutive duplicate entries
 - Caps queue length to 5 entries
+
+Assert toasts in feature tests with `assertInertiaFlash('toasts', [...])`.
 
 ## Vue Behavior
 
