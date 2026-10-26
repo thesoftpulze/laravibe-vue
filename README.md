@@ -51,17 +51,17 @@ The backbone. These three working together is what makes LaraVibe-Vue feel diffe
 
 ### Developer Experience & Tooling
 
-| Package                                                                  | Version | Why it's here                                                                                 |
-| ------------------------------------------------------------------------ | ------- | --------------------------------------------------------------------------------------------- |
-| [Laravel Wayfinder](https://github.com/laravel/wayfinder)                | 0.x     | Auto-generates TypeScript route functions from your PHP controllers — no hardcoded URLs, ever |
-| [Pest](https://pestphp.com)                                              | 5       | The most expressive PHP testing framework available today                                     |
-| [Larastan](https://github.com/larastan/larastan)                         | 3       | PHPStan tuned for Laravel — catches type errors and N+1 risks before they ship                |
-| [Laravel Pint](https://laravel.com/docs/pint)                            | 1       | Opinionated PHP formatter — your code style is decided, consistently, forever                 |
-| [Rector](https://getrector.com)                                          | 2       | Automated PHP refactoring and upgrade rules — future-proofs your codebase                     |
+| Package                                                                  | Version | Why it's here                                                                                  |
+| ------------------------------------------------------------------------ | ------- | ---------------------------------------------------------------------------------------------- |
+| [Laravel Wayfinder](https://github.com/laravel/wayfinder)                | 0.x     | Auto-generates TypeScript route functions from your PHP controllers — no hardcoded URLs, ever  |
+| [Pest](https://pestphp.com)                                              | 5       | The most expressive PHP testing framework available today                                      |
+| [Larastan](https://github.com/larastan/larastan)                         | 3       | PHPStan tuned for Laravel — catches type errors and N+1 risks before they ship                 |
+| [Laravel Pint](https://laravel.com/docs/pint)                            | 1       | Opinionated PHP formatter — your code style is decided, consistently, forever                  |
+| [Rector](https://getrector.com)                                          | 2       | Automated PHP refactoring and upgrade rules — future-proofs your codebase                      |
 | [Laravel Fortify](https://laravel.com/docs/fortify)                      | 1       | Headless authentication backend — login, registration, password reset, email verification, 2FA |
-| [LaraVibe Standards](https://github.com/thesoftpulze/laravibe-standards) | 0.x     | Shared DTO, enum, and API resource conventions with matching generators and AI guidelines     |
-| [Laravel Pail](https://github.com/laravel/pail)                          | 1       | Real-time log tailing right in your terminal — no more `tail -f storage/logs/laravel.log`     |
-| [Laravel Sail](https://laravel.com/docs/sail)                            | 1       | Docker environment for teams that prefer containers over local installs                       |
+| [LaraVibe Standards](https://github.com/thesoftpulze/laravibe-standards) | 0.x     | Shared DTO, enum, and API resource conventions with matching generators and AI guidelines      |
+| [Laravel Pail](https://github.com/laravel/pail)                          | 1       | Real-time log tailing right in your terminal — no more `tail -f storage/logs/laravel.log`      |
+| [Laravel Sail](https://laravel.com/docs/sail)                            | 1       | Docker environment for teams that prefer containers over local installs                        |
 
 ---
 
