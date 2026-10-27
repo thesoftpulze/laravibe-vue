@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import Logo from '@/components/Logo.vue'
-import LogoIcon from '@/components/LogoIcon.vue'
+import AppLogo from '@/components/AppLogo.vue'
 import {
     Sidebar,
     SidebarContent,
@@ -51,14 +50,9 @@ const { open } = useSidebar()
         <SidebarHeader>
             <SidebarMenu>
                 <SidebarMenuItem>
-                    <SidebarMenuButton
-                        size="lg"
-                        as-child
-                        :class="cn('items-center justify-center [&>svg]:w-auto', open ? '[&>svg]:h-7' : '[&>svg]:h-5')"
-                    >
+                    <SidebarMenuButton size="lg" as-child :class="cn('items-center', !open && 'justify-center')">
                         <Link :href="administrationDashboard.url()">
-                            <Logo v-if="open" />
-                            <LogoIcon v-else />
+                            <AppLogo :icon-only="!open" :class="open ? 'text-lg' : 'text-xl'" />
                         </Link>
                     </SidebarMenuButton>
                 </SidebarMenuItem>

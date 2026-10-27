@@ -22,11 +22,11 @@
         {{-- Inline style to set the HTML background color based on our theme in app.css --}}
         <style>
             html {
-                background-color: oklch(1 0 0);
+                background-color: oklch(100% 0 0);
             }
 
             html.dark {
-                background-color: oklch(0.145 0 0);
+                background-color: oklch(18.3% 0.031 263.4);
             }
         </style>
 
@@ -38,7 +38,7 @@
 
         @vite(['resources/app.ts', "resources/views/{$page['component']}.vue"])
         <x-inertia::head>
-            <title>{{ config('app.name', 'LaraVibe-Vue') }}</title>
+            <title>{{ config('app.name', 'Laravibe') }}</title>
         </x-inertia::head>
     </head>
     <body class="font-sans antialiased">

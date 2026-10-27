@@ -5,7 +5,7 @@ import { initializeTheme } from '@/composables/useAppearance'
 import { createInertiaApp } from '@inertiajs/vue3'
 import { resolveLayout, resolveView } from './lib/helpers'
 
-const appName = import.meta.env.VITE_APP_NAME || 'LaraVibe-Vue'
+const appName = import.meta.env.VITE_APP_NAME || 'Laravibe'
 
 void createInertiaApp({
     title: (title: string) => (title ? `${title} - ${appName}` : appName),

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Logo from '@/components/Logo.vue'
+import AppLogo from '@/components/AppLogo.vue'
 import Badge from '@/components/ui/badge/Badge.vue'
 import Button from '@/components/ui/button/Button.vue'
 import { CodeXml, FolderGit } from '@lucide/vue'
@@ -38,15 +38,19 @@ import { CodeXml, FolderGit } from '@lucide/vue'
                 <Badge variant="outline" class="rounded-full px-3 py-1">We are still in early development. <CodeXml /> </Badge>
             </div>
             <div class="flex flex-col items-center justify-center text-center">
-                <Logo className="h-12 lg:h-20 -rotate-4" />
+                <AppLogo class="text-4xl lg:text-6xl" />
                 <p class="mt-8 text-lg font-medium text-pretty text-muted-foreground sm:text-xl/8">
                     A seamlessly optimized, clean, well-structured, and open-source Laravel & Vue 3 starter kit featuring Inertia, Vite, Tailwind CSS,
                     Shadcn Vue, and reusable utilities to accelerate your development. Focus on crafting your application, not the boilerplate.
                 </p>
                 <div class="mt-10 flex items-center justify-center gap-x-6">
-                    <Button class="cursor-pointer"> Installation </Button>
+                    <Button asChild>
+                        <a href="https://github.com/thesoftpulze/laravibe-vue#installation" target="_blank" rel="noopener"> Installation </a>
+                    </Button>
                     <Button variant="link" class="text-sm/6 font-semibold text-muted-foreground hover:text-primary" asChild>
-                        <a href=""> <FolderGit /> Github Repo <span aria-hidden="true">→</span> </a>
+                        <a href="https://github.com/thesoftpulze/laravibe-vue" target="_blank" rel="noopener">
+                            <FolderGit /> Github Repo <span aria-hidden="true">→</span>
+                        </a>
                     </Button>
                 </div>
             </div>

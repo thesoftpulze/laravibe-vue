@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Breadcrumbs from '@/components/Breadcrumbs.vue'
-import Logo from '@/components/Logo.vue'
+import AppLogo from '@/components/AppLogo.vue'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
@@ -64,7 +64,7 @@ const isItemActive = (item: NavItem): boolean => {
                         <SheetContent side="left" class="w-75 p-6">
                             <SheetTitle class="sr-only">Navigation Menu</SheetTitle>
                             <SheetHeader class="flex justify-start text-left">
-                                <Logo class="h-6" />
+                                <AppLogo class="text-lg" />
                             </SheetHeader>
                             <div class="flex h-full flex-1 flex-col justify-between space-y-4 py-6">
                                 <nav class="-mx-3 space-y-1">
@@ -96,7 +96,7 @@ const isItemActive = (item: NavItem): boolean => {
 
                 <!-- Logo -->
                 <Link :href="home.url()" class="flex items-center gap-x-2">
-                    <Logo className="h-7" />
+                    <AppLogo class="text-xl" />
                 </Link>
 
                 <!-- Desktop Navigation Menu -->
@@ -145,10 +145,10 @@ const isItemActive = (item: NavItem): boolean => {
                     <!-- Auth Buttons -->
                     <template v-else>
                         <div class="hidden grid-cols-2 gap-2 lg:inline-grid">
-                            <Button size="sm" class="h-9" asChild>
+                            <Button variant="outline" size="sm" class="h-9" asChild>
                                 <Link :href="login.url()"> Log In </Link>
                             </Button>
-                            <Button variant="outline" size="sm" class="h-9" asChild>
+                            <Button size="sm" class="h-9" asChild>
                                 <Link :href="register.url()"> Sign Up </Link>
                             </Button>
                         </div>
