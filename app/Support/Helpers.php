@@ -32,6 +32,9 @@ if (! function_exists('vue')) {
 }
 
 if (! function_exists('optionalProp')) {
+    /**
+     * Include the prop only when a partial reload explicitly requests it.
+     */
     function optionalProp(callable $callback): Inertia\OptionalProp
     {
         return Inertia\Inertia::optional($callback);
@@ -39,6 +42,9 @@ if (! function_exists('optionalProp')) {
 }
 
 if (! function_exists('deferProp')) {
+    /**
+     * Load the prop in a follow-up request after the page renders.
+     */
     function deferProp(callable $callback, string $group = 'default'): Inertia\DeferProp
     {
         return Inertia\Inertia::defer($callback, $group);
@@ -46,9 +52,12 @@ if (! function_exists('deferProp')) {
 }
 
 if (! function_exists('alwaysProp')) {
-    function alwaysProp(mixed $callback): Inertia\AlwaysProp
+    /**
+     * Include the prop on every response, even partial reloads that don't request it.
+     */
+    function alwaysProp(mixed $value): Inertia\AlwaysProp
     {
-        return Inertia\Inertia::always($callback);
+        return Inertia\Inertia::always($value);
     }
 }
 // Inertia helpers end

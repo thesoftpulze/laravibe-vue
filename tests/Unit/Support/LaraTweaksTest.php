@@ -14,7 +14,7 @@ test('ensures Date now use App\Support\CarbonImmutable class', function () {
         ->toApiDate()->toBe('2025-01-01')
         ->toApiTime()->toBe('12:00:00')
         ->toApiDatetime()->toBe('2025-01-01T12:00:00+00:00')
-        ->toStringDate()->toBe('2025-01-01')
+        ->toStringDate()->toBe('Jan 1, 2025')
         ->toStringTime()->toBe('12:00 PM')
-        ->toStringDatetime()->toBe('2025-01-01 12:00 PM');
+        ->toStringDatetime()->toBe('Jan 1, 2025 12:00 PM');
 });

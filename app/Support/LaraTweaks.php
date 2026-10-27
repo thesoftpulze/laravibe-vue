@@ -6,6 +6,7 @@ namespace App\Support;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
@@ -26,13 +27,15 @@ final class LaraTweaks
     }
 
     /**
-     * Unguard models and enable strict mode. Models don't declare `$fillable` or `$guarded`,
-     * so only pass validated or explicitly built arrays to `create()`, `fill()` and `update()`.
+     * Unguard models and enable strict mode outside production, so lazy loading and missing
+     * attributes fail during development without turning into errors for users. Models don't
+     * declare `$fillable` or `$guarded`, so only pass validated or explicitly built arrays to
+     * `create()`, `fill()` and `update()`.
      */
     public static function models(): void
     {
         Model::unguard();
-        Model::shouldBeStrict();
+        Model::shouldBeStrict(! app()->isProduction());
     }
 
     public static function resources(): void
@@ -45,9 +48,11 @@ final class LaraTweaks
         DB::prohibitDestructiveCommands(app()->isProduction());
     }
 
+    /**
+     * Use the immutable `App\Support\CarbonImmutable` for every date the framework creates.
+     */
     public static function date(): void
     {
-        // CarbonImmutable as default
         Date::use(CarbonImmutable::class);
     }
 
@@ -72,10 +77,10 @@ final class LaraTweaks
     }
 
     /**
-     * Force HTTPS URLs in production, leaving local HTTP setups untouched.
+     * Force HTTPS URLs when the application URL uses HTTPS, leaving HTTP setups untouched.
      */
     public static function urls(): void
     {
-        URL::forceHttps(app()->isProduction());
+        URL::forceHttps(str_starts_with(Config::string('app.url'), 'https://'));
     }
 }

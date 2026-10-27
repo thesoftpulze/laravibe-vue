@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace App\Support;
 
 use Carbon\CarbonImmutable as BaseCarbonImmutable;
-use Carbon\CarbonInterface;
 
-final class CarbonImmutable extends BaseCarbonImmutable implements CarbonInterface
+final class CarbonImmutable extends BaseCarbonImmutable
 {
     public function toApiDate(): string
     {
@@ -26,7 +25,7 @@ final class CarbonImmutable extends BaseCarbonImmutable implements CarbonInterfa
 
     public function toStringDate(): string
     {
-        return $this->format('Y-m-d');
+        return $this->format('M j, Y');
     }
 
     public function toStringTime(): string
@@ -36,6 +35,6 @@ final class CarbonImmutable extends BaseCarbonImmutable implements CarbonInterfa
 
     public function toStringDatetime(): string
     {
-        return $this->format('Y-m-d h:i A');
+        return $this->format('M j, Y h:i A');
     }
 }
