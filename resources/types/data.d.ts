@@ -27,3 +27,22 @@ export interface BrowserSession {
     lastActive: string
     ipAddress: Nullable<string>
 }
+
+export interface Paginated<T> {
+    data: T[]
+    links: {
+        first: Nullable<string>
+        last: Nullable<string>
+        prev: Nullable<string>
+        next: Nullable<string>
+    }
+    meta: {
+        current_page: number
+        from: Nullable<number>
+        last_page: number
+        path: string
+        per_page: number
+        to: Nullable<number>
+        total: number
+    }
+}

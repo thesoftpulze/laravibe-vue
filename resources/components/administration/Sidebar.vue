@@ -15,8 +15,9 @@ import {
 import { cn } from '@/lib/utils'
 import { type NavItem } from '@/types'
 import { dashboard as administrationDashboard } from '@/routes/administration'
+import administrationUsers from '@/routes/administration/users'
 import { Link } from '@inertiajs/vue3'
-import { CircleGauge, FolderGit } from '@lucide/vue'
+import { CircleGauge, FolderGit, Users } from '@lucide/vue'
 import NavFooter from './NavFooter.vue'
 import NavMain from './NavMain.vue'
 import NavUser from './NavUser.vue'
@@ -26,6 +27,11 @@ const mainNavItems: NavItem[] = [
         title: 'Dashboard',
         href: administrationDashboard.url(),
         icon: CircleGauge,
+    },
+    {
+        title: 'Users',
+        href: administrationUsers.index.url(),
+        icon: Users,
     },
 ]
 

@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\DTOs\PageMeta;
+use App\Http\Controllers\Administration\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Response;
 
@@ -14,6 +15,8 @@ Route::middleware(['auth', 'verified', 'can:accessAdministration'])
         Route::redirect('/', 'administration/dashboard');
         Route::get('/dashboard', fn (): Response => vue('administration/Dashboard', metaProps: new PageMeta(title: 'Dashboard')))
             ->name('dashboard');
+
+        Route::get('/users', [UserController::class, 'index'])->name('users.index');
     });
 
 require __DIR__ . '/account.php';
