@@ -24,6 +24,7 @@ describe('shared auth props', function () {
                     ->has('auth.can')
                     ->where('auth.can.updateProfile', false)
                     ->where('auth.can.deleteAccount', false)
+                    ->where('auth.can.accessAdministration', false)
             );
         });
     });
@@ -85,6 +86,17 @@ describe('shared auth props', function () {
                 fn ($page) => $page
                     ->where('auth.can.updateProfile', true)
                     ->where('auth.can.deleteAccount', true)
+                    ->where('auth.can.accessAdministration', false)
+            );
+        });
+
+        test('auth.can allows administration for administrators', function () {
+            $user = User::factory()->admin()->create();
+
+            $response = $this->actingAs($user)->get('/');
+
+            $response->assertInertia(
+                fn ($page) => $page->where('auth.can.accessAdministration', true)
             );
         });
     });

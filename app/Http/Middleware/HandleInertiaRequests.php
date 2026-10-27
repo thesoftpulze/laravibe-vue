@@ -58,6 +58,7 @@ final class HandleInertiaRequests extends Middleware
             return [
                 'updateProfile' => false,
                 'deleteAccount' => false,
+                'accessAdministration' => false,
             ];
         }
 
@@ -66,6 +67,7 @@ final class HandleInertiaRequests extends Middleware
         return [
             'updateProfile' => $gate->allows('updateProfile'),
             'deleteAccount' => $gate->allows('deleteAccount'),
+            'accessAdministration' => $gate->allows('accessAdministration'),
         ];
     }
 }

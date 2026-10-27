@@ -42,6 +42,7 @@ final class AppServiceProvider extends ServiceProvider
     {
         Gate::define('updateProfile', fn (User $user): bool => true);
         Gate::define('deleteAccount', fn (User $user): bool => true);
+        Gate::define('accessAdministration', fn (User $user): bool => $user->is_admin);
     }
 
     /**

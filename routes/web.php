@@ -8,7 +8,7 @@ use Inertia\Response;
 
 Route::get('/', fn (): Response => vue('Home', metaProps: new PageMeta(title: 'Home')))->name('home');
 
-Route::middleware(['auth', 'verified'])
+Route::middleware(['auth', 'verified', 'can:accessAdministration'])
     ->prefix('/administration')->as('administration.')
     ->group(function () {
         Route::redirect('/', 'administration/dashboard');

@@ -4,6 +4,7 @@ import { DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSep
 import type { User } from '@/types/models'
 import { account, logout } from '@/routes'
 import { dashboard as administrationDashboard } from '@/routes/administration'
+import { useAuth } from '@/composables/useAuth'
 import { Link, router, usePage } from '@inertiajs/vue3'
 import { CircleGauge, LogOut, User as UserIcon } from '@lucide/vue'
 
@@ -14,6 +15,8 @@ interface Props {
 const handleLogout = () => {
     router.flushAll()
 }
+
+const { can } = useAuth()
 
 const isInAdministration = () => usePage().url.startsWith('/administration')
 
@@ -28,8 +31,8 @@ defineProps<Props>()
     </DropdownMenuLabel>
     <DropdownMenuSeparator />
     <DropdownMenuGroup>
-        <DropdownMenuItem as-child>
-            <Link v-if="!isInAdministration()" class="block w-full" :href="administrationDashboard.url()" prefetch as="button">
+        <DropdownMenuItem v-if="can('accessAdministration') && !isInAdministration()" as-child>
+            <Link class="block w-full" :href="administrationDashboard.url()" prefetch as="button">
                 <CircleGauge class="mr-2 h-4 w-4" />
                 Administration
             </Link>
