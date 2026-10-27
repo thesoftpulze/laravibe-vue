@@ -53,11 +53,11 @@ test('administrators can search users by name or email', function () {
     User::factory()->create(['name' => 'John Smith', 'email' => 'jsmith@example.org']);
 
     $this->actingAs($admin)
-        ->get(route('administration.users.index', ['search' => 'jane']))
+        ->get(route('administration.users.index', ['search' => 'JANE']))
         ->assertInertia(fn (Assert $page) => $page
             ->has('users.data', 1)
             ->where('users.data.0.name', 'Jane Doe')
-            ->where('filters.search', 'jane')
+            ->where('filters.search', 'JANE')
         );
 
     $this->actingAs($admin)

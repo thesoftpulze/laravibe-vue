@@ -13,10 +13,14 @@ final class DatabaseSeeder extends Seeder
     use WithoutModelEvents;
 
     /**
-     * Seed the application's database.
+     * Seed the application's database with development fixtures. Nothing is seeded in production.
      */
     public function run(): void
     {
+        if (app()->isProduction()) {
+            return;
+        }
+
         User::factory()->admin()->create([
             'name' => 'Admin User',
             'email' => 'admin@example.com',

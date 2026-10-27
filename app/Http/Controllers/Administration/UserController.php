@@ -22,7 +22,9 @@ final class UserController
 
         $users = User::query()
             ->select(['id', 'name', 'email', 'is_admin', 'email_verified_at', 'created_at'])
-            ->when($search !== '', fn (Builder $query): Builder => $query->whereAny(['name', 'email'], 'like', "%{$search}%"))
+            ->when($search !== '', fn (Builder $query): Builder => $query->where(
+                fn (Builder $query): Builder => $query->whereLike('name', "%{$search}%")->orWhereLike('email', "%{$search}%"),
+            ))
             ->latest()
             ->latest('id')
             ->paginate(15)

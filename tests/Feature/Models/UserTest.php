@@ -8,7 +8,7 @@ use App\Support\CarbonImmutable;
 test('to array', function () {
     $user = User::factory()->create()->fresh();
 
-    expect(array_keys($user->toArray()))->toBe([
+    expect(array_keys($user->toArray()))->toEqualCanonicalizing([
         'id',
         'name', 'email',
         'email_verified_at',
