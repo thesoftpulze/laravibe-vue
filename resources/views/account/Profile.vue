@@ -13,6 +13,7 @@ import account from '@/routes/account'
 import { send } from '@/routes/verification'
 import { Info, TriangleAlert, User } from '@lucide/vue'
 import DeleteUser from './partial/DeleteUser.vue'
+import ProfilePicture from './partial/ProfilePicture.vue'
 
 interface Props {
     mustVerifyEmail: boolean
@@ -27,6 +28,8 @@ const user = requireUser()
 <template>
     <SettingsLayout>
         <div class="space-y-6">
+            <ProfilePicture />
+
             <Form method="patch" :action="account.update.url()" class="space-y-4" v-slot="{ errors, processing }">
                 <Card>
                     <CardHeader class="pb-4">

@@ -11,6 +11,7 @@ test('to array', function () {
     expect(array_keys($user->toArray()))->toEqualCanonicalizing([
         'id',
         'name', 'email',
+        'avatar_path',
         'email_verified_at',
         'is_admin',
         'created_at', 'updated_at',

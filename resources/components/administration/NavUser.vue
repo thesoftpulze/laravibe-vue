@@ -3,12 +3,12 @@ import UserInfo from '@/components/UserInfo.vue'
 import UserMenuContent from '@/components/UserMenuContent.vue'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '@/components/ui/sidebar'
-import type { User } from '@/types/models'
-import { usePage } from '@inertiajs/vue3'
+import { useAuth } from '@/composables/useAuth'
 import { ChevronsUpDown } from '@lucide/vue'
+import { computed } from 'vue'
 
-const page = usePage()
-const user = page.props.auth.user as User
+const { requireUser } = useAuth()
+const user = computed(() => requireUser())
 const { isMobile, state } = useSidebar()
 </script>
 

@@ -20,6 +20,15 @@ final class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
     use HasFactory, Notifiable, PasskeyAuthenticatable, TwoFactorAuthenticatable;
 
     /**
+     * The model's default values for attributes.
+     *
+     * @var array<string, mixed>
+     */
+    protected $attributes = [
+        'avatar_path' => null,
+    ];
+
+    /**
      * The attributes that should be hidden for serialization.
      *
      * @var list<string>

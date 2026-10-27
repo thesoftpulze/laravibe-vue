@@ -11,6 +11,10 @@ entries below to port changes into an existing app by hand. Entries marked
 
 ## [Unreleased]
 
+### Added
+
+- Profile picture upload and removal on the Profile page, stored on the `public` disk and shown in the user menus. Run the new `avatar_path` migration and `php artisan storage:link`.
+
 ## [0.2.0] - 2026-10-27
 
 ### Added

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Account;
 
+use App\Actions\Account\DeleteAvatarAction;
 use App\DTOs\PageMeta;
 use App\Http\Requests\Account\ProfileDeleteRequest;
 use App\Http\Requests\Account\ProfileUpdateRequest;
@@ -69,9 +70,11 @@ final class AccountController
     /**
      * Delete the user's profile.
      */
-    public function destroy(ProfileDeleteRequest $request): RedirectResponse
+    public function destroy(ProfileDeleteRequest $request, DeleteAvatarAction $deleteAvatar): RedirectResponse
     {
         $user = authUser();
+
+        $deleteAvatar->handle($user);
 
         Auth::logout();
 
