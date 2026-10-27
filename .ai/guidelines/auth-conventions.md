@@ -1,10 +1,8 @@
 # Auth Conventions for AI Agents
 
-## Authentication Backend Rules
+## Fortify Integration Rules
 
-- Authentication routes and controllers come from Laravel Fortify. Do not add custom auth controllers or routes.
 - Render auth pages through the `Fortify::*View()` callbacks in `App\Providers\FortifyServiceProvider`, using `vue()` with a `PageMeta`.
-- Customize behavior through `app/Actions/Fortify` and by binding Fortify response contracts in `FortifyServiceProvider::register()`.
 - Share validation rules through `App\Concerns\PasswordValidationRules` and `App\Concerns\ProfileValidationRules`.
 - Only enable Fortify features the UI actually supports in `config/fortify.php`.
 
@@ -42,10 +40,3 @@
 - Do not expose sensitive model fields (`password`, `remember_token`, internal tokens) in any shared Inertia prop.
 - Ability values must be booleans. Never serialize raw policy objects, role strings, or permission arrays to the frontend.
 - Client-side `can()` checks are UI conveniences only. Every sensitive action must be authorized on the server.
-
-## Example Prompt Templates
-
-- Add a new `manageTeam` ability to `resolveAbilities()` that checks `$user->hasTeam()` for authenticated users and returns false for guests.
-- Update the `User` TypeScript interface to add an optional `phone?: string | null` field after adding it to `UserResource`.
-- Use `requireUser()` in a new protected Vue page to access the authenticated user without optional chaining.
-- Add `can('publishPost')` gating to hide a publish button for users who lack the ability.

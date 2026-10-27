@@ -55,9 +55,3 @@
 - Add at least one integration-level assertion when controller behavior changes toast output.
 - Run focused tests first:
     - php artisan test --compact tests/Feature/Toast/ToastTest.php tests/Feature/Toast/HelperTest.php
-
-## Prompt Templates
-
-- Add a new toast action type end-to-end using enum, DTO, Vue renderer, and tests.
-- Add toast metadata support while keeping backward compatibility and strict hydration.
-- Refactor toast helper ergonomics without changing the flash transport behavior.
