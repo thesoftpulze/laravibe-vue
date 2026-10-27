@@ -11,6 +11,8 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-06B6D4?style=flat-square&logo=tailwindcss)](https://tailwindcss.com)
 [![License](https://img.shields.io/badge/License-MIT-brightgreen?style=flat-square)](LICENSE)
 
+Made by [The SoftPulze](https://softpulze.com)
+
 </div>
 
 ## Stack
@@ -66,7 +68,7 @@ When prompted for third-party packages, select **thesoftpulze/laravibe-standards
 - Frontend code lives directly in `resources/` (`components/`, `composables/`, `layouts/`, `views/`). There is no `resources/js`.
 - Actions, DTOs, enums and resources follow [laravibe-standards](https://github.com/thesoftpulze/laravibe-standards), which provides `make:action`, `make:dto` and the `make:enum` / `make:resource` stubs.
 - Models are unguarded. Pass only validated or explicitly built arrays to `create()`, `fill()` and `update()`.
-- Framework defaults live in `App\Support\LaraTweaks`. See [app/Support/README.md](app/Support/README.md).
+- Framework defaults live in `App\Support\LaraTweaks`, and dates use `App\Support\CarbonImmutable`. See [app/Support/README.md](app/Support/README.md) to customize them.
 - Wayfinder output (`resources/actions`, `resources/routes`, `resources/wayfinder`) is generated during `composer dev` and builds, and is gitignored. The app overrides `wayfinder:generate` to write to `resources/`, so don't pass `--path`.
 
 ## Scripts
@@ -82,6 +84,15 @@ When prompted for third-party packages, select **thesoftpulze/laravibe-standards
 | `composer build` / `build:ssr`     | Build frontend assets, optionally with the SSR bundle |
 | `composer deps:update`             | Update Composer and npm packages                      |
 
+## Credits
+
+LaraVibe-Vue is developed and maintained by [The SoftPulze](https://softpulze.com).
+
+- [Ashok Barua](https://ashokbaruaakas.com), creator and maintainer
+- [All contributors](https://github.com/thesoftpulze/laravibe-vue/graphs/contributors)
+
+Built on [Laravel](https://laravel.com), [Inertia.js](https://inertiajs.com), [Vue](https://vuejs.org) and [shadcn-vue](https://www.shadcn-vue.com), and inspired by the official Laravel starter kits.
+
 ## License
 
-MIT. See [LICENSE](LICENSE).
+LaraVibe-Vue is open-source software licensed under the [MIT license](LICENSE). Copyright © 2025-present The SoftPulze.

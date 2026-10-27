@@ -13,10 +13,21 @@
         "open-source"
     ],
     "license": "MIT",
+    "homepage": "https://softpulze.com",
+    "support": {
+        "issues": "https://github.com/thesoftpulze/laravibe-vue/issues",
+        "source": "https://github.com/thesoftpulze/laravibe-vue"
+    },
     "authors": [
         {
+            "name": "The SoftPulze",
+            "homepage": "https://softpulze.com"
+        },
+        {
             "name": "Ashok Barua",
-            "email": "ashokbaruaakas@gmail.com"
+            "email": "ashokbaruaakas@gmail.com",
+            "homepage": "https://ashokbaruaakas.com",
+            "role": "Maintainer"
         }
     ],
     "require": {

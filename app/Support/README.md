@@ -49,6 +49,26 @@ Helpers in `Helpers.php`:
 - `deferProp()` - wraps `Inertia::defer()`.
 - `alwaysProp()` - wraps `Inertia::always()`.
 
+## Customizing
+
+This code belongs to your app, so change it directly:
+
+- **Dates:** add methods to `CarbonImmutable` and every framework date gets them, including model timestamps:
+
+    ```php
+    public function toStringMonth(): string
+    {
+        return $this->format('F Y');
+    }
+    ```
+
+    Change a format by editing its method. Keep the API formatters stable, because the frontend parses them.
+
+- **Framework defaults:** add a static method to `LaraTweaks` and call it from `default()`, or remove a call to turn a default off.
+- **Helpers:** add global functions to `Helpers.php`. They're autoloaded through `composer.json`.
+
+Action, DTO, enum and resource conventions come from [laravibe-standards](https://github.com/thesoftpulze/laravibe-standards). It provides the `AsDTO` and `HasEnumMetadata` traits, the `AppResource` field helpers, and the `make:action` / `make:dto` generators. The stubs it generates from are published in `stubs/`, so edit them to change what new classes look like.
+
 ## Guidelines
 
 - Keep this layer framework-oriented and lightweight.
