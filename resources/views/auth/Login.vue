@@ -22,8 +22,7 @@ defineProps<{
 const remember = ref<boolean | 'indeterminate'>(false)
 
 const {
-    verify: signInWithPasskey,
-    isLoading: passkeyLoading,
+    verify: verifyPasskey,
     error: passkeyError,
     isSupported: passkeySupported,
 } = usePasskeyVerify({
@@ -37,6 +36,22 @@ const {
         router.visit(response.redirect ?? '/')
     },
 })
+
+/**
+ * The composable's `isLoading` stays true while autofill waits in the background,
+ * so the button tracks only the sign-ins it starts itself.
+ */
+const passkeyLoading = ref(false)
+
+async function signInWithPasskey(): Promise<void> {
+    passkeyLoading.value = true
+
+    try {
+        await verifyPasskey()
+    } finally {
+        passkeyLoading.value = false
+    }
+}
 </script>
 
 <template>
