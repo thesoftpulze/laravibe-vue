@@ -14,7 +14,7 @@ test('profile page is displayed', function () {
 
     $response = $this
         ->actingAs($user)
-        ->get('/account');
+        ->get('/account/profile');
 
     $response->assertOk();
 });
@@ -33,7 +33,7 @@ test('profile information can be updated', function () {
     $response
         ->assertSessionHasNoErrors()
         ->assertInertiaFlash('toasts', [['type' => 'success', 'message' => 'Profile updated successfully.']])
-        ->assertRedirect('/account');
+        ->assertRedirect('/account/profile');
 
     $user->refresh();
 
@@ -56,7 +56,7 @@ test('email verification status is unchanged when the email address is unchanged
 
     $response
         ->assertSessionHasNoErrors()
-        ->assertRedirect('/account');
+        ->assertRedirect('/account/profile');
 
     expect($user->refresh()->email_verified_at)->not->toBeNull();
     Notification::assertNothingSent();

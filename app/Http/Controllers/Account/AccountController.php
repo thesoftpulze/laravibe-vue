@@ -15,14 +15,29 @@ use Inertia\Response;
 
 final class AccountController
 {
+    /**
+     * Show an overview of the user's account.
+     */
+    public function show(): Response
+    {
+        $user = authUser();
+
+        return vue('account/Overview', [
+            'twoFactorEnabled' => $user->hasEnabledTwoFactorAuthentication(),
+            'passkeyCount' => $user->passkeys()->count(),
+        ], new PageMeta(
+            title: 'Account',
+        ));
+    }
+
     public function edit(Request $request): Response
     {
-        return vue('account/General', [
+        return vue('account/Profile', [
             // @phpstan-ignore-next-line instanceof.alwaysTrue
             'mustVerifyEmail' => authUser() instanceof MustVerifyEmail,
             'status' => $request->session()->get('status'),
         ], new PageMeta(
-            title: 'Account',
+            title: 'Profile',
         ));
     }
 
@@ -48,7 +63,7 @@ final class AccountController
 
         toastSuccess('Profile updated successfully.');
 
-        return to_route('account');
+        return to_route('account.profile');
     }
 
     /**

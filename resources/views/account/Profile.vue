@@ -32,9 +32,9 @@ const user = requireUser()
                     <CardHeader class="pb-4">
                         <CardTitle class="flex items-center gap-2 text-lg font-medium">
                             <User class="size-4 text-primary" />
-                            General
+                            Profile
                         </CardTitle>
-                        <CardDescription class="text-sm text-muted-foreground"> General settings related to your profile. </CardDescription>
+                        <CardDescription class="text-sm text-muted-foreground"> Your name and email address. </CardDescription>
                     </CardHeader>
                     <CardContent class="space-y-4">
                         <div class="grid gap-4 sm:grid-cols-2">

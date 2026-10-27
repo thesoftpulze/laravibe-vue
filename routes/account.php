@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Response;
 
 Route::middleware('auth')->group(function () {
-    Route::get('/account', [AccountController::class, 'edit'])->name('account');
+    Route::get('/account', [AccountController::class, 'show'])->name('account');
+    Route::get('/account/profile', [AccountController::class, 'edit'])->name('account.profile');
     Route::patch('/account', [AccountController::class, 'update'])->name('account.update');
     Route::delete('/account', [AccountController::class, 'destroy'])->name('account.destroy');
 
