@@ -181,16 +181,16 @@ See [resources/composables/README.md](resources/composables/README.md) for the f
 
 Every part of the app has a clear home and a convention to follow — documented with READMEs so your whole team stays consistent:
 
-| Layer              | Purpose                                                | Docs                                   |
-| ------------------ | ------------------------------------------------------ | -------------------------------------- |
-| **Actions**        | Single-responsibility business operations              | [README](app/Actions/README.md)        |
-| **DTOs**           | Typed data transfer objects (`PageMeta`, `BreadCrumb`) | [README](app/DTOs/README.md)           |
-| **Enums**          | Backed enums with shared behavior                      | [README](app/Enums/README.md)          |
-| **HTTP Resources** | Eloquent serialization for API & Inertia               | [README](app/Http/Resources/README.md) |
+| Layer              | Purpose                                                | Docs                                                                                                |
+| ------------------ | ------------------------------------------------------ | --------------------------------------------------------------------------------------------------- |
+| **Actions**        | Single-responsibility business operations              | [laravibe-standards](https://github.com/thesoftpulze/laravibe-standards#actions)                    |
+| **DTOs**           | Typed data transfer objects (`PageMeta`, `BreadCrumb`) | [laravibe-standards](https://github.com/thesoftpulze/laravibe-standards#dtos-data-transfer-objects) |
+| **Enums**          | Backed enums with shared behavior                      | [laravibe-standards](https://github.com/thesoftpulze/laravibe-standards#enums)                      |
+| **HTTP Resources** | Eloquent serialization for API & Inertia               | [laravibe-standards](https://github.com/thesoftpulze/laravibe-standards#resources)                  |
+| **Support**        | Framework utilities and helpers                        | [README](app/Support/README.md)                                                                     |
+| **Toast**          | Self-contained notification system                     | [README](app/Toast/README.md)                                                                       |
 
-DTO, enum, and resource conventions come from the [`thesoftpulze/laravibe-standards`](https://github.com/thesoftpulze/laravibe-standards) package, which also provides `make:dto` and the published `make:enum` / `make:resource` stubs.
-| **Support** | Framework utilities and helpers | [README](app/Support/README.md) |
-| **Toast** | Self-contained notification system | [README](app/Toast/README.md) |
+Action, DTO, enum, and resource conventions come from the [`thesoftpulze/laravibe-standards`](https://github.com/thesoftpulze/laravibe-standards) package, which also provides `make:action`, `make:dto`, and the published `make:enum` / `make:resource` stubs.
 
 ### Project Structure
 

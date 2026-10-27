@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3c6612e2e67eaa6c0869091aa7686684",
+    "content-hash": "07445cf04a960ab6df4ef3a964b70ca1",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -7311,16 +7311,16 @@
         },
         {
             "name": "thesoftpulze/laravibe-standards",
-            "version": "v0.5.0",
+            "version": "v0.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thesoftpulze/laravibe-standards.git",
-                "reference": "311ef78fed35c0b74b9f4da51cd98cdcaca6c4cc"
+                "reference": "537d30a1e32043dede3bb7de1967bbc023639812"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thesoftpulze/laravibe-standards/zipball/311ef78fed35c0b74b9f4da51cd98cdcaca6c4cc",
-                "reference": "311ef78fed35c0b74b9f4da51cd98cdcaca6c4cc",
+                "url": "https://api.github.com/repos/thesoftpulze/laravibe-standards/zipball/537d30a1e32043dede3bb7de1967bbc023639812",
+                "reference": "537d30a1e32043dede3bb7de1967bbc023639812",
                 "shasum": ""
             },
             "require": {
@@ -7358,6 +7358,7 @@
                 {
                     "name": "Ashok Barua",
                     "email": "ashokbaruaakas@gmail.com",
+                    "homepage": "https://ashokbaruaakas.com",
                     "role": "Developer"
                 }
             ],
@@ -7370,7 +7371,7 @@
             ],
             "support": {
                 "issues": "https://github.com/thesoftpulze/laravibe-standards/issues",
-                "source": "https://github.com/thesoftpulze/laravibe-standards/tree/v0.5.0"
+                "source": "https://github.com/thesoftpulze/laravibe-standards/tree/v0.7.1"
             },
             "funding": [
                 {
@@ -7378,7 +7379,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-10-24T19:18:56+00:00"
+            "time": "2026-10-27T05:54:39+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",

@@ -138,7 +138,7 @@ interface User {
 
 **File:** `resources/composables/usePageMeta.ts`
 
-Returns the current page's `PageMeta` props (title, breadcrumbs, etc.) as a computed ref. See [app/DTOs/README.md](../../app/DTOs/README.md) for the full `PageMeta` DTO shape.
+Returns the current page's `PageMeta` props (title, breadcrumbs, etc.) as a computed ref. See [app/DTOs/PageMeta.php](../../app/DTOs/PageMeta.php) for the full `PageMeta` DTO shape.
 
 ```ts
 const meta = usePageMeta()
