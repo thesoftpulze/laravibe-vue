@@ -46,7 +46,12 @@ const navGroups = ref<NavGroup[]>([
             <aside class="w-full md:max-w-3xl lg:w-56">
                 <Card>
                     <CardContent class="space-y-4 px-4">
-                        <nav v-for="(group, index) in navGroups" :key="group.label ?? index" class="flex flex-col space-y-1">
+                        <nav
+                            v-for="(group, index) in navGroups"
+                            :key="group.label ?? index"
+                            :aria-label="group.label ?? 'Overview'"
+                            class="flex flex-col space-y-1"
+                        >
                             <p v-if="group.label" class="px-3 pb-1 text-xs font-medium text-muted-foreground">{{ group.label }}</p>
                             <Button
                                 v-for="item in group.items"
