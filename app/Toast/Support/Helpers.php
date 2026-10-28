@@ -8,31 +8,32 @@ if (! function_exists('toast')) {
         return resolve(App\Toast\Toast::class);
     }
 }
+
 if (! function_exists('toastError')) {
-    function toastError(string $message, App\Toast\DTOs\ToastActionPayload ...$actions): void
+    function toastError(string $message, App\Toast\DTOs\ToastActionPayload ...$actions): App\Toast\PendingToast
     {
-        App\Toast\DTOs\ToastPayload::error($message, ...$actions);
+        return toast()->error($message)->action(...$actions);
     }
 }
 
 if (! function_exists('toastSuccess')) {
-    function toastSuccess(string $message, App\Toast\DTOs\ToastActionPayload ...$actions): void
+    function toastSuccess(string $message, App\Toast\DTOs\ToastActionPayload ...$actions): App\Toast\PendingToast
     {
-        App\Toast\DTOs\ToastPayload::success($message, ...$actions);
+        return toast()->success($message)->action(...$actions);
     }
 }
 
 if (! function_exists('toastWarning')) {
-    function toastWarning(string $message, App\Toast\DTOs\ToastActionPayload ...$actions): void
+    function toastWarning(string $message, App\Toast\DTOs\ToastActionPayload ...$actions): App\Toast\PendingToast
     {
-        App\Toast\DTOs\ToastPayload::warning($message, ...$actions);
+        return toast()->warning($message)->action(...$actions);
     }
 }
 
 if (! function_exists('toastInfo')) {
-    function toastInfo(string $message, App\Toast\DTOs\ToastActionPayload ...$actions): void
+    function toastInfo(string $message, App\Toast\DTOs\ToastActionPayload ...$actions): App\Toast\PendingToast
     {
-        App\Toast\DTOs\ToastPayload::info($message, ...$actions);
+        return toast()->info($message)->action(...$actions);
     }
 }
 
@@ -47,5 +48,12 @@ if (! function_exists('toastActionRedirect')) {
     function toastActionRedirect(string $redirectURL, ?string $label = null): App\Toast\DTOs\ToastActionPayload
     {
         return App\Toast\DTOs\ToastActionPayload::redirect($redirectURL, $label);
+    }
+}
+
+if (! function_exists('toastActionVisit')) {
+    function toastActionVisit(string $url, ?string $label = null): App\Toast\DTOs\ToastActionPayload
+    {
+        return App\Toast\DTOs\ToastActionPayload::visit($url, $label);
     }
 }

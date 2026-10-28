@@ -42,6 +42,15 @@ describe('toastActionRedirect', function () {
     });
 });
 
+describe('toastActionVisit', function () {
+    it('creates a visit action with URL and label', function () {
+        expect(toastActionVisit('/account', 'View'))
+            ->type->toBe(ToastActionType::VISIT)
+            ->payload->toBe('/account')
+            ->label->toBe('View');
+    });
+});
+
 describe('toastError', function () {
     it('creates an error toast message', function () {
         toastError('An error occurred');
@@ -83,6 +92,14 @@ describe('toastSuccess', function () {
             ->and($toast[0])
             ->toHaveKey('type', ToastType::SUCCESS->value)
             ->toHaveKey('message', 'Operation completed successfully');
+    });
+
+    it('returns a builder for adding more details to the toast', function () {
+        toastSuccess('Saved', toastActionCopy('ref-1'))->description('Reference ref-1.');
+
+        expect(toast()->pull()[0])
+            ->toHaveKey('description', 'Reference ref-1.')
+            ->toHaveKey('actions', [['type' => 'copy', 'payload' => 'ref-1', 'label' => null]]);
     });
 });
 

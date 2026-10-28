@@ -12,4 +12,5 @@ enum ToastActionType: string
 
     case COPY = 'copy';
     case REDIRECT = 'redirect';
+    case VISIT = 'visit';
 }

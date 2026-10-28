@@ -32,9 +32,20 @@ final readonly class ToastActionPayload implements Arrayable, Jsonable
         return new self(ToastActionType::COPY, $payloadToCopy, $label);
     }
 
+    /**
+     * Open the URL in a new tab.
+     */
     public static function redirect(string $redirectURL, ?string $label = null): self
     {
         return new self(ToastActionType::REDIRECT, $redirectURL, $label);
+    }
+
+    /**
+     * Visit the URL in the same tab with an Inertia visit.
+     */
+    public static function visit(string $url, ?string $label = null): self
+    {
+        return new self(ToastActionType::VISIT, $url, $label);
     }
 
     protected static function shouldThrowOnUnknownKeys(): bool

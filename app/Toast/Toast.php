@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Toast;
 
+use App\Enums\ToastType;
 use App\Toast\DTOs\ToastPayload;
 use Inertia\Support\SessionKey;
 
@@ -15,6 +16,26 @@ final class Toast
     public const string KEY = 'toasts';
 
     private const int MAX_QUEUE_ITEMS = 5;
+
+    public function success(string $message): PendingToast
+    {
+        return new PendingToast($this, ToastType::SUCCESS, $message);
+    }
+
+    public function error(string $message): PendingToast
+    {
+        return new PendingToast($this, ToastType::ERROR, $message);
+    }
+
+    public function warning(string $message): PendingToast
+    {
+        return new PendingToast($this, ToastType::WARNING, $message);
+    }
+
+    public function info(string $message): PendingToast
+    {
+        return new PendingToast($this, ToastType::INFO, $message);
+    }
 
     /**
      * Retrieve the queued toasts and remove them from the flash data.

@@ -17,23 +17,45 @@ Flow:
 
 Use the global helper functions for common toasts:
 
-- toastSuccess(string $message, ToastActionPayload ...$actions): void
-- toastError(string $message, ToastActionPayload ...$actions): void
-- toastWarning(string $message, ToastActionPayload ...$actions): void
-- toastInfo(string $message, ToastActionPayload ...$actions): void
+- toastSuccess(string $message, ToastActionPayload ...$actions): PendingToast
+- toastError(string $message, ToastActionPayload ...$actions): PendingToast
+- toastWarning(string $message, ToastActionPayload ...$actions): PendingToast
+- toastInfo(string $message, ToastActionPayload ...$actions): PendingToast
 
 Use action helpers when needed:
 
 - toastActionCopy(string $payloadToCopy, ?string $label = null): ToastActionPayload
-- toastActionRedirect(string $redirectURL, ?string $label = null): ToastActionPayload
+- toastActionVisit(string $url, ?string $label = null): ToastActionPayload — same-tab Inertia visit
+- toastActionRedirect(string $redirectURL, ?string $label = null): ToastActionPayload — opens a new tab
 
 Example:
 
 ```php
 toastSuccess(
     'Profile updated successfully.',
-    toastActionRedirect(route('account'), 'Open Account')
+    toastActionVisit(route('account'), 'Open Account')
 );
+```
+
+### Builder
+
+The helpers (and `toast()->success()`, `error()`, `warning()`, `info()`) return a `PendingToast`. Chain it for extra details:
+
+```php
+toastSuccess('Invoice sent.')
+    ->description('A copy went to billing@example.com.')
+    ->action(toastActionVisit(route('invoices.show', $invoice), 'View'))
+    ->persistent();      // or ->duration(10_000)
+```
+
+Like Laravel's `PendingDispatch`, it queues itself when it goes out of scope. If you keep it in a variable, call `send()` to queue it straight away; it is never queued twice.
+
+### ToastException
+
+Throw `ToastException` to go back with a toast. It accepts a type, description and actions:
+
+```php
+throw new ToastException('Payment failed.', description: 'Your card was declined.', actions: [toastActionVisit('/billing', 'Update card')]);
 ```
 
 ### DTO-first usage
@@ -47,6 +69,7 @@ use App\Toast\DTOs\ToastPayload;
 $toast = new ToastPayload(
     type: ToastType::SUCCESS,
     message: 'Saved',
+    description: 'Your changes are live.',
     actions: null,
     duration: 8000,
     dismissible: true,
@@ -63,13 +86,14 @@ ToastPayload serializes to:
 
 - type: error | success | warning | info
 - message: string
+- description?: string
 - actions?: array of ToastActionPayload
-- duration?: int (milliseconds)
-- dismissible?: bool
+- duration?: int (milliseconds, 0 keeps it open until closed)
+- dismissible?: bool (whether the user can close it before it times out)
 
 ToastActionPayload serializes to:
 
-- type: copy | redirect
+- type: copy | redirect | visit
 - payload: string
 - label?: string | null
 
@@ -93,10 +117,25 @@ Frontend handling is in:
 
 Current behavior includes:
 
+- One Toaster, mounted by `registerToaster()` outside the page tree, so toasts survive layout changes
+- Placement in ToastProvider.vue: bottom-right on desktop, top-center on phones
+- Per-type default durations (success/info 4s, warning 6s, error 8s), overridable per toast
 - Runtime guards for incoming toast payloads
 - Idempotent toaster registration and cleanup
-- Support for per-toast duration and dismissible options
-- Action rendering for copy and redirect types
+- Action rendering for copy, visit and redirect types
+
+Client-side toasts use the same renderer:
+
+```ts
+const toast = useToast()
+
+toast.success('Copied.', { description: 'Paste it anywhere.' })
+const id = toast.info('Uploading…', { duration: 0 })
+toast.dismiss(id)
+
+// Loading toast that turns into a success or error toast; rethrows on failure.
+await toast.promise(saveDraft(), { loading: 'Saving…', success: 'Draft saved.', error: 'Could not save the draft.' })
+```
 
 ## Testing
 

@@ -21,6 +21,8 @@ final readonly class ToastPayload implements Arrayable, Jsonable
 
     /**
      * Create a new class instance.
+     *
+     * A duration of 0 keeps the toast open until it is closed.
      */
     public function __construct(
         public ToastType $type,
@@ -29,6 +31,7 @@ final readonly class ToastPayload implements Arrayable, Jsonable
         public ?array $actions = null,
         public ?int $duration = null,
         public ?bool $dismissible = null,
+        public ?string $description = null,
     ) {
         // ...
     }
@@ -59,7 +62,7 @@ final readonly class ToastPayload implements Arrayable, Jsonable
     public static function fromArray(array $data): static
     {
         if (self::shouldThrowOnUnknownKeys()) {
-            $unknownKeys = array_diff_key($data, ['type' => true, 'message' => true, 'actions' => true, 'duration' => true, 'dismissible' => true]);
+            $unknownKeys = array_diff_key($data, ['type' => true, 'message' => true, 'actions' => true, 'duration' => true, 'dismissible' => true, 'description' => true]);
 
             if ($unknownKeys !== []) {
                 $keys = implode(', ', array_keys($unknownKeys));
@@ -87,6 +90,16 @@ final readonly class ToastPayload implements Arrayable, Jsonable
             is_int($data['message']), is_float($data['message']), is_bool($data['message']) => (string) $data['message'],
             default => throw new InvalidArgumentException('Invalid type for property [message] on ' . self::class . '. Expected [string], got [' . gettype($data['message']) . '].'),
         };
+
+        $description = null;
+
+        if (array_key_exists('description', $data) && $data['description'] !== null) {
+            if (! is_string($data['description'])) {
+                throw new InvalidArgumentException('Invalid type for property [description] on ' . self::class . '. Expected [string], got [' . gettype($data['description']) . '].');
+            }
+
+            $description = $data['description'];
+        }
 
         /** @var array<int, ToastActionPayload>|null $actions */
         $actions = null;
@@ -126,6 +139,10 @@ final readonly class ToastPayload implements Arrayable, Jsonable
             } else {
                 throw new InvalidArgumentException('Invalid type for property [duration] on ' . self::class . '. Expected [int], got [' . gettype($data['duration']) . '].');
             }
+
+            if ($duration < 0) {
+                throw new InvalidArgumentException('Invalid value for property [duration] on ' . self::class . '. Expected a non-negative number of milliseconds.');
+            }
         }
 
         $dismissible = null;
@@ -146,7 +163,7 @@ final readonly class ToastPayload implements Arrayable, Jsonable
             }
         }
 
-        return new self($type, $message, $actions, $duration, $dismissible);
+        return new self($type, $message, $actions, $duration, $dismissible, $description);
     }
 
     /**
@@ -160,6 +177,10 @@ final readonly class ToastPayload implements Arrayable, Jsonable
             'type' => $this->type->value,
             'message' => $this->message,
         ];
+
+        if ($this->description !== null) {
+            $toastArray['description'] = $this->description;
+        }
 
         if (is_array($this->actions) && count($this->actions) > 0) {
             $toastArray['actions'] = array_map(fn (ToastActionPayload $action): array => $action->toArray(), $this->actions);

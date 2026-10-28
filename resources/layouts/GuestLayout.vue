@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import Header from '@/components/guest/Header.vue'
 import { HeaderLayout as Layout } from '@/components/layout'
-import { ToastProvider } from '@/components/toast'
 import { usePageMeta } from '@/composables/usePageMeta'
 import type { Breadcrumb } from '@/types/data'
 import { Head } from '@inertiajs/vue3'
@@ -26,7 +25,5 @@ const meta = usePageMeta()
         </template>
 
         <slot />
-
-        <ToastProvider />
     </Layout>
 </template>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Button } from '@/components/ui/button'
-import { pushToast } from '@/components/toast'
+import { useToast } from '@/components/toast'
 import { cn } from '@/lib/utils'
 import { Check, Copy } from '@lucide/vue'
 import { useTimeoutFn } from '@vueuse/core'
@@ -12,6 +12,8 @@ const commands = {
 } as const
 
 type Installer = keyof typeof commands
+
+const toast = useToast()
 
 const installer = ref<Installer>('laravel')
 const command = computed(() => commands[installer.value])
@@ -44,7 +46,7 @@ const copy = async (value: string): Promise<boolean> => {
 
 const copyCommand = async (): Promise<void> => {
     if (!navigator.clipboard) {
-        pushToast({ type: 'error', message: 'Copying is not available in this browser.' })
+        toast.error('Copying is not available in this browser.')
 
         return
     }
@@ -57,14 +59,14 @@ const copyCommand = async (): Promise<void> => {
         }
     } catch {
         copiedCommand.value = null
-        pushToast({ type: 'error', message: 'Could not copy the install command.' })
+        toast.error('Could not copy the install command.')
 
         return
     }
 
     copiedCommand.value = value
     resetCopied()
-    pushToast({ type: 'success', message: 'Install command copied.' })
+    toast.success('Install command copied.')
 }
 </script>
 
