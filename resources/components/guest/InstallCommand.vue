@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { pushToast } from '@/components/toast'
 import { cn } from '@/lib/utils'
 import { Check, Copy } from '@lucide/vue'
-import { useClipboard } from '@vueuse/core'
+import { useTimeoutFn } from '@vueuse/core'
 import { computed, ref } from 'vue'
 
 const commands = {
@@ -16,16 +16,54 @@ type Installer = keyof typeof commands
 const installer = ref<Installer>('laravel')
 const command = computed(() => commands[installer.value])
 
-const { copy, copied, isSupported } = useClipboard({ copiedDuring: 2000 })
+const copiedCommand = ref<string | null>(null)
+const copied = computed(() => copiedCommand.value === command.value)
+const { start: resetCopied } = useTimeoutFn(() => (copiedCommand.value = null), 2000, { immediate: false })
+
+const copy = async (value: string): Promise<boolean> => {
+    try {
+        await navigator.clipboard.writeText(value)
+
+        return true
+    } catch {
+        const textarea = document.createElement('textarea')
+        textarea.value = value
+        textarea.style.position = 'absolute'
+        textarea.style.opacity = '0'
+        document.body.appendChild(textarea)
+
+        try {
+            textarea.select()
+
+            return document.execCommand('copy')
+        } finally {
+            textarea.remove()
+        }
+    }
+}
 
 const copyCommand = async (): Promise<void> => {
-    if (!isSupported.value) {
+    if (!navigator.clipboard) {
         pushToast({ type: 'error', message: 'Copying is not available in this browser.' })
 
         return
     }
 
-    await copy(command.value)
+    const value = command.value
+
+    try {
+        if (!(await copy(value))) {
+            throw new Error('Clipboard write failed.')
+        }
+    } catch {
+        copiedCommand.value = null
+        pushToast({ type: 'error', message: 'Could not copy the install command.' })
+
+        return
+    }
+
+    copiedCommand.value = value
+    resetCopied()
     pushToast({ type: 'success', message: 'Install command copied.' })
 }
 </script>
