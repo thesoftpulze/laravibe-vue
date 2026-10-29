@@ -2,7 +2,7 @@
 import InstallCommand from '@/components/guest/InstallCommand.vue'
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/composables/useAuth'
-import { account, register } from '@/routes'
+import { account, login, register } from '@/routes'
 import { Link } from '@inertiajs/vue3'
 import { ArrowRight, FolderGit } from '@lucide/vue'
 
@@ -36,8 +36,11 @@ const { user } = useAuth()
             <Button v-if="user" asChild>
                 <Link :href="account.url()">Go to your account <ArrowRight /></Link>
             </Button>
-            <Button v-else asChild>
+            <Button v-else-if="$page.props.canRegister" asChild>
                 <Link :href="register.url()">Get started <ArrowRight /></Link>
+            </Button>
+            <Button v-else asChild>
+                <Link :href="login.url()">Log in <ArrowRight /></Link>
             </Button>
             <Button variant="ghost" asChild>
                 <a :href="repositoryUrl" target="_blank" rel="noopener"><FolderGit /> GitHub</a>

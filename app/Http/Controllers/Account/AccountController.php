@@ -8,6 +8,7 @@ use App\Actions\Account\DeleteAvatarAction;
 use App\DTOs\PageMeta;
 use App\Http\Requests\Account\ProfileDeleteRequest;
 use App\Http\Requests\Account\ProfileUpdateRequest;
+use App\Settings\AuthenticationSettings;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -31,11 +32,11 @@ final class AccountController
         ));
     }
 
-    public function edit(Request $request): Response
+    public function edit(Request $request, AuthenticationSettings $authentication): Response
     {
         return vue('account/Profile', [
             // @phpstan-ignore-next-line instanceof.alwaysTrue
-            'mustVerifyEmail' => authUser() instanceof MustVerifyEmail,
+            'mustVerifyEmail' => authUser() instanceof MustVerifyEmail && $authentication->requireEmailVerification,
             'status' => $request->session()->get('status'),
         ], new PageMeta(
             title: 'Profile',

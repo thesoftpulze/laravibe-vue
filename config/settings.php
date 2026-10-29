@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
+use App\Settings\AuthenticationSettings;
 use App\Settings\GeneralSettings;
+use App\Settings\MailSettings;
 
 return [
 
@@ -19,6 +21,8 @@ return [
 
     'groups' => [
         GeneralSettings::class,
+        AuthenticationSettings::class,
+        MailSettings::class,
     ],
 
 ];

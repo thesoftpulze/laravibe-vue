@@ -76,11 +76,11 @@ const navigationItems = ref<NavItem[]>([
                                     </Link>
                                 </nav>
                                 <div class="flex flex-col space-y-4">
-                                    <div class="grid grid-cols-2 gap-2 lg:hidden" v-if="!user">
+                                    <div :class="['grid gap-2 lg:hidden', $page.props.canRegister ? 'grid-cols-2' : 'grid-cols-1']" v-if="!user">
                                         <Button variant="outline" size="sm" class="h-9" asChild>
                                             <Link :href="login.url()"> Log In </Link>
                                         </Button>
-                                        <Button size="sm" class="h-9" asChild>
+                                        <Button v-if="$page.props.canRegister" size="sm" class="h-9" asChild>
                                             <Link :href="register.url()"> Sign Up </Link>
                                         </Button>
                                     </div>
@@ -141,11 +141,11 @@ const navigationItems = ref<NavItem[]>([
 
                     <!-- Auth Buttons -->
                     <template v-else>
-                        <div class="hidden grid-cols-2 gap-2 lg:inline-grid">
+                        <div :class="['hidden gap-2 lg:inline-grid', $page.props.canRegister ? 'grid-cols-2' : 'grid-cols-1']">
                             <Button variant="outline" size="sm" class="h-9" asChild>
                                 <Link :href="login.url()"> Log In </Link>
                             </Button>
-                            <Button size="sm" class="h-9" asChild>
+                            <Button v-if="$page.props.canRegister" size="sm" class="h-9" asChild>
                                 <Link :href="register.url()"> Sign Up </Link>
                             </Button>
                         </div>

@@ -5,7 +5,7 @@ import { isNavItemActive } from '@/lib/helpers'
 import administrationSettings from '@/routes/administration/settings'
 import type { NavItem } from '@/types'
 import { Link, usePage } from '@inertiajs/vue3'
-import { SlidersHorizontal } from '@lucide/vue'
+import { Mail, ShieldCheck, SlidersHorizontal } from '@lucide/vue'
 import { computed } from 'vue'
 
 const page = usePage()
@@ -20,6 +20,18 @@ const sections: NavItem[] = [
         href: administrationSettings.general.edit.url(),
         icon: SlidersHorizontal,
         isActive: isCurrent(administrationSettings.general.edit.url()),
+    },
+    {
+        title: 'Authentication',
+        href: administrationSettings.authentication.edit.url(),
+        icon: ShieldCheck,
+        isActive: isCurrent(administrationSettings.authentication.edit.url()),
+    },
+    {
+        title: 'Mail',
+        href: administrationSettings.mail.edit.url(),
+        icon: Mail,
+        isActive: isCurrent(administrationSettings.mail.edit.url()),
     },
 ]
 </script>

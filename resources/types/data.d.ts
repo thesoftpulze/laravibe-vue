@@ -70,3 +70,13 @@ export interface GeneralSettings {
     tagline: Nullable<string>
     supportEmail: Nullable<string>
 }
+
+export interface AuthenticationSettings {
+    allowRegistration: boolean
+    requireEmailVerification: boolean
+}
+
+export interface MailSettings {
+    fromName: Nullable<string>
+    fromAddress: Nullable<string>
+}
