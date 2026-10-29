@@ -29,10 +29,10 @@ test('administrators see a paginated list of users', function () {
             ->component('administration/users/Index')
             ->has('users.data', 15)
             ->has('users.data.0', fn (Assert $user) => $user
-                ->hasAll(['id', 'name', 'email', 'is_admin', 'email_verified_at', 'created_at'])
+                ->hasAll(['id', 'name', 'email', 'avatar', 'is_admin', 'email_verified_at', 'created_at', 'can'])
             )
             ->where('users.meta.total', 21)
-            ->where('filters.search', '')
+            ->where('filters', ['search' => null, 'role' => null, 'verification' => null, 'sort' => null, 'direction' => null])
         );
 });
 
@@ -77,5 +77,77 @@ test('pagination links keep the search query', function () {
         ->assertInertia(fn (Assert $page) => $page
             ->where('users.meta.total', 20)
             ->where('users.links.next', fn (string $url) => str_contains($url, 'search=matching'))
+        );
+});
+
+test('administrators can filter users by role and verification', function () {
+    $admin = User::factory()->admin()->create(['name' => 'Admin']);
+    User::factory()->unverified()->create(['name' => 'Unverified Member']);
+    User::factory()->create(['name' => 'Verified Member']);
+
+    $this->actingAs($admin)
+        ->get(route('administration.users.index', ['role' => 'admin']))
+        ->assertInertia(fn (Assert $page) => $page
+            ->has('users.data', 1)
+            ->where('users.data.0.name', 'Admin')
+            ->where('filters.role', 'admin')
+        );
+
+    $this->actingAs($admin)
+        ->get(route('administration.users.index', ['role' => 'user', 'verification' => 'unverified']))
+        ->assertInertia(fn (Assert $page) => $page
+            ->has('users.data', 1)
+            ->where('users.data.0.name', 'Unverified Member')
+        );
+
+    $this->actingAs($admin)
+        ->get(route('administration.users.index', ['verification' => 'verified']))
+        ->assertInertia(fn (Assert $page) => $page->where('users.meta.total', 2));
+});
+
+test('administrators can sort users by name', function () {
+    $admin = User::factory()->admin()->create(['name' => 'Bob']);
+    User::factory()->create(['name' => 'Alice']);
+    User::factory()->create(['name' => 'Carol']);
+
+    $this->actingAs($admin)
+        ->get(route('administration.users.index', ['sort' => 'name', 'direction' => 'asc']))
+        ->assertInertia(fn (Assert $page) => $page
+            ->where('users.data.0.name', 'Alice')
+            ->where('users.data.2.name', 'Carol')
+            ->where('filters.sort', 'name')
+            ->where('filters.direction', 'asc')
+        );
+
+    $this->actingAs($admin)
+        ->get(route('administration.users.index', ['sort' => 'name', 'direction' => 'desc']))
+        ->assertInertia(fn (Assert $page) => $page->where('users.data.0.name', 'Carol'));
+});
+
+test('the list rejects filter and sort values it does not support', function (string $key, string $value) {
+    $admin = User::factory()->admin()->create();
+
+    $this->actingAs($admin)
+        ->from(route('administration.users.index'))
+        ->get(route('administration.users.index', [$key => $value]))
+        ->assertRedirect(route('administration.users.index'))
+        ->assertSessionHasErrors($key);
+})->with([
+    'sort by a column that is not offered' => ['sort', 'password'],
+    'sort by an injected expression' => ['sort', 'name; drop table users'],
+    'unknown direction' => ['direction', 'sideways'],
+    'unknown role' => ['role', 'owner'],
+    'unknown verification' => ['verification', 'pending'],
+]);
+
+test('each user carries what the administrator may do to them', function () {
+    $admin = User::factory()->admin()->create(['created_at' => now()]);
+    User::factory()->unverified()->create(['created_at' => now()->subDay()]);
+
+    $this->actingAs($admin)
+        ->get(route('administration.users.index'))
+        ->assertInertia(fn (Assert $page) => $page
+            ->where('users.data.0.can', ['updateRole' => false, 'resendVerification' => false, 'delete' => false])
+            ->where('users.data.1.can', ['updateRole' => true, 'resendVerification' => true, 'delete' => true])
         );
 });

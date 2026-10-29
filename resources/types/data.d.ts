@@ -46,3 +46,21 @@ export interface Paginated<T> {
         total: number
     }
 }
+
+export type UserSortColumn = 'name' | 'created_at'
+export type SortDirection = 'asc' | 'desc'
+
+export interface UserFilters {
+    search: Nullable<string>
+    role: Nullable<'admin' | 'user'>
+    verification: Nullable<'verified' | 'unverified'>
+    sort: Nullable<UserSortColumn>
+    direction: Nullable<SortDirection>
+}
+
+export interface UserStatistics {
+    total: number
+    administrators: number
+    unverified: number
+    joinedThisWeek: number
+}

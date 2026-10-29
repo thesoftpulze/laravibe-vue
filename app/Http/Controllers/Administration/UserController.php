@@ -4,37 +4,45 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Administration;
 
+use App\Actions\Administration\DeleteUserAction;
+use App\Actions\Administration\ListUsersAction;
+use App\DTOs\Administration\UserFiltersDTO;
 use App\DTOs\PageMeta;
+use App\Http\Requests\Administration\UserIndexRequest;
 use App\Http\Resources\Administration\UserResource;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Response;
 
 final class UserController
 {
     /**
-     * List the users, optionally filtered by a name or email search.
+     * List the users, optionally filtered and sorted.
      */
-    public function index(Request $request): Response
+    public function index(UserIndexRequest $request, ListUsersAction $action): Response
     {
-        $search = $request->string('search')->trim()->limit(100, '')->toString();
-
-        $users = User::query()
-            ->select(['id', 'name', 'email', 'is_admin', 'email_verified_at', 'created_at'])
-            ->when($search !== '', fn (Builder $query): Builder => $query->where(
-                fn (Builder $query): Builder => $query->whereLike('name', "%{$search}%")->orWhereLike('email', "%{$search}%"),
-            ))
-            ->latest()
-            ->latest('id')
-            ->paginate(15)
-            ->withQueryString();
+        $filters = UserFiltersDTO::from($request);
 
         return vue('administration/users/Index', [
-            'users' => UserResource::collection($users)->toInertia(),
-            'filters' => ['search' => $search],
+            'users' => UserResource::collection($action->handle($filters))->toInertia(),
+            'filters' => $filters->toArray(),
         ], new PageMeta(
             title: 'Users',
         ));
+    }
+
+    /**
+     * Delete the user.
+     */
+    public function destroy(User $user, DeleteUserAction $action): RedirectResponse
+    {
+        Gate::authorize('deleteUser', $user);
+
+        $action->handle($user);
+
+        toastSuccess("{$user->name} was deleted.");
+
+        return back();
     }
 }

@@ -15,10 +15,17 @@ export interface AdministrationUser {
 
     name: string
     email: string
+    avatar: Nullable<string>
     is_admin: boolean
 
     email_verified_at: Nullable<string>
     created_at: string
+
+    can: {
+        updateRole: boolean
+        resendVerification: boolean
+        delete: boolean
+    }
 }
 
 export interface Passkey {
