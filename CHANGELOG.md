@@ -11,6 +11,12 @@ entries below to port changes into an existing app by hand. Entries marked
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-10-29
+
+### Changed
+
+- The package description, keywords and homepage in `composer.json` match the GitHub repository.
+
 ## [0.3.0] - 2026-10-29
 
 ### Added
@@ -145,7 +151,8 @@ entries below to port changes into an existing app by hand. Entries marked
 
 - Frontend files live in `resources/` instead of `resources/js/`.
 
-[Unreleased]: https://github.com/thesoftpulze/laravibe-vue/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/thesoftpulze/laravibe-vue/compare/v0.3.1...HEAD
+[0.3.1]: https://github.com/thesoftpulze/laravibe-vue/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/thesoftpulze/laravibe-vue/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/thesoftpulze/laravibe-vue/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/thesoftpulze/laravibe-vue/compare/v0.1.0...v0.1.1
