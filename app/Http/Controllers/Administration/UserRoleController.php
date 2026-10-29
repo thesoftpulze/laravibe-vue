@@ -16,7 +16,7 @@ final class UserRoleController
      */
     public function update(UserRoleUpdateRequest $request, User $user, UpdateUserRoleAction $action): RedirectResponse
     {
-        $action->handle($user, $request->boolean('is_admin'));
+        $action->handle($user, $request->safe()->boolean('is_admin'));
 
         toastSuccess($user->is_admin ? "{$user->name} is now an administrator." : "{$user->name} is no longer an administrator.");
 
