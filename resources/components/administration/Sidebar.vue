@@ -12,36 +12,15 @@ import {
     useSidebar,
 } from '@/components/ui/sidebar'
 import { cn } from '@/lib/utils'
-import { type NavItem } from '@/types'
 import { dashboard as administrationDashboard } from '@/routes/administration'
-import administrationUsers from '@/routes/administration/users'
 import { Link } from '@inertiajs/vue3'
 import { computed } from 'vue'
-import { CircleGauge, FolderGit, Users } from '@lucide/vue'
 import NavFooter from './NavFooter.vue'
 import NavMain from './NavMain.vue'
 import NavUser from './NavUser.vue'
+import { useAdministrationNavigation } from './navigation'
 
-const mainNavItems: NavItem[] = [
-    {
-        title: 'Dashboard',
-        href: administrationDashboard.url(),
-        icon: CircleGauge,
-    },
-    {
-        title: 'Users',
-        href: administrationUsers.index.url(),
-        icon: Users,
-    },
-]
-
-const footerNavItems: NavItem[] = [
-    {
-        title: 'Github Repo',
-        href: 'https://github.com/thesoftpulze/laravibe-vue',
-        icon: FolderGit,
-    },
-]
+const { mainNavGroups, footerNavItems } = useAdministrationNavigation()
 
 const { state } = useSidebar()
 const expanded = computed(() => state.value === 'expanded')
@@ -62,7 +41,7 @@ const expanded = computed(() => state.value === 'expanded')
         </SidebarHeader>
 
         <SidebarContent>
-            <NavMain :items="mainNavItems" />
+            <NavMain :groups="mainNavGroups" />
         </SidebarContent>
 
         <SidebarFooter>

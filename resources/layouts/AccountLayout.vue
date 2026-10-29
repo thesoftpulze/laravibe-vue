@@ -4,18 +4,13 @@ import { Button } from '@/components/ui/button'
 import Card from '@/components/ui/card/Card.vue'
 import CardContent from '@/components/ui/card/CardContent.vue'
 import { Separator } from '@/components/ui/separator'
-import { isCallable } from '@/lib/helpers'
-import { type NavItem } from '@/types'
+import { isNavItemActive } from '@/lib/helpers'
+import type { NavGroup } from '@/types'
 import { account as accountRoute } from '@/routes'
 import account from '@/routes/account'
 import { Link, usePage } from '@inertiajs/vue3'
 import { LayoutGrid, LockKeyhole, SwatchBook, User } from '@lucide/vue'
 import { computed, ref } from 'vue'
-
-interface NavGroup {
-    label?: string
-    items: NavItem[]
-}
 
 const page = usePage()
 const currentPath = computed(() => new URL(page.url, 'http://localhost').pathname)
@@ -57,7 +52,7 @@ const navGroups = ref<NavGroup[]>([
                                 v-for="item in group.items"
                                 :key="item.href"
                                 variant="ghost"
-                                :class="['w-full justify-start', { 'bg-accent/50': isCallable(item.isActive) && item.isActive() }]"
+                                :class="['w-full justify-start', { 'bg-accent/50': isNavItemActive(item) }]"
                                 asChild
                             >
                                 <Link :href="item.href">

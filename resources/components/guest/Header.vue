@@ -15,7 +15,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/co
 import UserMenuContent from '@/components/UserMenuContent.vue'
 import { useAuth } from '@/composables/useAuth'
 import { getInitials } from '@/composables/useInitials'
-import { isCallable } from '@/lib/helpers'
+import { isNavItemActive } from '@/lib/helpers'
 import { cn } from '@/lib/utils'
 import type { NavItem } from '@/types'
 import type { Breadcrumb } from '@/types/data'
@@ -43,10 +43,6 @@ const navigationItems = ref<NavItem[]>([
         isActive: () => currentPath.value === home.url(),
     },
 ])
-
-const isItemActive = (item: NavItem): boolean => {
-    return isCallable(item.isActive) ? item.isActive() : !!item.isActive
-}
 </script>
 
 <template>
@@ -73,7 +69,7 @@ const isItemActive = (item: NavItem): boolean => {
                                         :key="item.title"
                                         :href="item.href"
                                         class="flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm font-medium hover:bg-accent"
-                                        :class="isItemActive(item) ? 'bg-accent text-accent-foreground' : ''"
+                                        :class="isNavItemActive(item) ? 'bg-accent text-accent-foreground' : ''"
                                     >
                                         <component v-if="item.icon" :is="item.icon" class="h-5 w-5" />
                                         {{ item.title }}
@@ -106,7 +102,7 @@ const isItemActive = (item: NavItem): boolean => {
                             <NavigationMenuItem v-for="item in navigationItems" :key="item.title">
                                 <NavigationMenuLink
                                     :class="
-                                        cn(navigationMenuTriggerStyle(), 'h-9 px-3', isItemActive(item) ? 'bg-accent text-accent-foreground' : '')
+                                        cn(navigationMenuTriggerStyle(), 'h-9 px-3', isNavItemActive(item) ? 'bg-accent text-accent-foreground' : '')
                                     "
                                     as-child
                                 >
