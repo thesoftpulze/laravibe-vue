@@ -107,10 +107,10 @@ app(SettingsRepository::class)->save(new GeneralSettings()->fill(['siteName' => 
 
 ## Groups
 
-| Group | Class | Settings |
-| --- | --- | --- |
-| `general` | `GeneralSettings` | `siteName` (overrides `app.name`), `tagline`, `supportEmail` |
+| Group            | Class                    | Settings                                                                                                                    |
+| ---------------- | ------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| `general`        | `GeneralSettings`        | `siteName` (overrides `app.name`), `tagline`, `supportEmail`                                                                |
 | `authentication` | `AuthenticationSettings` | `allowRegistration` (closes Fortify's registration routes), `requireEmailVerification` (switches the `verified` middleware) |
-| `mail` | `MailSettings` | `fromName`, `fromAddress` (override `mail.from`) |
+| `mail`           | `MailSettings`           | `fromName`, `fromAddress` (override `mail.from`)                                                                            |
 
 Each group has a page under Administration → Settings. To give a new group a page, add a controller, form request, DTO and update action like the existing ones, then add the page to `resources/layouts/AdministrationSettingsLayout.vue`.
