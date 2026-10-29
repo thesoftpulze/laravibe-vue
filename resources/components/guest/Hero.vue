@@ -25,7 +25,7 @@ const { user } = useAuth()
         </h1>
 
         <p class="mt-5 max-w-xl text-base text-pretty text-muted-foreground sm:text-lg">
-            Authentication, passkeys, account and admin pages, typed routes and SSR, ready from the first commit.
+            Authentication, passkeys, account and admin pages, typed routes, SSR and AI agent guidelines, ready from the first commit.
         </p>
 
         <div class="mt-8 w-full max-w-xl">
