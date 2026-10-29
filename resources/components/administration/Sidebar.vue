@@ -8,7 +8,6 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
-    SidebarRail,
     useSidebar,
 } from '@/components/ui/sidebar'
 import { cn } from '@/lib/utils'
@@ -48,8 +47,6 @@ const expanded = computed(() => state.value === 'expanded')
             <NavFooter :items="footerNavItems" />
             <NavUser />
         </SidebarFooter>
-
-        <SidebarRail />
     </Sidebar>
     <slot />
 </template>
