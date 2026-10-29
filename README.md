@@ -46,22 +46,28 @@ laravel new my-app --using=thesoftpulze/laravibe-vue
 
 cd my-app
 npm install
+php artisan boost:install
 composer dev
 ```
 
-From a git clone, run `composer setup` instead. It installs dependencies, creates `.env`, generates the key, migrates and builds assets.
+From a git clone, run `composer setup` and then `php artisan boost:install`. `composer setup` installs dependencies, creates `.env`, generates the key, migrates and builds assets. `boost:install` generates the files for your AI agents (see [AI Agents](#ai-agents)).
 
 `composer dev` starts Vite, the queue listener and Pail. Serve the app with Herd or `php artisan serve`.
 
 ## AI Agents
 
-Agent files aren't committed. Each developer generates them for the agents they use:
+The app is set up for AI agents with [Laravel Boost](https://github.com/laravel/boost). Agent files aren't committed. Each developer generates them for the agents they use:
 
 ```bash
 php artisan boost:install
 ```
 
-When prompted for third-party packages, select **thesoftpulze/laravibe-standards**. The generated guidelines combine `.ai/guidelines` (auth, support, toasts) with the action, DTO, enum and resource guidelines from laravibe-standards. Run `php artisan boost:update` after updating packages.
+Pick your agents, keep guidelines, skills and the MCP server enabled, and select **thesoftpulze/laravibe-standards** when prompted for third-party packages. This writes `boost.json` and, depending on your agents, `CLAUDE.md`, `AGENTS.md`, `.mcp.json`, `opencode.json` and the skills folders (`.claude/skills`, `.agents/skills`). All of them are gitignored.
+
+- **Committed:** `.ai/guidelines` (auth, frontend, settings, support, toasts). Boost combines them with its Laravel, Inertia, Vue, Tailwind, Pest and Wayfinder guidelines and the action, DTO, enum and resource guidelines from laravibe-standards.
+- **MCP server:** `php artisan boost:mcp` gives agents documentation search, the database schema, read-only queries, browser logs and the last error. Restart your agent after installing so it picks the server up.
+- **Keeping it current:** run `php artisan boost:update` after updating packages or pulling changes to `.ai/guidelines`.
+- **Adding your own:** put guidelines in `.ai/guidelines/*.md` and skills in `.ai/skills/`, then run `boost:update`. To record your app's own conventions in `.ai/rules`, ask your agent to run the `infer-conventions` skill.
 
 ## Conventions
 
