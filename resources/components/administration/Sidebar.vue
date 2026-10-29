@@ -16,6 +16,7 @@ import { type NavItem } from '@/types'
 import { dashboard as administrationDashboard } from '@/routes/administration'
 import administrationUsers from '@/routes/administration/users'
 import { Link } from '@inertiajs/vue3'
+import { computed } from 'vue'
 import { CircleGauge, FolderGit, Users } from '@lucide/vue'
 import NavFooter from './NavFooter.vue'
 import NavMain from './NavMain.vue'
@@ -42,7 +43,8 @@ const footerNavItems: NavItem[] = [
     },
 ]
 
-const { open } = useSidebar()
+const { state } = useSidebar()
+const expanded = computed(() => state.value === 'expanded')
 </script>
 
 <template>
@@ -50,9 +52,9 @@ const { open } = useSidebar()
         <SidebarHeader>
             <SidebarMenu>
                 <SidebarMenuItem>
-                    <SidebarMenuButton size="lg" as-child :class="cn('items-center', !open && 'justify-center')">
+                    <SidebarMenuButton size="lg" as-child :class="cn('items-center', !expanded && 'justify-center')">
                         <Link :href="administrationDashboard.url()">
-                            <AppLogo :icon-only="!open" :class="open ? 'text-lg' : 'text-xl'" />
+                            <AppLogo :icon-only="!expanded" :class="expanded ? 'text-lg' : 'text-xl'" />
                         </Link>
                     </SidebarMenuButton>
                 </SidebarMenuItem>

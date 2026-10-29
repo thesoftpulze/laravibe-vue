@@ -4,6 +4,7 @@ import { defaultDocument, useEventListener, useMediaQuery, useVModel } from "@vu
 import { cn } from "@/lib/utils"
 import { TooltipProvider } from "reka-ui"
 import { computed, ref } from "vue"
+import { useSidebarPeek } from "./useSidebarPeek"
 import { provideSidebarContext, SIDEBAR_COOKIE_MAX_AGE, SIDEBAR_COOKIE_NAME, SIDEBAR_KEYBOARD_SHORTCUT, SIDEBAR_WIDTH, SIDEBAR_WIDTH_ICON } from "./utils"
 
 const props = withDefaults(defineProps<{
@@ -22,16 +23,13 @@ const emits = defineEmits<{
 const isMobile = useMediaQuery("(max-width: 768px)")
 const openMobile = ref(false)
 
-// HoverToExpandWhenCollapsed: States
-const hovering = ref(false);
-const expandedByHovering = ref(false);
-const retainsStateOnHoveringOut = ref(false);
-// HoverToExpandWhenCollapsed: States
-
 const open = useVModel(props, "open", emits, {
   defaultValue: props.defaultOpen ?? false,
   passive: (props.open === undefined) as false,
 }) as Ref<boolean>
+
+// SidebarPeek: Expand a collapsed icon sidebar on hover without persisting it.
+const peek = useSidebarPeek(open, isMobile)
 
 function setOpen(value: boolean) {
   open.value = value // emits('update:open', value)
@@ -46,13 +44,13 @@ function setOpenMobile(value: boolean) {
 
 // Helper to toggle the sidebar.
 function toggleSidebar() {
-  // HoverToExpandWhenCollapsed: OnToggle
-  if (expandedByHovering.value) {
-    retainsStateOnHoveringOut.value = true;
-    return;
-  }
-  // HoverToExpandWhenCollapsed: OnToggle
-  return isMobile.value ? setOpenMobile(!openMobile.value) : setOpen(!open.value)
+  if (isMobile.value) return setOpenMobile(!openMobile.value)
+
+  // SidebarPeek: Toggling a peek pins it open; collapsing from inside holds off the next peek.
+  if (peek.peeking.value) return setOpen(true)
+  if (open.value) peek.suppress()
+
+  return setOpen(!open.value)
 }
 
 useEventListener("keydown", (event: KeyboardEvent) => {
@@ -64,7 +62,7 @@ useEventListener("keydown", (event: KeyboardEvent) => {
 
 // We add a state so that we can do data-state="expanded" or "collapsed".
 // This makes it easier to style the sidebar with Tailwind classes.
-const state = computed(() => open.value ? "expanded" : "collapsed")
+const state = computed(() => open.value || peek.peeking.value ? "expanded" : "collapsed")
 
 provideSidebarContext({
   state,
@@ -74,12 +72,7 @@ provideSidebarContext({
   openMobile,
   setOpenMobile,
   toggleSidebar,
-
-  // HoverToExpandWhenCollapsed: Sidebar Context
-  hovering,
-  expandedByHovering,
-  retainsStateOnHoveringOut,
-  // HoverToExpandWhenCollapsed: Sidebar Context
+  peek,
 })
 </script>
 

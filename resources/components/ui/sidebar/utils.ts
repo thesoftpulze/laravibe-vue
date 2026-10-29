@@ -1,4 +1,5 @@
 import type { ComputedRef, Ref } from "vue"
+import type { SidebarPeek } from "./useSidebarPeek"
 import { createContext } from "reka-ui"
 
 export const SIDEBAR_COOKIE_NAME = "sidebar_state"
@@ -16,10 +17,6 @@ export const [useSidebar, provideSidebarContext] = createContext<{
   openMobile: Ref<boolean>
   setOpenMobile: (value: boolean) => void
   toggleSidebar: () => void
-
-  // HoverToExpandWhenCollapsed: Sidebar Context Type
-  hovering: Ref<boolean>
-  expandedByHovering: Ref<boolean>
-  retainsStateOnHoveringOut: Ref<boolean>
-  // HoverToExpandWhenCollapsed: Sidebar Context Type
+  // SidebarPeek: Hover-to-expand state for collapsed icon sidebars.
+  peek: SidebarPeek
 }>("Sidebar")
