@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Models\User;
+use App\Settings\GeneralSettings;
 use App\Support\LaraTweaks;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
@@ -44,6 +45,7 @@ final class AppServiceProvider extends ServiceProvider
         Gate::define('updateProfile', fn (User $user): bool => true);
         Gate::define('deleteAccount', fn (User $user): bool => true);
         Gate::define('accessAdministration', fn (User $user): bool => $user->is_admin);
+        Gate::define('manageSettings', fn (User $user): bool => $user->is_admin);
 
         // Administrators never change their own role or delete themselves, so at least one administrator remains.
         Gate::define('updateUserRole', fn (User $user, User $target): bool => $user->is_admin && ! $user->is($target));
@@ -74,7 +76,10 @@ final class AppServiceProvider extends ServiceProvider
                 return null;
             }
 
-            return $response->render('Error', ['status' => $status])->withSharedData();
+            return $response->render('Error', [
+                'status' => $status,
+                'supportEmail' => app(GeneralSettings::class)->supportEmail,
+            ])->withSharedData();
         });
     }
 }

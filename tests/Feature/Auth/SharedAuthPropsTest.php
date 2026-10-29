@@ -25,6 +25,7 @@ describe('shared auth props', function () {
                     ->where('auth.can.updateProfile', false)
                     ->where('auth.can.deleteAccount', false)
                     ->where('auth.can.accessAdministration', false)
+                    ->where('auth.can.manageSettings', false)
             );
         });
     });
@@ -87,6 +88,7 @@ describe('shared auth props', function () {
                     ->where('auth.can.updateProfile', true)
                     ->where('auth.can.deleteAccount', true)
                     ->where('auth.can.accessAdministration', false)
+                    ->where('auth.can.manageSettings', false)
             );
         });
 
@@ -96,7 +98,9 @@ describe('shared auth props', function () {
             $response = $this->actingAs($user)->get('/');
 
             $response->assertInertia(
-                fn ($page) => $page->where('auth.can.accessAdministration', true)
+                fn ($page) => $page
+                    ->where('auth.can.accessAdministration', true)
+                    ->where('auth.can.manageSettings', true)
             );
         });
     });

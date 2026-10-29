@@ -6,6 +6,7 @@ import { computed } from 'vue'
 
 const props = defineProps<{
     status: 403 | 404 | 419 | 500 | 503
+    supportEmail?: string | null
 }>()
 
 const messages = {
@@ -35,5 +36,10 @@ const refresh = () => window.location.reload()
                 <Link :href="home()">Go Home</Link>
             </Button>
         </div>
+
+        <p v-if="supportEmail" class="mt-8 text-sm text-muted-foreground">
+            Still stuck? Email
+            <a :href="`mailto:${supportEmail}`" class="font-medium text-foreground underline-offset-4 hover:underline">{{ supportEmail }}</a>
+        </p>
     </div>
 </template>

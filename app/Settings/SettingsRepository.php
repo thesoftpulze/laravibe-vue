@@ -105,6 +105,14 @@ final class SettingsRepository
     }
 
     /**
+     * A config value as it was before any settings group overrode it, such as `APP_NAME` for `app.name`.
+     */
+    public function originalConfig(string $key): mixed
+    {
+        return array_key_exists($key, $this->originalConfig) ? $this->originalConfig[$key] : $this->config->get($key);
+    }
+
+    /**
      * Forget the stored values, so the next load reads them from the database.
      */
     public function forget(): void

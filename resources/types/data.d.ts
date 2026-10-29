@@ -64,3 +64,9 @@ export interface UserStatistics {
     unverified: number
     joinedThisWeek: number
 }
+
+export interface GeneralSettings {
+    siteName: Nullable<string>
+    tagline: Nullable<string>
+    supportEmail: Nullable<string>
+}

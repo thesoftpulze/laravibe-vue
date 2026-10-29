@@ -3,6 +3,10 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        @inject('generalSettings', 'App\Settings\GeneralSettings')
+        @if ($generalSettings->tagline)
+            <meta name="description" content="{{ $generalSettings->tagline }}">
+        @endif
 
         {{-- Inline script to detect system dark mode preference and apply it immediately --}}
         <script>
