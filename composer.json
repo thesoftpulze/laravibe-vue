@@ -2,18 +2,26 @@
     "$schema": "https://getcomposer.org/schema.json",
     "name": "thesoftpulze/laravibe-vue",
     "type": "project",
-    "description": "Open-source Laravel + Vue 3 starter kit with Inertia, Vite, Tailwind CSS, Shadcn Vue, and reusable utilities—optimized for clean structure and fast development. Build your app, skip the boilerplate.",
+    "description": "Laravel 13 + Inertia 3 + Vue 3 starter kit with Fortify auth (2FA, passkeys), an admin area, runtime settings, Tailwind 4, shadcn-vue and AI agent guidelines.",
     "keywords": [
         "laravel",
-        "php",
-        "inertia",
-        "vue",
+        "laravel-starter-kit",
         "starter-kit",
-        "laravibe",
-        "open-source"
+        "vue",
+        "vue3",
+        "inertiajs",
+        "tailwindcss",
+        "shadcn-vue",
+        "typescript",
+        "fortify",
+        "passkeys",
+        "two-factor-authentication",
+        "php",
+        "boilerplate",
+        "laravibe"
     ],
     "license": "MIT",
-    "homepage": "https://softpulze.com",
+    "homepage": "https://github.com/thesoftpulze/laravibe-vue",
     "support": {
         "issues": "https://github.com/thesoftpulze/laravibe-vue/issues",
         "source": "https://github.com/thesoftpulze/laravibe-vue"
