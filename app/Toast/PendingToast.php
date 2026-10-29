@@ -7,6 +7,7 @@ namespace App\Toast;
 use App\Enums\ToastType;
 use App\Toast\DTOs\ToastActionPayload;
 use App\Toast\DTOs\ToastPayload;
+use InvalidArgumentException;
 
 /**
  * Builds a toast step by step and queues it when the builder goes out of scope,
@@ -55,7 +56,11 @@ final class PendingToast
      */
     public function duration(int $milliseconds): self
     {
-        $this->duration = max(0, $milliseconds);
+        if ($milliseconds < 0) {
+            throw new InvalidArgumentException('Expected a non-negative number of milliseconds.');
+        }
+
+        $this->duration = $milliseconds;
 
         return $this;
     }

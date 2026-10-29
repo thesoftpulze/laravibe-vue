@@ -33,6 +33,8 @@ const isRecord = (value: unknown): value is Record<string, unknown> => typeof va
 
 const isOptional = (value: unknown, type: 'string' | 'number' | 'boolean'): boolean => value === undefined || typeof value === type
 
+const isValidDuration = (value: unknown): boolean => value === undefined || (typeof value === 'number' && Number.isFinite(value) && value >= 0)
+
 const isToastActionPayload = (value: unknown): value is ToastActionPayload => {
     if (!isRecord(value)) {
         return false
@@ -61,7 +63,7 @@ const isToastPayload = (value: unknown): value is ToastPayload => {
         typeof message === 'string' &&
         isOptional(description, 'string') &&
         (actions === undefined || (Array.isArray(actions) && actions.every(isToastActionPayload))) &&
-        isOptional(duration, 'number') &&
+        isValidDuration(duration) &&
         isOptional(dismissible, 'boolean')
     )
 }
@@ -87,6 +89,10 @@ const toastOptions = (id: string | number, toast: ToastPayload) => ({
  * Show a toast and return its id. Passing an id that is already on screen replaces that toast.
  */
 export const pushToast = (toast: ToastPayload, id: string | number = `toast-${++nextToastId}`): string | number => {
+    if (!isValidDuration(toast.duration)) {
+        throw new RangeError('Expected a finite, non-negative number of milliseconds.')
+    }
+
     vueSoonerToast[toast.type](markRaw(Toast), toastOptions(id, toast))
 
     return id
@@ -111,19 +117,32 @@ export const promiseToast = async <T>(promise: Promise<T> | (() => Promise<T>), 
 
     vueSoonerToast.loading(markRaw(Toast), toastOptions(loadingId, loading))
 
-    // vue-sonner reads a toast's time left only when it mounts, so the result gets a fresh toast instead of updating the loading one.
+    let result: { success: true; data: T } | { success: false; error: unknown }
+
     try {
-        const data = await (typeof promise === 'function' ? promise() : promise)
-        dismissToast(loadingId)
-        pushToast({ type: 'success', message: typeof messages.success === 'function' ? messages.success(data) : messages.success })
-
-        return data
+        result = { success: true, data: await (typeof promise === 'function' ? promise() : promise) }
     } catch (error) {
-        dismissToast(loadingId)
-        pushToast({ type: 'error', message: typeof messages.error === 'function' ? messages.error(error) : messages.error })
-
-        throw error
+        result = { success: false, error }
     }
+
+    // vue-sonner reads a toast's time left only when it mounts, so the result gets a fresh toast instead of updating the loading one.
+    dismissToast(loadingId)
+
+    try {
+        if (result.success) {
+            pushToast({ type: 'success', message: typeof messages.success === 'function' ? messages.success(result.data) : messages.success })
+        } else {
+            pushToast({ type: 'error', message: typeof messages.error === 'function' ? messages.error(result.error) : messages.error })
+        }
+    } catch {
+        // A toast formatter must not change the promise's result.
+    }
+
+    if (result.success) {
+        return result.data
+    }
+
+    throw result.error
 }
 
 const mountToaster = (): void => {

@@ -21,10 +21,10 @@ final class ToastException extends Exception implements ShouldntReport
     public function __construct(
         string $message = '',
         private readonly ToastType $type = ToastType::ERROR,
+        int $code = 0,
+        ?Throwable $previous = null,
         private readonly ?string $description = null,
         private readonly array $actions = [],
-        int $code = 0,
-        ?Throwable $previous = null
     ) {
         parent::__construct($message, $code, $previous);
     }

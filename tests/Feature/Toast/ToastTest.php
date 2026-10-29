@@ -197,6 +197,15 @@ it('can add toast to session with custom type when throw ToastException', functi
         ->toHaveKey('message', 'Heads up');
 });
 
+it('preserves positional exception codes and previous exceptions', function () {
+    $previous = new RuntimeException('Original failure');
+    $exception = new ToastException('Failed', ToastType::WARNING, 42, $previous);
+
+    expect($exception->getMessage())->toBe('Failed')
+        ->and($exception->getCode())->toBe(42)
+        ->and($exception->getPrevious())->toBe($previous);
+});
+
 it('delivers queued toasts as inertia flash data on the next page', function () {
     $user = App\Models\User::factory()->create();
 
@@ -252,6 +261,24 @@ it('queues a builder toast only once when sent explicitly', function () {
     unset($pending);
 
     expect(toast()->pull())->toHaveCount(1);
+});
+
+it('preserves non-negative builder durations', function (int $duration) {
+    $pending = toast()->info('Heads up')->duration($duration);
+    $pending->send();
+
+    expect(toast()->pull()[0])->toHaveKey('duration', $duration);
+})->with([0, 1, 7500]);
+
+it('rejects negative builder durations without changing the previous duration', function () {
+    $pending = toast()->info('Heads up')->duration(7500);
+
+    expect(fn () => $pending->duration(-1))
+        ->toThrow(InvalidArgumentException::class, 'Expected a non-negative number of milliseconds.');
+
+    $pending->send();
+
+    expect(toast()->pull()[0])->toHaveKey('duration', 7500);
 });
 
 it('adds the description and actions of a ToastException to the toast', function () {
