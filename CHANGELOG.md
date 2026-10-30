@@ -11,6 +11,12 @@ entries below to port changes into an existing app by hand. Entries marked
 
 ## [Unreleased]
 
+## [0.3.2] - 2026-10-31
+
+### Changed
+
+- Removed comments that narrate the code or label sections, keeping only those that document workarounds or hidden constraints ([#44](https://github.com/thesoftpulze/laravibe-vue/pull/44)).
+
 ## [0.3.1] - 2026-10-29
 
 ### Changed
@@ -151,7 +157,8 @@ entries below to port changes into an existing app by hand. Entries marked
 
 - Frontend files live in `resources/` instead of `resources/js/`.
 
-[Unreleased]: https://github.com/thesoftpulze/laravibe-vue/compare/v0.3.1...HEAD
+[Unreleased]: https://github.com/thesoftpulze/laravibe-vue/compare/v0.3.2...HEAD
+[0.3.2]: https://github.com/thesoftpulze/laravibe-vue/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/thesoftpulze/laravibe-vue/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/thesoftpulze/laravibe-vue/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/thesoftpulze/laravibe-vue/compare/v0.1.1...v0.2.0
