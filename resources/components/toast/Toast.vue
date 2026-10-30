@@ -31,7 +31,6 @@ const actionIcon = (action: ToastActionPayload, index: number): Component => (is
 const actionLabel = (action: ToastActionPayload, index: number): string => (isCopied(index) ? 'Copied' : (action.label ?? actionLabels[action.type]))
 
 const onActionClick = async (action: ToastActionPayload, index: number, event: MouseEvent): Promise<void> => {
-    // Let the browser handle new-tab links, and modified clicks on visit links (e.g. Cmd+click).
     if (action.type === 'redirect' || (action.type === 'visit' && (event.metaKey || event.ctrlKey || event.shiftKey))) {
         return
     }

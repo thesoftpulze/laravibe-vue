@@ -35,7 +35,6 @@ export default defineConfig({
                 },
             },
         }),
-        // Output path comes from the app's `wayfinder:generate` override (resources/), so it isn't set here.
         wayfinder({
             formVariants: true,
         }),

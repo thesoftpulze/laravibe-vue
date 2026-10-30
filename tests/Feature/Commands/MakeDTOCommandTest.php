@@ -39,7 +39,6 @@ it('does not overwrite an existing dto without --force', function (): void {
     $class = 'TmpNoForce' . Str::random(8);
     $path = app_path('DTOs/' . $class . '.php');
 
-    // Seed an existing file
     $this->filesystem->ensureDirectoryExists(app_path('DTOs'));
     $this->filesystem->put($path, "<?php\n\nnamespace App\\DTOs;\n\nclass $class {}\n");
 
@@ -61,7 +60,6 @@ it('can overwrite an existing dto with --force', function (): void {
     $class = 'TmpForce' . Str::random(8);
     $path = app_path('DTOs/' . $class . '.php');
 
-    // Seed an existing file
     $this->filesystem->ensureDirectoryExists(app_path('DTOs'));
     $this->filesystem->put($path, "<?php\n\nnamespace App\\DTOs;\n\nclass $class { public function old() {} }\n");
 

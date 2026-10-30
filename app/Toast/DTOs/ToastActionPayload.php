@@ -23,9 +23,7 @@ final readonly class ToastActionPayload implements Arrayable, Jsonable
         public ToastActionType $type,
         public string $payload,
         public ?string $label = null,
-    ) {
-        // ...
-    }
+    ) {}
 
     public static function copy(string $payloadToCopy, ?string $label = null): self
     {

@@ -7,7 +7,6 @@ use App\Enums\ToastType;
 use App\Toast\DTOs\ToastActionPayload;
 use App\Toast\DTOs\ToastPayload;
 use App\Toast\Exceptions\ToastException;
-use App\Toast\Toast;
 use Illuminate\Http\Request;
 
 it('can creates instance of ToastActionPayload and convert to array and json', function () {
@@ -153,20 +152,15 @@ it('can add toast to session when throw ToastException', function () {
     $message = 'Test error message';
     $exception = new ToastException($message);
 
-    // Create a request
     $request = Request::create('/test');
 
-    // Get the session instance and start it
     $session = app('session');
     $session->start();
 
-    // Set the session store on the request (not the session manager)
     $request->setLaravelSession($session->driver());
 
-    // Call the render method
     $response = $exception->render($request);
 
-    // Verify toast was added to session
     $toasts = toast()->pull();
     expect($toasts)
         ->toBeArray()

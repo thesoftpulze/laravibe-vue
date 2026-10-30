@@ -71,7 +71,6 @@ const user = requireUser()
                             </div>
                         </div>
 
-                        <!-- Email Verification Notice -->
                         <div
                             v-if="mustVerifyEmail && !user.email_verified_at"
                             class="rounded-md border border-amber-200 bg-amber-50 p-3 dark:border-amber-800 dark:bg-amber-950/50"
@@ -99,7 +98,6 @@ const user = requireUser()
                             </div>
                         </div>
 
-                        <!-- Profile Tips -->
                         <div class="rounded-md bg-blue-50 p-3 dark:bg-blue-950/50">
                             <div class="flex">
                                 <div class="shrink-0">

@@ -54,11 +54,9 @@ export function initializeTheme() {
         return
     }
 
-    // Initialize theme from saved preference or default to system...
     const savedAppearance = getStoredAppearance()
     updateTheme(savedAppearance || 'system')
 
-    // Set up system theme change listener...
     mediaQuery()?.addEventListener('change', handleSystemThemeChange)
 }
 
@@ -76,10 +74,8 @@ export function useAppearance() {
     function updateAppearance(value: Appearance) {
         appearance.value = value
 
-        // Store in localStorage for client-side persistence...
         localStorage.setItem('appearance', value)
 
-        // Store in cookie for SSR...
         setCookie('appearance', value)
 
         updateTheme(value)

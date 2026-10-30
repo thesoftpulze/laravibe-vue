@@ -15,7 +15,6 @@ if (! function_exists('authUser')) {
     }
 }
 
-// Inertia helpers start
 if (! function_exists('vue')) {
     /**
      * @param  array<string, mixed>  $props
@@ -60,4 +59,3 @@ if (! function_exists('alwaysProp')) {
         return Inertia\Inertia::always($value);
     }
 }
-// Inertia helpers end

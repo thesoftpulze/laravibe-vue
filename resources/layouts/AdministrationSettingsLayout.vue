@@ -13,7 +13,6 @@ const currentPath = computed(() => new URL(page.url, 'http://localhost').pathnam
 
 const isCurrent = (href: string) => () => currentPath.value === href
 
-// Add an item here for each settings group with its own page.
 const sections: NavItem[] = [
     {
         title: 'General',
