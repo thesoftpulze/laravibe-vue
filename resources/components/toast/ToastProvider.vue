@@ -16,7 +16,6 @@ const position = computed(() => (isMobile.value ? mobilePosition : desktopPositi
 
 const { appearance } = useAppearance()
 
-// The type shows as a colored icon on the neutral, brand-styled card.
 const toastOptions: ToasterProps['toastOptions'] = {
     classes: {
         toast: 'shadow-lg! font-sans',

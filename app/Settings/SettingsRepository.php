@@ -134,7 +134,7 @@ final class SettingsRepository
             /** @var array<string, array<string, mixed>> $stored */
             $stored = $this->cache->rememberForever(self::CACHE_KEY, $this->query(...));
         } catch (QueryException) {
-            // The settings or cache table does not exist yet, for example before the first migration, so every group keeps its defaults.
+            // Tables are missing before the first migration, so every group keeps its defaults.
             return [];
         }
 

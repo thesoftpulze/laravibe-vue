@@ -17,7 +17,6 @@ const currentPath = computed(() => new URL(page.url, 'http://localhost').pathnam
 
 const isCurrent = (href: string) => () => currentPath.value === href
 
-// Add a group here for each area of the product a signed-in user works in.
 const navGroups = ref<NavGroup[]>([
     {
         items: [{ title: 'Overview', href: accountRoute.url(), icon: LayoutGrid, isActive: isCurrent(accountRoute.url()) }],

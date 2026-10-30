@@ -146,7 +146,6 @@ export const promiseToast = async <T>(promise: Promise<T> | (() => Promise<T>), 
 }
 
 const mountToaster = (): void => {
-    // A single Toaster outside the page tree survives layout changes, so no toast is dropped between layouts.
     toasterContainer = document.createElement('div')
     document.body.appendChild(toasterContainer)
     toasterApp = createApp(ToastProvider)
@@ -170,7 +169,6 @@ export const registerToaster = () => {
 
     mountToaster()
 
-    // Inertia fires `flash` for the initial page and every visit that carries flash data.
     const removeListener = router.on('flash', (event) => flashedToasts(event.detail.flash.toasts).forEach((toast) => pushToast(toast)))
 
     if (typeof removeListener === 'function') {

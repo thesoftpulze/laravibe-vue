@@ -49,7 +49,6 @@ const navigationItems = ref<NavItem[]>([
     <div class="z-50">
         <div class="border-b border-sidebar-border/80">
             <div class="mx-auto flex h-16 items-center px-4 md:max-w-7xl">
-                <!-- Mobile Menu -->
                 <div class="lg:hidden">
                     <Sheet>
                         <SheetTrigger :as-child="true">
@@ -90,12 +89,10 @@ const navigationItems = ref<NavItem[]>([
                     </Sheet>
                 </div>
 
-                <!-- Logo -->
                 <Link :href="home.url()" class="flex items-center gap-x-2">
                     <AppLogo class="text-xl" />
                 </Link>
 
-                <!-- Desktop Navigation Menu -->
                 <div class="hidden h-full lg:flex lg:flex-1">
                     <NavigationMenu class="ml-10">
                         <NavigationMenuList>
@@ -116,9 +113,7 @@ const navigationItems = ref<NavItem[]>([
                     </NavigationMenu>
                 </div>
 
-                <!-- Right Side Actions -->
                 <div class="ml-auto flex items-center space-x-2">
-                    <!-- User Menu -->
                     <DropdownMenu v-if="user">
                         <DropdownMenuTrigger :as-child="true">
                             <Button
@@ -139,7 +134,6 @@ const navigationItems = ref<NavItem[]>([
                         </DropdownMenuContent>
                     </DropdownMenu>
 
-                    <!-- Auth Buttons -->
                     <template v-else>
                         <div :class="['hidden gap-2 lg:inline-grid', $page.props.canRegister ? 'grid-cols-2' : 'grid-cols-1']">
                             <Button variant="outline" size="sm" class="h-9" asChild>
@@ -154,7 +148,6 @@ const navigationItems = ref<NavItem[]>([
             </div>
         </div>
 
-        <!-- Breadcrumbs -->
         <div v-if="breadcrumbs.length > 1" class="flex w-full border-b border-sidebar-border/70">
             <div class="mx-auto flex h-12 w-full items-center justify-start px-4 text-neutral-500 md:max-w-7xl">
                 <Breadcrumbs :breadcrumbs="breadcrumbs" />

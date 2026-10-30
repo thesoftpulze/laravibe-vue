@@ -21,7 +21,5 @@ final readonly class BreadCrumb implements Arrayable, Jsonable
     public function __construct(
         public string $label,
         public ?string $href = null,
-    ) {
-        // ...
-    }
+    ) {}
 }

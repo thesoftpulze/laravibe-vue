@@ -28,7 +28,6 @@ export function useAdministrationNavigation() {
         isActive: isCurrentSection(sectionHref),
     })
 
-    // Add a group here for each area of the administration.
     const mainNavGroups: NavGroup[] = [
         {
             label: 'Platform',

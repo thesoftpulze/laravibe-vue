@@ -21,7 +21,6 @@ const emit = defineEmits<{
 const meta = usePageMeta()
 const { activeItem } = useAdministrationNavigation()
 
-// Pages without their own breadcrumbs show the navigation item they belong to.
 const breadcrumbs = computed<Breadcrumb[]>(() => {
     if (meta.value.breadcrumbs?.length) {
         return meta.value.breadcrumbs

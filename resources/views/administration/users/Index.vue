@@ -36,7 +36,6 @@ const loading = ref(false)
 
 const hasFilters = computed(() => search.value !== '' || role.value !== 'all' || verification.value !== 'all')
 
-// Only non-default values go in the URL, so a plain list keeps a plain URL.
 const query = computed(() => {
     const isDefaultOrder = sort.value === DEFAULT_SORT && direction.value === DEFAULT_DIRECTION
 
@@ -61,7 +60,6 @@ const reload = () => {
 
 const reloadAfterTyping = useDebounceFn(reload, 300)
 
-// Typing waits for a pause; picking a filter reloads straight away.
 watch([() => search.value.trim(), role, verification], ([searchTerm], [previousSearchTerm]) =>
     searchTerm !== previousSearchTerm ? reloadAfterTyping() : reload(),
 )

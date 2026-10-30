@@ -24,15 +24,9 @@ final readonly class PageMeta implements Arrayable, Jsonable
     public function __construct(
         public ?string $heading = null,
         public ?string $subheading = null,
-
-        // SEO
         public ?string $title = null,
-
-        // Breadcrumbs
         public ?Collection $breadcrumbs = null,
-    ) {
-        // ...
-    }
+    ) {}
 
     /**
      * Get the instance as an array.

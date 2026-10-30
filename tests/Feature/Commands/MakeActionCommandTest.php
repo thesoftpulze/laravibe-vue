@@ -33,7 +33,6 @@ it('does not overwrite an existing action without --force', function (): void {
     $class = 'TmpNoForce' . Str::random(8);
     $path = app_path('Actions/' . $class . '.php');
 
-    // Seed an existing file
     $this->filesystem->ensureDirectoryExists(app_path('Actions'));
     $this->filesystem->put($path, "<?php\n\nnamespace App\\Actions;\n\nclass $class {}\n");
 
@@ -53,7 +52,6 @@ it('can overwrite an existing action with --force', function (): void {
     $class = 'TmpForce' . Str::random(8);
     $path = app_path('Actions/' . $class . '.php');
 
-    // Seed an existing file
     $this->filesystem->ensureDirectoryExists(app_path('Actions'));
     $this->filesystem->put($path, "<?php\n\nnamespace App\\Actions;\n\nclass $class { public function old() {} }\n");
 

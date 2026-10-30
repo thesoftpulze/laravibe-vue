@@ -32,9 +32,7 @@ final readonly class ToastPayload implements Arrayable, Jsonable
         public ?int $duration = null,
         public ?bool $dismissible = null,
         public ?string $description = null,
-    ) {
-        // ...
-    }
+    ) {}
 
     public static function error(string $message, ToastActionPayload ...$actions): void
     {
