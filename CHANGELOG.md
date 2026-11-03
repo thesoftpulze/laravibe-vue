@@ -11,6 +11,13 @@ entries below to port changes into an existing app by hand. Entries marked
 
 ## [Unreleased]
 
+## [0.3.3] - 2026-11-03
+
+### Fixed
+
+- Server-side rendering now runs under the Vite dev server. The Inertia Vite plugin could not auto-detect `resources/app.ts`, so `/__inertia_ssr` was never registered and dev pages fell back to client rendering. Production SSR builds were not affected. To port this, set `ssr.entry` to `resources/app.ts` in `vite.config.ts` ([#45](https://github.com/thesoftpulze/laravibe-vue/pull/45)).
+- The Tailwind `@source` for Laravel's pagination views in `resources/css/app.css` now points at `Pagination/resources/views`, so apps using `$items->links()` get those styles ([#45](https://github.com/thesoftpulze/laravibe-vue/pull/45)).
+
 ## [0.3.2] - 2026-10-31
 
 ### Changed
@@ -157,7 +164,8 @@ entries below to port changes into an existing app by hand. Entries marked
 
 - Frontend files live in `resources/` instead of `resources/js/`.
 
-[Unreleased]: https://github.com/thesoftpulze/laravibe-vue/compare/v0.3.2...HEAD
+[Unreleased]: https://github.com/thesoftpulze/laravibe-vue/compare/v0.3.3...HEAD
+[0.3.3]: https://github.com/thesoftpulze/laravibe-vue/compare/v0.3.2...v0.3.3
 [0.3.2]: https://github.com/thesoftpulze/laravibe-vue/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/thesoftpulze/laravibe-vue/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/thesoftpulze/laravibe-vue/compare/v0.2.0...v0.3.0
