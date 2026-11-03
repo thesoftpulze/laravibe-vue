@@ -23,6 +23,7 @@ export default defineConfig({
         }),
         inertia({
             ssr: {
+                entry: 'resources/app.ts',
                 cluster: true,
             },
         }),
